@@ -25,8 +25,7 @@
   require(DIR_WS_INCLUDES . 'template_top.php');
 ?>
 
-<div class="breadcrumb"><?php echo '&nbsp;&nbsp;' . $breadcrumb->trail('&raquo;'); ?></div>
-<h1 class="headingaccounthistory"><?php echo HEADING_TITLE; ?></h1>
+<h1><?php echo HEADING_TITLE; ?></h1>
 
 <div class="contentContainer">
 
@@ -51,43 +50,43 @@
       }
 ?>
 
-	<h2><?php echo TEXT_ORDER_NUMBER . ' ' . $history['orders_id'] . ' <span class="contentText">(' . $history['orders_status_name'] . ')</span>'; ?></h2><hr>
+  <h2><?php echo TEXT_ORDER_NUMBER . ' ' . $history['orders_id'] . ' <span class="contentText">(' . $history['orders_status_name'] . ')</span>'; ?></h2>
 
-<div id="account-history-content-container" class="contentText" >
-    
-	<div id="account-history-content-wrapper">
-		<div id="account-history-text-order-date"><?php echo '<strong>' . TEXT_ORDER_DATE . '</strong> ' . tep_date_long($history['date_purchased']) . '<br /><strong>' . $order_type . '</strong> ' . tep_output_string_protected($order_name); ?></div>
-		<div><?php echo '<strong>' . TEXT_ORDER_PRODUCTS . '</strong> ' . $products['count'] . '<br /><strong>' . TEXT_ORDER_COST . '</strong> ' . strip_tags($history['order_total']); ?></div>
-		<div id="account-history-button-view"><?php echo tep_draw_button(SMALL_IMAGE_BUTTON_VIEW, 'document', tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, (isset($HTTP_GET_VARS['page']) ? 'page=' . $HTTP_GET_VARS['page'] . '&' : '') . 'order_id=' . $history['orders_id'], 'SSL'), 'primary'); ?></div>
-	</div>
- 
-</div>
-<div id="border-bottom"></div><br />
+  <div class="contentText">
+    <table border="0" width="100%" cellspacing="2" cellpadding="2">
+      <tr>
+        <td width="50%" valign="top"><?php echo '<strong>' . TEXT_ORDER_DATE . '</strong> ' . tep_date_long($history['date_purchased']) . '<br /><strong>' . $order_type . '</strong> ' . tep_output_string_protected($order_name); ?></td>
+        <td width="30%" valign="top"><?php echo '<strong>' . TEXT_ORDER_PRODUCTS . '</strong> ' . $products['count'] . '<br /><strong>' . TEXT_ORDER_COST . '</strong> ' . strip_tags($history['order_total']); ?></td>
+        <td class="buttonLink" width="20%" align="right"><?php echo tep_draw_button(SMALL_IMAGE_BUTTON_VIEW, 'document', tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, (isset($HTTP_GET_VARS['page']) ? 'page=' . $HTTP_GET_VARS['page'] . '&' : '') . 'order_id=' . $history['orders_id'], 'SSL'), 'primary'); ?></td>
+     </tr>
+    </table>
+  </div>
+
 <?php
     }
 ?>
 
-	<div class="contentText">
-		<p style="float: right;"><?php echo TEXT_RESULT_PAGE . ' ' . $history_split->display_links(MAX_DISPLAY_PAGE_LINKS, tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?></p>
+  <div class="contentText">
+    <p style="float: right;"><?php echo TEXT_RESULT_PAGE . ' ' . $history_split->display_links(MAX_DISPLAY_PAGE_LINKS, tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?></p>
 
-		<p><?php echo $history_split->display_count(TEXT_DISPLAY_NUMBER_OF_ORDERS); ?></p>
-	</div>
+    <p><?php echo $history_split->display_count(TEXT_DISPLAY_NUMBER_OF_ORDERS); ?></p>
+  </div>
 
 <?php
   } else {
 ?>
 
-	<div class="contentText">
-		<p><?php echo TEXT_NO_PURCHASES; ?></p>
-	</div>
+  <div class="contentText">
+    <p><?php echo TEXT_NO_PURCHASES; ?></p>
+  </div>
 
 <?php
   }
 ?>
 
-	<div class="buttonSet">
-		<?php echo tep_draw_button(IMAGE_BUTTON_BACK, 'triangle-1-w', tep_href_link(FILENAME_ACCOUNT, '', 'SSL')); ?>
-	</div>
+  <div class="buttonSet">
+    <?php echo tep_draw_button(IMAGE_BUTTON_BACK, 'triangle-1-w', tep_href_link(FILENAME_ACCOUNT, '', 'SSL')); ?>
+  </div>
 </div>
 
 <?php

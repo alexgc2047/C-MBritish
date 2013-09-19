@@ -127,10 +127,10 @@
 
   require(DIR_WS_INCLUDES . 'template_top.php');
 ?>
-<br /><br />
+
 <table border="0" width="100%" cellspacing="2" cellpadding="2">
   <tr>
-    <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td><table border="0" width="100%" cellspacing="0" cellpadding="0" height="40">
       <tr>
         <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
 
@@ -158,9 +158,9 @@
     $heading[] = array('text' => '<strong>' . HEADING_TITLE . '</strong>');
 
     $contents = array('form' => tep_draw_form('login', FILENAME_LOGIN, 'action=process'));
-    $contents[] = array('text' => '<br />' . TEXT_USERNAME . '<br />' . tep_draw_input_field('username'));
+    $contents[] = array('text' => TEXT_USERNAME . '<br />' . tep_draw_input_field('username'));
     $contents[] = array('text' => '<br />' . TEXT_PASSWORD . '<br />' . tep_draw_password_field('password'));
-    $contents[] = array('align' => 'center', 'text' => '<br />' . tep_draw_button(BUTTON_LOGIN, 'key') . '<br /><br />');
+    $contents[] = array('align' => 'center', 'text' => '<br />' . tep_draw_button(BUTTON_LOGIN, 'key'));
   } else {
     $heading[] = array('text' => '<strong>' . HEADING_TITLE . '</strong>');
 

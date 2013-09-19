@@ -191,71 +191,71 @@ function rowOutEffect(object) {
   if (object.className == 'moduleRowOver') object.className = 'moduleRow';
 }
 //--></script>
-<div class="breadcrumb"><?php echo '&nbsp;&nbsp;' . $breadcrumb->trail('&raquo;'); ?></div>
-<h1 class="headingcheckoutshipping"><?php echo HEADING_TITLE; ?></h1>
+
+<h1><?php echo HEADING_TITLE; ?></h1>
 
 <?php echo tep_draw_form('checkout_address', tep_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'), 'post', '', true) . tep_draw_hidden_field('action', 'process'); ?>
 
-<div class="contentContainer">
-	<h2><?php echo TABLE_HEADING_SHIPPING_ADDRESS; ?></h2><hr>
+<div class="contentContainer" style="overflow:hidden">
+  <h2><?php echo TABLE_HEADING_SHIPPING_ADDRESS; ?></h2>
 
-	<div class="contentText">
-		<div class="ui-widget infoBoxContainer" style="float: left; padding-right:5px;">
-			<div class="headerCheckoutAddress infoBoxHeading"><?php echo TITLE_SHIPPING_ADDRESS; ?></div>
+  <div class="contentText">
+    <div class="ui-widget infoBoxContainer" style="float: right;">
+      <div class="ui-widget-header infoBoxHeading"><?php echo TITLE_SHIPPING_ADDRESS; ?></div>
 
-			<div class="contentCheckoutAddress infoBoxContents" style="padding: 5px;">
-				<?php echo tep_address_label($customer_id, $sendto, true, ' ', '<br />'); ?>
-			</div>
-		</div>
+      <div class="ui-widget-content infoBoxContents">
+        <?php echo tep_address_label($customer_id, $sendto, true, ' ', '<br />'); ?>
+      </div>
+    </div>
 
-		<?php echo TEXT_CHOOSE_SHIPPING_DESTINATION; ?><br /><br /><span style="float:right"><?php echo tep_draw_button(IMAGE_BUTTON_CHANGE_ADDRESS, 'home', tep_href_link(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', 'SSL')); ?></span>
-	</div>
+    <?php echo TEXT_CHOOSE_SHIPPING_DESTINATION; ?><br /><br /><span class="buttonLink"><?php echo tep_draw_button(IMAGE_BUTTON_CHANGE_ADDRESS, 'home', tep_href_link(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', 'SSL')) . '</span>'; ?>
+  </div>
 
-	<div style="clear: both;"></div>
+  <div style="clear: both;"></div>
 
 <?php
   if (tep_count_shipping_modules() > 0) {
 ?>
-<div id="border-bottom"></div><br />
-	<h2><?php echo TABLE_HEADING_SHIPPING_METHOD; ?></h2><hr>
+
+  <h2><?php echo TABLE_HEADING_SHIPPING_METHOD; ?></h2>
 
 <?php
     if (sizeof($quotes) > 1 && sizeof($quotes[0]) > 1) {
 ?>
 
-	<div class="contentText">
-		<div style="float: right;">
-			<?php echo '<strong>' . TITLE_PLEASE_SELECT . '</strong>'; ?>
-		</div>
+  <div class="contentText">
+    <div style="float: right;">
+      <?php echo '<strong>' . TITLE_PLEASE_SELECT . '</strong>'; ?>
+    </div>
 
-			<?php echo TEXT_CHOOSE_SHIPPING_METHOD; ?>
-	</div>
+    <?php echo TEXT_CHOOSE_SHIPPING_METHOD; ?>
+  </div>
 
 <?php
     } elseif ($free_shipping == false) {
 ?>
 
-	<div class="contentText">
-		<?php echo TEXT_ENTER_SHIPPING_INFORMATION; ?>
-	</div>
+  <div class="contentText">
+    <?php echo TEXT_ENTER_SHIPPING_INFORMATION; ?>
+  </div>
 
 <?php
     }
 ?>
 
-	<div class="contentText">
-		<div >
+  <div class="contentText">
+    <table border="0" width="100%" cellspacing="0" cellpadding="2">
 
 <?php
     if ($free_shipping == true) {
 ?>
 
-		<div>
-			<div><strong><?php echo FREE_SHIPPING_TITLE; ?></strong>&nbsp;<?php echo $quotes[$i]['icon']; ?></div>
-		</div>
-		<div id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, 0)">
-			<div style="padding-left: 15px;"><?php echo sprintf(FREE_SHIPPING_DESCRIPTION, $currencies->format(MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER)) . tep_draw_hidden_field('shipping', 'free_free'); ?></div>
-		</div>
+      <tr>
+        <td><strong><?php echo FREE_SHIPPING_TITLE; ?></strong>&nbsp;<?php echo $quotes[$i]['icon']; ?></td>
+      </tr>
+      <tr id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, 0)">
+        <td style="padding-left: 15px;"><?php echo sprintf(FREE_SHIPPING_DESCRIPTION, $currencies->format(MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER)) . tep_draw_hidden_field('shipping', 'free_free'); ?></td>
+      </tr>
 
 <?php
     } else {
@@ -263,17 +263,17 @@ function rowOutEffect(object) {
       for ($i=0, $n=sizeof($quotes); $i<$n; $i++) {
 ?>
 
-		<div>
-			<div><strong><?php echo $quotes[$i]['module']; ?></strong>&nbsp;<?php if (isset($quotes[$i]['icon']) && tep_not_null($quotes[$i]['icon'])) { echo $quotes[$i]['icon']; } ?></div>
-		</div>
+      <tr>
+        <td colspan="3"><strong><?php echo $quotes[$i]['module']; ?></strong>&nbsp;<?php if (isset($quotes[$i]['icon']) && tep_not_null($quotes[$i]['icon'])) { echo $quotes[$i]['icon']; } ?></td>
+      </tr>
 
 <?php
         if (isset($quotes[$i]['error'])) {
 ?>
 
-		<div>
-			<div><?php echo $quotes[$i]['error']; ?></div>
-		</div>
+      <tr>
+        <td colspan="3"><?php echo $quotes[$i]['error']; ?></td>
+      </tr>
 
 <?php
         } else {
@@ -282,33 +282,33 @@ function rowOutEffect(object) {
             $checked = (($quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'] == $shipping['id']) ? true : false);
 
             if ( ($checked == true) || ($n == 1 && $n2 == 1) ) {
-              echo '      <div id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
+              echo '      <tr id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
             } else {
-              echo '      <div class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
+              echo '      <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
             }
 ?>
 
-        <div><?php echo $quotes[$i]['methods'][$j]['title']; ?></div>
+        <td width="75%" style="padding-left: 15px;"><?php echo $quotes[$i]['methods'][$j]['title']; ?></td>
 
 <?php
             if ( ($n > 1) || ($n2 > 1) ) {
 ?>
-		<div id="checkoutShippingContainer">
-			<div id="checkoutShippingText"><?php echo $currencies->format(tep_add_tax($quotes[$i]['methods'][$j]['cost'], (isset($quotes[$i]['tax']) ? $quotes[$i]['tax'] : 0))); ?></div>
-			<div id="checkoutShippingSelect"><?php echo tep_draw_radio_field('shipping', $quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'], $checked); ?></div>
-		</div>
+
+        <td><?php echo $currencies->format(tep_add_tax($quotes[$i]['methods'][$j]['cost'], (isset($quotes[$i]['tax']) ? $quotes[$i]['tax'] : 0))); ?></td>
+        <td align="right"><?php echo tep_draw_radio_field('shipping', $quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'], $checked); ?></td>
+
 <?php
             } else {
 ?>
 
-        <div align="right"><?php echo $currencies->format(tep_add_tax($quotes[$i]['methods'][$j]['cost'], (isset($quotes[$i]['tax']) ? $quotes[$i]['tax'] : 0))) . tep_draw_hidden_field('shipping', $quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id']); ?></div>
+        <td align="right" colspan="2"><?php echo $currencies->format(tep_add_tax($quotes[$i]['methods'][$j]['cost'], (isset($quotes[$i]['tax']) ? $quotes[$i]['tax'] : 0))) . tep_draw_hidden_field('shipping', $quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id']); ?></td>
 
 <?php
             }
 ?>
 
-		</div>
-<br />
+      </tr>
+
 <?php
             $radio_buttons++;
           }
@@ -317,36 +317,40 @@ function rowOutEffect(object) {
     }
 ?>
 
-    </div>
-</div>
+    </table>
+  </div>
 
 <?php
   }
 ?>
-<div id="border-bottom"></div><br />
-	<h2 style="clear:both"><?php echo TABLE_HEADING_COMMENTS; ?></h2><hr>
 
-	<div class="contentText">
-		<?php echo tep_draw_textarea_field('comments', 'soft', '60', '5'); ?>
-	</div>
-<div id="border-bottom"></div><br />
-	<div id="checkout-shipping-container" class="contentText">
-		<div id="checkout-shipping-wrapper">
-			<div class="checkoutBarCurrent"><?php echo CHECKOUT_BAR_DELIVERY; ?></div>
-			<div class="checkoutBarTo"><?php echo CHECKOUT_BAR_PAYMENT; ?></div>
-			<div class="checkoutBarTo"><?php echo CHECKOUT_BAR_CONFIRMATION; ?></div>
-       
-		</div>
-<br />
-		<div style="float: right;"><?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'triangle-1-e', null, 'primary'); ?></div>
-	</div>
+  <h2><?php echo TABLE_HEADING_COMMENTS; ?></h2>
+
+  <div class="contentText" style="width:99%">
+    <?php echo tep_draw_textarea_field('comments', 'soft', '60', '5'); ?>
+  </div>
+
+  <div class="contentText">
+    <div style="float: left; width: 60%; padding-top: 5px; padding-left: 15%;">
+      <div id="coProgressBar" style="height: 5px;"></div>
+
+      <table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <tr>
+          <td align="center" width="33%" class="checkoutBarCurrent"><?php echo CHECKOUT_BAR_DELIVERY; ?></td>
+          <td align="center" width="33%" class="checkoutBarTo"><?php echo CHECKOUT_BAR_PAYMENT; ?></td>
+          <td align="center" width="33%" class="checkoutBarTo"><?php echo CHECKOUT_BAR_CONFIRMATION; ?></td>
+        </tr>
+      </table>
+    </div>
+
+    <div style="float: right;"><?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'triangle-1-e', null, 'primary'); ?></div>
+  </div>
 </div>
 
 <script type="text/javascript">
 $('#coProgressBar').progressbar({
   value: 33
 });
-
 </script>
 
 </form>

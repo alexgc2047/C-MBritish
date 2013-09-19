@@ -33,7 +33,7 @@
     function execute() {
       global $HTTP_GET_VARS, $current_category_id, $languages_id, $oscTemplate;
 
-		$side_banners_query = tep_db_query("select banners_id, banners_title, banners_image, banners_html_text from " . TABLE_BANNERS . " where status = '1' and banners_group = '250x80'" . " limit " . MODULE_BOXES_SIDE_BANNERS_MAX);
+		$side_banners_query = tep_db_query("select banners_id, banners_title, banners_image, banners_html_text from " . TABLE_BANNERS . " where status = '1' and banners_group = '180x80'" . " limit " . MODULE_BOXES_SIDE_BANNERS_MAX);
 	  if (tep_db_num_rows($side_banners_query) > 0) {
 	  	  $side_banners_list = '';
           while ($side_banners = tep_db_fetch_array($side_banners_query)) {
@@ -56,8 +56,8 @@
           }
 
           $data = '<div class="ui-widget infoBoxContainer">' .
-                  '  <div class="infoBoxHeading headingBoxSideBanner">' . MODULE_BOXES_SIDE_BANNERS_BOX_TITLE . '</div>' .
-                  '  <div class="infoBoxContents boxContentsSideBanner">' . $side_banners_list . '</div>' .
+                  '  <div class="ui-widget-header ui-corner-top infoBoxHeading headingBoxSideBanner">' . MODULE_BOXES_SIDE_BANNERS_BOX_TITLE . '</div>' .
+                  '  <div class="ui-widget-content ui-corner-bottom infoBoxContents boxContentsSideBanner imageBorderRemove">' . $side_banners_list . '</div>' .
                   '</div>';
 
           $oscTemplate->addBlock($data, $this->group);

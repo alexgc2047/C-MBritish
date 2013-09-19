@@ -25,15 +25,15 @@
 
   if ($product_check['total'] < 1) {
 ?>
-<div class="breadcrumb"><?php echo '&nbsp;&nbsp;' . $breadcrumb->trail('&raquo;'); ?></div>
-<div id="productnotfound" class="contentContainer">
-	<div class="contentText" >
-		<?php echo TEXT_PRODUCT_NOT_FOUND; ?>
-	</div>
-<br />
-	<div style="float: right;">
-		<?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'triangle-1-e', tep_href_link(FILENAME_DEFAULT)); ?>
-	</div>
+
+<div class="contentContainer">
+  <div class="contentText">
+    <?php echo TEXT_PRODUCT_NOT_FOUND; ?>
+  </div>
+
+  <div style="float: right;">
+    <?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'triangle-1-e', tep_href_link(FILENAME_DEFAULT)); ?>
+  </div>
 </div>
 
 <?php
@@ -44,7 +44,7 @@
     tep_db_query("update " . TABLE_PRODUCTS_DESCRIPTION . " set products_viewed = products_viewed+1 where products_id = '" . (int)$HTTP_GET_VARS['products_id'] . "' and language_id = '" . (int)$languages_id . "'");
 
     if ($new_price = tep_get_products_special_price($product_info['products_id'])) {
-      $products_price = '<del><span class="price-product-info">' . $currencies->display_price($product_info['products_price'], tep_get_tax_rate($product_info['products_tax_class_id'])) . '</span></del> <span class="productSpecialPrice">' . $currencies->display_price($new_price, tep_get_tax_rate($product_info['products_tax_class_id'])) . '</span>';
+      $products_price = '<del>' . $currencies->display_price($product_info['products_price'], tep_get_tax_rate($product_info['products_tax_class_id'])) . '</del> <span class="productSpecialPrice">' . $currencies->display_price($new_price, tep_get_tax_rate($product_info['products_tax_class_id'])) . '</span>';
     } else {
       $products_price = $currencies->display_price($product_info['products_price'], tep_get_tax_rate($product_info['products_tax_class_id']));
     }
@@ -58,13 +58,13 @@
 
 <?php echo tep_draw_form('cart_quantity', tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=add_product')); ?>
 
-<div class="breadcrumb"><?php echo '&nbsp;&nbsp;' . $breadcrumb->trail('&raquo;'); ?></div>
-	<div>
-		<h1 class="headingproductinfo"><?php echo $products_name, '<div style="text-align: right; margin-top: -20px; padding-bottom: 10px;">' . $products_price . '</div>';?></h1>
-	</div>
+<div>
+  <h1 style="float: right;"><?php echo $products_price; ?></h1>
+  <h1><?php echo $products_name; ?></h1>
+</div>
 
 <div class="contentContainer">
-	<div class="contentText">
+  <div class="contentText">
 
 <?php
     if (tep_not_null($product_info['products_image'])) {
@@ -73,7 +73,7 @@
       if (tep_db_num_rows($pi_query) > 0) {
 ?>
 
-    <div id="piGal" style="float:left; padding-right: 10px;">
+    <div id="piGal" class="productInfoImageRemove" style="float: right;">
       <ul>
 
 <?php
@@ -118,7 +118,7 @@ $('#piGal ul').bxGallery({
       } else {
 ?>
 
-    <div id="piGal" style="float: right;">
+    <div id="piGal" class="imageProductInfo" style="float: left;">
       <?php echo '<a href="' . tep_href_link(DIR_WS_IMAGES . $product_info['products_image'], '', 'NONSSL', false) . '" target="_blank" rel="fancybox">' . tep_image(DIR_WS_IMAGES . $product_info['products_image'], addslashes($product_info['products_name']), null, null, 'hspace="5" vspace="5"') . '</a>'; ?>
     </div>
 
@@ -193,10 +193,6 @@ $("#piGal a[rel^='fancybox']").fancybox({
     $reviews_query = tep_db_query("select count(*) as count from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd where r.products_id = '" . (int)$HTTP_GET_VARS['products_id'] . "' and r.reviews_id = rd.reviews_id and rd.languages_id = '" . (int)$languages_id . "' and reviews_status = 1");
     $reviews = tep_db_fetch_array($reviews_query);
 ?>
-<br />			   
-
-		
-<br />
 
   <div class="buttonSet">
     <span class="buttonAction"><?php echo tep_draw_hidden_field('products_id', $product_info['products_id']) . tep_draw_button(IMAGE_BUTTON_IN_CART, 'cart', null, 'primary'); ?></span>

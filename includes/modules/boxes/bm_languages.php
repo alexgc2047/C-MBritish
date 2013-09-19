@@ -47,8 +47,8 @@
           }
 
           $data = '<div class="ui-widget infoBoxContainer">' .
-                  '  <div class="infoBoxHeading headingBoxLanguages ">' . MODULE_BOXES_LANGUAGES_BOX_TITLE . '</div>' .
-                  '  <div class="infoBoxContents boxContentsLanguages" style="text-align: center;">' . $languages_string . '</div>' .
+                  '  <div class="ui-widget-header ui-corner-top infoBoxHeading">' . MODULE_BOXES_LANGUAGES_BOX_TITLE . '</div>' .
+                  '  <div class="ui-widget-content ui-corner-bottom infoBoxContents imageBorderRemove" style="text-align: center;">' . $languages_string . '</div>' .
                   '</div>';
 
           $oscTemplate->addBlock($data, $this->group);

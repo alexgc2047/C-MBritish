@@ -44,7 +44,7 @@
 $('#adminAppMenu').accordion({
   autoHeight: false,
   icons: {
-   'header': 'ui-icon-plus',
+    'header': 'ui-icon-plus',
     'headerSelected': 'ui-icon-minus'
   }
 

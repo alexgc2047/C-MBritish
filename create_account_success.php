@@ -26,17 +26,17 @@
 
   require(DIR_WS_INCLUDES . 'template_top.php');
 ?>
-<div class="breadcrumb"><?php echo '&nbsp;&nbsp;' . $breadcrumb->trail('&raquo;'); ?></div>
-<h1 class="headingcreateaccountsuccess"><?php echo HEADING_TITLE; ?></h1>
 
-<div class="contentContainer" id="contentCreateAccountSuccess">
-	<div class="contentText">
-		<?php echo TEXT_ACCOUNT_CREATED; ?>
-	</div>
-<br />
-	<div class="buttonSet">
-		<span class="buttonAction"><?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'triangle-1-e', $origin_href); ?></span>
-	</div>
+<h1><?php echo HEADING_TITLE; ?></h1>
+
+<div class="contentContainer">
+  <div class="contentText">
+    <?php echo TEXT_ACCOUNT_CREATED; ?>
+  </div>
+
+  <div class="buttonSet">
+    <span class="buttonAction"><?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'triangle-1-e', $origin_href); ?></span>
+  </div>
 </div>
 
 <?php

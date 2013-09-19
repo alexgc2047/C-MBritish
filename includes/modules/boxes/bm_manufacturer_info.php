@@ -38,14 +38,14 @@
         if (tep_db_num_rows($manufacturer_query)) {
           $manufacturer = tep_db_fetch_array($manufacturer_query);
 
-          $manufacturer_info_string = '<div class="infoBoxContents boxContentsManufacturersInfo">';
-          if (tep_not_null($manufacturer['manufacturers_image'])) $manufacturer_info_string .= '<div align="center">' . tep_image(DIR_WS_IMAGES . $manufacturer['manufacturers_image'], $manufacturer['manufacturers_name']) . '</div>';
-          if (tep_not_null($manufacturer['manufacturers_url'])) $manufacturer_info_string .= '<div><span id="wwwImg">' . tep_image(DIR_WS_IMAGES . 'www.png') . '</span>&nbsp;<a href="' . tep_href_link(FILENAME_REDIRECT, 'action=manufacturer&manufacturers_id=' . $manufacturer['manufacturers_id']) . '" target="_blank">' . sprintf(MODULE_BOXES_MANUFACTURER_INFO_BOX_HOMEPAGE, $manufacturer['manufacturers_name']) . '</a></div>';
-          $manufacturer_info_string .= '<div><span id="otherProductsImg">' . tep_image(DIR_WS_IMAGES . 'other-products.png') . '</span>&nbsp;<a href="' . tep_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $manufacturer['manufacturers_id']) . '">' . MODULE_BOXES_MANUFACTURER_INFO_BOX_OTHER_PRODUCTS . '</a></div>' .
-                                       '</div>';
+          $manufacturer_info_string = '<table border="0" width="100%" cellspacing="0" cellpadding="0" class="ui-widget-content ui-corner-bottom infoBoxContents">';
+          if (tep_not_null($manufacturer['manufacturers_image'])) $manufacturer_info_string .= '<tr><td align="center" colspan="2">' . tep_image(DIR_WS_IMAGES . $manufacturer['manufacturers_image'], $manufacturer['manufacturers_name']) . '</td></tr>';
+          if (tep_not_null($manufacturer['manufacturers_url'])) $manufacturer_info_string .= '<tr><td valign="top">-&nbsp;</td><td valign="top"><a href="' . tep_href_link(FILENAME_REDIRECT, 'action=manufacturer&manufacturers_id=' . $manufacturer['manufacturers_id']) . '" target="_blank">' . sprintf(MODULE_BOXES_MANUFACTURER_INFO_BOX_HOMEPAGE, $manufacturer['manufacturers_name']) . '</a></td></tr>';
+          $manufacturer_info_string .= '<tr><td valign="top">-&nbsp;</td><td valign="top"><a href="' . tep_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $manufacturer['manufacturers_id']) . '">' . MODULE_BOXES_MANUFACTURER_INFO_BOX_OTHER_PRODUCTS . '</a></td></tr>' .
+                                       '</table>';
 
           $data = '<div class="ui-widget infoBoxContainer">' .
-                  '  <div class="infoBoxHeading headingBoxManufacturersInfo">' . MODULE_BOXES_MANUFACTURER_INFO_BOX_TITLE . '</div>' .
+                  '  <div class="ui-widget-header ui-corner-top infoBoxHeading">' . MODULE_BOXES_MANUFACTURER_INFO_BOX_TITLE . '</div>' .
                   '  ' . $manufacturer_info_string .
                   '</div>';
 

@@ -23,8 +23,8 @@
 
   require(DIR_WS_INCLUDES . 'template_top.php');
 ?>
-<div class="breadcrumb"><?php echo '&nbsp;&nbsp;' . $breadcrumb->trail('&raquo;'); ?></div>
-<h1 class="headingshoppingcart"><?php echo HEADING_TITLE; ?></h1>
+
+<h1><?php echo HEADING_TITLE; ?></h1>
 
 <?php
   if ($cart->count_contents() > 0) {
@@ -33,9 +33,9 @@
 <?php echo tep_draw_form('cart_quantity', tep_href_link(FILENAME_SHOPPING_CART, 'action=update_product')); ?>
 
 <div class="contentContainer">
-	<h2><?php echo TABLE_HEADING_PRODUCTS; ?></h2><hr>
+  <h2><?php echo TABLE_HEADING_PRODUCTS; ?></h2>
 
-	<div class="contentText">
+  <div class="contentText">
 
 <?php
     $any_out_of_stock = 0;
@@ -66,18 +66,18 @@
     }
 ?>
 
-    <div id="shoppingcart">
+    <table border="0" width="100%" cellspacing="0" cellpadding="0" class="productsName">
 
 <?php
 
     for ($i=0, $n=sizeof($products); $i<$n; $i++) {
-      echo '      <div id="shopping-cart-container">';
+      echo '      <tr>';
 
-      $products_name = '<div>' .
-                       '  <div>' .
-                       '    <div id="shopping-cart-image"><br /><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id']) . '">' . tep_image(DIR_WS_IMAGES . $products[$i]['image'], $products[$i]['name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a></div>' .
-                       '    <div><br /><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id']) . '"><strong>' . $products[$i]['name'] . '</strong></a><br />';
-					
+      $products_name = '<table border="0" cellspacing="2" cellpadding="2">' .
+                       '  <tr>' .
+                       '    <td class="imageMarginTopRemoveShoppingCart" align="center"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id']) . '">' . tep_image(DIR_WS_IMAGES . $products[$i]['image'], $products[$i]['name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a></td>' .
+                       '    <td valign="top"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id']) . '"><strong>' . $products[$i]['name'] . '</strong></a>';
+
       if (STOCK_CHECK == 'true') {
         $stock_check = tep_check_stock($products[$i]['id'], $products[$i]['quantity']);
         if (tep_not_null($stock_check)) {
@@ -94,28 +94,28 @@
         }
       }
 
-      $products_name .= '<br /><br />' . tep_draw_input_field('cart_quantity[]', $products[$i]['quantity'], 'size="4"') . tep_draw_hidden_field('products_id[]', $products[$i]['id']) . tep_draw_button(IMAGE_BUTTON_UPDATE, 'refresh') . '&nbsp;&nbsp;&nbsp;or <a href="' . tep_href_link(FILENAME_SHOPPING_CART, 'products_id=' . $products[$i]['id'] . '&action=remove_product') . '">remove</a>';
+      $products_name .= '<br /><br />' . tep_draw_input_field('cart_quantity[]', $products[$i]['quantity'], 'size="4"') . tep_draw_hidden_field('products_id[]', $products[$i]['id']) . tep_draw_button(IMAGE_BUTTON_UPDATE, 'refresh') . '&nbsp;&nbsp;&nbsp;<span>' . TEXT_OR . '</span>&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_SHOPPING_CART, 'products_id=' . $products[$i]['id'] . '&action=remove_product') . '">' . TEXT_REMOVE . '</a>';
 
-      $products_name .= '    </div>' .
-                        '  </div>' .
-                        '</div>';
+      $products_name .= '    </td>' .
+                        '  </tr>' .
+                        '</table>';
 
-      echo '        <div>' . $products_name . '</div>' .
-           '        <div id="shopping-cart-price" ><strong>' . $currencies->display_price($products[$i]['final_price'], tep_get_tax_rate($products[$i]['tax_class_id']), $products[$i]['quantity']) . '</strong></div>' .
-           '      </div><div id="border-bottom"></div>';
+      echo '        <td valign="top">' . $products_name . '</td>' .
+           '        <td align="right" valign="top"><strong>' . $currencies->display_price($products[$i]['final_price'], tep_get_tax_rate($products[$i]['tax_class_id']), $products[$i]['quantity']) . '</strong></td>' .
+           '      </tr>';
     }
 ?>
 
-    </div><hr>
-<br />
+    </table>
+
     <p align="right"><strong><?php echo SUB_TITLE_SUB_TOTAL; ?> <?php echo $currencies->format($cart->show_total()); ?></strong></p>
-<br /><hr>
+
 <?php
     if ($any_out_of_stock == 1) {
       if (STOCK_ALLOW_CHECKOUT == 'true') {
 ?>
 
-    <p class="stockWarning"><?php echo OUT_OF_STOCK_CAN_CHECKOUT; ?></p>
+    <p class="stockWarning" align="center"><?php echo OUT_OF_STOCK_CAN_CHECKOUT; ?></p>
 
 <?php
       } else {
@@ -128,11 +128,11 @@
     }
 ?>
 
-	</div>
-<br />
-	<div class="buttonSet">
-		<span class="buttonAction"><?php echo tep_draw_button(IMAGE_BUTTON_CHECKOUT, 'triangle-1-e', tep_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'), 'primary'); ?></span>
-	</div>
+  </div>
+
+  <div class="buttonSet">
+    <span class="buttonAction"><?php echo tep_draw_button(IMAGE_BUTTON_CHECKOUT, 'triangle-1-e', tep_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'), 'primary'); ?></span>
+  </div>
 
 <?php
     $initialize_checkout_methods = $payment_modules->checkout_initialization_method();
@@ -140,14 +140,14 @@
     if (!empty($initialize_checkout_methods)) {
 ?>
 
-	<p align="right" style="clear: both; padding: 15px 50px 0 0;"><?php echo TEXT_ALTERNATIVE_CHECKOUT_METHODS; ?></p>
+  <p align="right" style="clear: both; padding: 15px 50px 0 0;"><?php echo TEXT_ALTERNATIVE_CHECKOUT_METHODS; ?></p>
 
 <?php
       reset($initialize_checkout_methods);
       while (list(, $value) = each($initialize_checkout_methods)) {
 ?>
 
-	<p align="right"><?php echo $value; ?></p>
+  <p align="right"><?php echo $value; ?></p>
 
 <?php
       }
@@ -163,11 +163,11 @@
 ?>
 
 <div class="contentContainer">
-	<div class="contentText">
-		<?php echo TEXT_CART_EMPTY; ?>
+  <div class="contentText">
+    <?php echo TEXT_CART_EMPTY; ?>
 
-		<p align="right"><?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'triangle-1-e', tep_href_link(FILENAME_DEFAULT)); ?></p>
-	</div>
+    <p align="right"><?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'triangle-1-e', tep_href_link(FILENAME_DEFAULT)); ?></p>
+  </div>
 </div>
 
 <?php

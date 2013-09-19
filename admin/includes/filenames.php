@@ -53,9 +53,4 @@
   define('FILENAME_VERSION_CHECK', 'version_check.php');
   define('FILENAME_WHOS_ONLINE', 'whos_online.php');
   define('FILENAME_ZONES', 'zones.php');
-  define('FILENAME_SLIDESHOW', 'slideshow.php');
-  define('FILENAME_FEATURED', 'featured.php');
-  define('FILENAME_FEATURED_PRODUCTS', 'featured_products.php');
-  define('FILENAME_SELECT_FEATURED', 'select_featured.php');
-
 ?>

@@ -46,13 +46,13 @@
         $notif_contents = '';
 
         if ($notification_exists == true) {
-           $notif_contents = '<div class="infoBoxContents boxContentsProductNotifications"><div><div><a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')) . 'action=notify_remove', $request_type) . '">' . tep_image(DIR_WS_IMAGES . 'box_products_notifications_remove.png', IMAGE_BUTTON_REMOVE_NOTIFICATIONS) . '</a></div><div><a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')) . 'action=notify_remove', $request_type) . '">' . sprintf(MODULE_BOXES_PRODUCT_NOTIFICATIONS_BOX_NOTIFY_REMOVE, tep_get_products_name($HTTP_GET_VARS['products_id'])) .'</a></div></div></div>';
+          $notif_contents = '<table border="0" cellspacing="0" cellpadding="2" class="ui-widget-content ui-corner-bottom infoBoxContents imageBorderRemove"><tr><td><a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')) . 'action=notify_remove', $request_type) . '">' . tep_image(DIR_WS_IMAGES . 'box_products_notifications_remove.png', IMAGE_BUTTON_REMOVE_NOTIFICATIONS) . '</a></td><td><a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')) . 'action=notify_remove', $request_type) . '">' . sprintf(MODULE_BOXES_PRODUCT_NOTIFICATIONS_BOX_NOTIFY_REMOVE, tep_get_products_name($HTTP_GET_VARS['products_id'])) .'</a></td></tr></table>';
         } else {
-          $notif_contents = '<div class="infoBoxContents boxContentsProductNotifications"><div><div><a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')) . 'action=notify', $request_type) . '">' . tep_image(DIR_WS_IMAGES . 'box_products_notifications.png', IMAGE_BUTTON_NOTIFICATIONS) . '</a></div><div><a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')) . 'action=notify', $request_type) . '">' . sprintf(MODULE_BOXES_PRODUCT_NOTIFICATIONS_BOX_NOTIFY, tep_get_products_name($HTTP_GET_VARS['products_id'])) .'</a></div></div></div>';
+          $notif_contents = '<table border="0" cellspacing="0" cellpadding="2" class="ui-widget-content ui-corner-bottom infoBoxContents imageBorderRemove"><tr><td><a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')) . 'action=notify', $request_type) . '">' . tep_image(DIR_WS_IMAGES . 'box_products_notifications.png', IMAGE_BUTTON_NOTIFICATIONS) . '</a></td><td><a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')) . 'action=notify', $request_type) . '">' . sprintf(MODULE_BOXES_PRODUCT_NOTIFICATIONS_BOX_NOTIFY, tep_get_products_name($HTTP_GET_VARS['products_id'])) .'</a></td></tr></table>';
         }
 
         $data = '<div class="ui-widget infoBoxContainer">' .
-                '  <div class="infoBoxHeading headingBoxProductNotifications"><a href="' . tep_href_link(FILENAME_ACCOUNT_NOTIFICATIONS, '', 'SSL') . '">' . MODULE_BOXES_PRODUCT_NOTIFICATIONS_BOX_TITLE . '</a></div>' .
+                '  <div class="ui-widget-header ui-corner-top infoBoxHeading"><a href="' . tep_href_link(FILENAME_ACCOUNT_NOTIFICATIONS, '', 'SSL') . '">' . MODULE_BOXES_PRODUCT_NOTIFICATIONS_BOX_TITLE . '</a></div>' .
                 '  ' . $notif_contents .
                 '</div>';
 

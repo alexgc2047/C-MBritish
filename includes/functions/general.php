@@ -1021,6 +1021,7 @@
 
     return $greeting_string;
   }
+  
 // Customer Login at header
 	function tep_customer_login() {
 		global $customer_id, $customer_first_name;
@@ -1034,7 +1035,6 @@
 	return $greeting_string;
    }
 ////
-
 ////
 //! Send email (text/html) using MIME
 // This is the central mail function. The SMTP Server should be configured
@@ -1406,16 +1406,4 @@
       return str_replace($from, $to, $string);
     }
   }
-  function tep_array_values_to_string($array, $separator = ',') {
-    $get_string = '';
-    if (sizeof($array) > 0) {
-      while (list($key, $value) = each($array)) {
-          $get_string .= $value . $separator;
-      }
-      $remove_chars = strlen($separator);
-      $get_string = substr($get_string, 0, -$remove_chars);
-    }
-    return $get_string;
-  }
-
 ?>

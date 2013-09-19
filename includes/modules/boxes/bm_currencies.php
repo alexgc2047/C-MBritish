@@ -50,14 +50,13 @@
           }
 
           $data = '<div class="ui-widget infoBoxContainer">' .
-                  '  <div class="infoBoxHeading headingBoxCurrencies">' . MODULE_BOXES_CURRENCIES_BOX_TITLE . '</div>' .
-                  '  <div class="infoBoxContents boxContentsCurrencies">' . 
-
+                  '  <div class="ui-widget-header ui-corner-top infoBoxHeading">' . MODULE_BOXES_CURRENCIES_BOX_TITLE . '</div>' .
+                  '  <div class="ui-widget-content ui-corner-bottom infoBoxContents">' . 
                   '    ' . tep_draw_form('currencies', tep_href_link(basename($PHP_SELF), '', $request_type, false), 'get') .
-                  '    ' . tep_draw_pull_down_menu('currency', $currencies_array, $currency, 'onchange="this.form.submit();" style="width: 100%; color:#000; border:1px solid #adab99;"') . $hidden_get_variables . tep_hide_session_id() . '</form>' .
+                  '    ' . tep_draw_pull_down_menu('currency', $currencies_array, $currency, 'onchange="this.form.submit();" style="width:100%; color:#999; border:1px solid #e1e1e1; background:#f1f1f1;"') . $hidden_get_variables . tep_hide_session_id() . '</form>' .
                   '  </div>' .
                   '</div>';
-				  
+
           $oscTemplate->addBlock($data, $this->group);
         }
       }

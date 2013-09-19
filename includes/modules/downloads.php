@@ -24,10 +24,10 @@
   if (tep_db_num_rows($downloads_query) > 0) {
 ?>
 
-	<h2><?php echo HEADING_DOWNLOAD; ?></h2><hr>
+  <h2><?php echo HEADING_DOWNLOAD; ?></h2>
 
-	<div class="contentText">
-		<div>
+  <div class="contentText">
+    <table border="0" width="100%" cellspacing="1" cellpadding="2">
 
 <?php
     while ($downloads = tep_db_fetch_array($downloads_query)) {
@@ -36,7 +36,7 @@
       $download_timestamp = mktime(23, 59, 59, $dt_month, $dt_day + $downloads['download_maxdays'], $dt_year);
       $download_expiry = date('Y-m-d H:i:s', $download_timestamp);
 
-      echo '      <div>' . "\n";
+      echo '      <tr>' . "\n";
 
 // The link will appear only if:
 // - Download remaining count is > 0, AND
@@ -44,18 +44,18 @@
 // - No expiry date is enforced (maxdays == 0), OR
 // - The expiry date is not reached
       if ( ($downloads['download_count'] > 0) && (file_exists(DIR_FS_DOWNLOAD . $downloads['orders_products_filename'])) && ( ($downloads['download_maxdays'] == 0) || ($download_timestamp > time())) ) {
-        echo '        <div><a href="' . tep_href_link(FILENAME_DOWNLOAD, 'order=' . $last_order . '&id=' . $downloads['orders_products_download_id']) . '">' . $downloads['products_name'] . '</a></div>' . "\n";
+        echo '        <td><a href="' . tep_href_link(FILENAME_DOWNLOAD, 'order=' . $last_order . '&id=' . $downloads['orders_products_download_id']) . '">' . $downloads['products_name'] . '</a></td>' . "\n";
       } else {
-        echo '        <div>' . $downloads['products_name'] . '</div>' . "\n";
+        echo '        <td>' . $downloads['products_name'] . '</td>' . "\n";
       }
 
-      echo '        <div>' . TABLE_HEADING_DOWNLOAD_DATE . tep_date_long($download_expiry) . '</div>' . "\n" .
-           '        <div style="text-align:right">' . $downloads['download_count'] . TABLE_HEADING_DOWNLOAD_COUNT . '</div>' . "\n" .
-           '      </div>' . "\n";
+      echo '        <td>' . TABLE_HEADING_DOWNLOAD_DATE . tep_date_long($download_expiry) . '</td>' . "\n" .
+           '        <td align="right">' . $downloads['download_count'] . TABLE_HEADING_DOWNLOAD_COUNT . '</td>' . "\n" .
+           '      </tr>' . "\n";
     }
 ?>
 
-		</div>
+    </table>
 
 <?php
     if (!strstr($PHP_SELF, FILENAME_ACCOUNT_HISTORY_INFO)) {
@@ -67,8 +67,8 @@
     }
 ?>
 
-	</div>
-<div id="border-bottom"></div><br />
+  </div>
+
 <?php
   }
 ?>

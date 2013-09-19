@@ -43,15 +43,15 @@
         if (tep_db_num_rows($best_sellers_query) >= MIN_DISPLAY_BESTSELLERS) {
           $bestsellers_list = '<ol style="margin: 0; padding-left: 25px;">';
           while ($best_sellers = tep_db_fetch_array($best_sellers_query)) {
-            $bestsellers_list .= '<li><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $best_sellers['products_id']) . '">' . $best_sellers['products_name'] . '</a></li><hr>';
+            $bestsellers_list .= '<li><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $best_sellers['products_id']) . '">' . $best_sellers['products_name'] . '</a></li>';
           }
           $bestsellers_list .= '</ol>';
 
           $data = '<div class="ui-widget infoBoxContainer">' .
-                  '  <div class="infoBoxHeading headingBoxBestsellers">' . MODULE_BOXES_BEST_SELLERS_BOX_TITLE . '</div>' .
-                  '  <div class="infoBoxContents boxContentsBestsellers">' . $bestsellers_list . '</div>' .
+                  '  <div class="ui-widget-header ui-corner-top infoBoxHeading">' . MODULE_BOXES_BEST_SELLERS_BOX_TITLE . '</div>' .
+                  '  <div class="ui-widget-content ui-corner-bottom infoBoxContents">' . $bestsellers_list . '</div>' .
                   '</div>';
-				  
+
           $oscTemplate->addBlock($data, $this->group);
         }
       }

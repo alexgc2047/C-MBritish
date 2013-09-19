@@ -34,10 +34,10 @@
       global $tree, $categories_string, $cPath_array;
 
       for ($i=0; $i<$tree[$counter]['level']; $i++) {
-        $categories_string .= "&nbsp;&nbsp;&nbsp;";
+        $categories_string .= "&nbsp;&nbsp;";
       }
 
-      $categories_string .= '<span class="bulletBoxCategories">' . tep_image(DIR_WS_IMAGES . 'bullet.png') . '</span>&nbsp;&nbsp;<a href="';
+      $categories_string .= '<span class="bulletBoxCategories">' . tep_image(DIR_WS_IMAGES . 'arrow.png') . '</span>&nbsp;&nbsp;<a href="';
 
       if ($tree[$counter]['parent'] == 0) {
         $cPath_new = 'cPath=' . $counter;
@@ -59,19 +59,19 @@
       }
 
       if (tep_has_category_subcategories($counter)) {
-        $categories_string .= '<span class="arrowRight">' . tep_image(DIR_WS_IMAGES . 'arrow_right.png') . '</span>';
+        $categories_string .= '&nbsp;-&gt;';
       }
 
       $categories_string .= '</a>';
-
+	
       if (SHOW_COUNTS == 'true') {
         $products_in_category = tep_count_products_in_category($counter);
         if ($products_in_category > 0) {
-          $categories_string .= '&nbsp;(' . $products_in_category . ')';
+          $categories_string .= '(' . $products_in_category . ')';
         }
       }
 
-      $categories_string .= '<br /><hr>';
+      $categories_string .= '<br />';
 
       if ($tree[$counter]['next_id'] != false) {
         $this->tep_show_category($tree[$counter]['next_id']);
@@ -143,8 +143,8 @@
       $this->tep_show_category($first_element);
 
       $data = '<div class="ui-widget infoBoxContainer">' .
-              '  <div class="infoBoxHeading headingBoxCategories">' . MODULE_BOXES_CATEGORIES_BOX_TITLE . '</div>' .
-              '  <div class="infoBoxContents boxContentsCategories">' . $categories_string . '</div>' .
+              '  <div class="ui-widget-header ui-corner-top infoBoxHeading">' . MODULE_BOXES_CATEGORIES_BOX_TITLE . '</div>' .
+              '  <div class="ui-widget-content ui-corner-bottom infoBoxContents textCategories">' . $categories_string . '</div>' .
               '</div>';
 
       return $data;

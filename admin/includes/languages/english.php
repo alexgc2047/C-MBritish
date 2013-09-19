@@ -295,7 +295,4 @@ define('ERROR_FILE_NOT_SAVED', 'Error: File upload not saved.');
 define('ERROR_FILETYPE_NOT_ALLOWED', 'Error: File upload type not allowed.');
 define('SUCCESS_FILE_SAVED_SUCCESSFULLY', 'Success: File upload saved successfully.');
 define('WARNING_NO_FILE_UPLOADED', 'Warning: No file uploaded.');
-define('BOX_CATALOG_SLIDESHOW', 'Slideshow'); 
-define('TEXT_DISPLAY_NUMBER_OF_SLIDES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> slides)');
-define('BOX_CATALOG_FEATURED_PRODUCTS', 'Featured Products');
 ?>

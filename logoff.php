@@ -28,17 +28,16 @@
   require(DIR_WS_INCLUDES . 'template_top.php');
 ?>
 
-<div class="breadcrumb"><?php echo '&nbsp;&nbsp;' . $breadcrumb->trail('&raquo;'); ?></div>
-<h1 class="headinglogoff"><?php echo HEADING_TITLE; ?></h1>
+<h1><?php echo HEADING_TITLE; ?></h1>
 
-<div id="logoffContainer" class="contentContainer">
-	<div class="contentText">
-		<?php echo TEXT_MAIN; ?>
-	</div>
-<br />
-	<div class="buttonSet">
-		<span class="buttonAction"><?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'triangle-1-e', tep_href_link(FILENAME_DEFAULT)); ?></span>
-	</div>
+<div class="contentContainer" style="overflow:hidden">
+  <div class="contentText">
+    <?php echo TEXT_MAIN; ?>
+  </div>
+
+  <div class="buttonSet">
+    <span class="buttonAction"><?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'triangle-1-e', tep_href_link(FILENAME_DEFAULT)); ?></span>
+  </div>
 </div>
 
 <?php

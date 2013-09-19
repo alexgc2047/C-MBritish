@@ -130,9 +130,7 @@
   require(DIR_WS_INCLUDES . 'template_top.php');
 ?>
 
-<div class="breadcrumb"><?php echo '&nbsp;&nbsp;' . $breadcrumb->trail('&raquo;'); ?></div>
-<h1 class="headingadvancedsearchresult"><?php echo HEADING_TITLE_2; ?></h1>
-
+<h1><?php echo HEADING_TITLE_2; ?></h1>
 
 <div class="contentContainer">
 

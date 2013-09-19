@@ -43,18 +43,18 @@
           }
           $product_ids = substr($product_ids, 0, -1);
 
-          $customer_orders_string = '<div class="infoBoxContents boxContentsOrderHistory">';
+          $customer_orders_string = '<table border="0" width="100%" cellspacing="0" cellpadding="1" class="ui-widget-content infoBoxContents ui-corner-bottom imageBorderRemove">';
           $products_query = tep_db_query("select products_id, products_name from " . TABLE_PRODUCTS_DESCRIPTION . " where products_id in (" . $product_ids . ") and language_id = '" . (int)$languages_id . "' order by products_name");
           while ($products = tep_db_fetch_array($products_query)) {
-            $customer_orders_string .= '  <div id="order-history-box-container" >' .
-                                       '    <span id="order-history-box-wrapper" ><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products['products_id']) . '">' . $products['products_name'] . '</a></span>' .
-                                       '    <span id="order-history-box-cart-icon"><a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')) . 'action=cust_order&pid=' . $products['products_id']) . '">' . tep_image(DIR_WS_ICONS . 'cart.png', ICON_CART) . '</a></span>' .
-                                       '  </div><hr>';
+            $customer_orders_string .= '  <tr>' .
+                                       '    <td><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products['products_id']) . '">' . $products['products_name'] . '</a></td>' .
+                                       '    <td align="right" valign="top"><a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')) . 'action=cust_order&pid=' . $products['products_id']) . '">' . tep_image(DIR_WS_ICONS . 'cart.png', ICON_CART) . '</a></td>' .
+                                       '  </tr>';
           }
-         $customer_orders_string .= '</div>';
+          $customer_orders_string .= '</table>';
 
           $data = '<div class="ui-widget infoBoxContainer">' .
-                  '  <div class="infoBoxHeading headingBoxOrderHistory">' . MODULE_BOXES_ORDER_HISTORY_BOX_TITLE . '</div>' .
+                  '  <div class="ui-widget-header ui-corner-top infoBoxHeading">' . MODULE_BOXES_ORDER_HISTORY_BOX_TITLE . '</div>' .
                   '  ' . $customer_orders_string .
                   '</div>';
 

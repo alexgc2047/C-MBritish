@@ -49,30 +49,25 @@
 
   require(DIR_WS_INCLUDES . 'template_top.php');
 ?>
-<div class="breadcrumb"><?php echo '&nbsp;&nbsp;' . $breadcrumb->trail('&raquo;'); ?></div>
 
-<h1 class="headingcontactus"><?php echo HEADING_TITLE; ?></h1>
-<div class="messagestack">
+<h1><?php echo HEADING_TITLE; ?></h1>
+
 <?php
   if ($messageStack->size('contact') > 0) {
     echo $messageStack->output('contact');
   }
 
-?>
-</div>
-<?php
   if (isset($HTTP_GET_VARS['action']) && ($HTTP_GET_VARS['action'] == 'success')) {
 ?>
 
+<div class="contentContainer">
+  <div class="contentText">
+    <?php echo TEXT_SUCCESS; ?>
+  </div>
 
-<div id="contactUsSuccess" class="contentContainer">
-	<div class="contentText">
-		<?php echo TEXT_SUCCESS; ?>
-	</div>
-
-	<div style="float: right;">
-		<?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'triangle-1-e', tep_href_link(FILENAME_DEFAULT)); ?>
-	</div>
+  <div style="float: right;">
+    <?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'triangle-1-e', tep_href_link(FILENAME_DEFAULT)); ?>
+  </div>
 </div>
 
 <?php
@@ -81,27 +76,27 @@
 
 <?php echo tep_draw_form('contact_us', tep_href_link(FILENAME_CONTACT_US, 'action=send'), 'post', '', true); ?>
 
-<div class="contentContainer" id="contactUsContainer">
-	<div class="contentText">
-		<div id="contactUsForm">
-			<div>
-				<div class="fieldKey"><?php echo ENTRY_NAME; ?></div>
-				<div class="fieldValue"><?php echo tep_draw_input_field('name', 'Enter your name', 'onblur="if(this.value==\'\')this.value=\'Enter your name\'"' . 'onfocus="if(this.value==\'Enter your name\')this.value=\'\'"' . 'style="color:#000;"'); ?></div>
-			</div>
-			<div>
-				<div class="fieldKey"><?php echo ENTRY_EMAIL; ?></div>
-				<div class="fieldValue"><?php echo tep_draw_input_field('email', 'Enter your email', 'onblur="if(this.value==\'\')this.value=\'Enter your email\'"' . 'onfocus="if(this.value==\'Enter your email\')this.value=\'\'"' . 'style="color:#000;"'); ?></div>
-			</div>
-			<div>
-				<div class="fieldKey"><?php echo ENTRY_ENQUIRY; ?></div>
-				<div style="float:left;" class="fieldValue; "><?php echo tep_draw_textarea_field('enquiry', 'soft', 50, 15,'Enter your enquiry', 'onblur="if(this.value==\'\')this.value=\'Enter your enquiry\'"' . 'onfocus="if(this.value==\'Enter your enquiry\')this.value=\'\'"' . 'style="color:#000;"'); ?></div>
-			</div>
-		</div>
-	</div>
-<br />
-	<div class="buttonSet" >
-		<span class="buttonAction"><?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'triangle-1-e', null, 'primary'); ?></span>
-	</div>
+<div class="contentContainer" style="overflow:hidden;">
+  <div class="contentText">
+    <table border="0" width="100%" cellspacing="0" cellpadding="2">
+      <tr>
+        <td class="fieldKey"><?php echo ENTRY_NAME; ?></td>
+        <td class="fieldValue"><?php echo tep_draw_input_field('name'); ?></td>
+      </tr>
+      <tr>
+        <td class="fieldKey"><?php echo ENTRY_EMAIL; ?></td>
+        <td class="fieldValue"><?php echo tep_draw_input_field('email'); ?></td>
+      </tr>
+      <tr>
+        <td class="fieldKey" valign="top"><?php echo ENTRY_ENQUIRY; ?></td>
+        <td class="fieldValue"><?php echo tep_draw_textarea_field('enquiry', 'soft', 50, 15); ?></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="buttonSet">
+    <span class="buttonAction"><?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'triangle-1-e', null, 'primary'); ?></span>
+  </div>
 </div>
 
 </form>

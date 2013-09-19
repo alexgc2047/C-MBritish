@@ -85,45 +85,52 @@
   require(DIR_WS_INCLUDES . 'template_top.php');
 ?>
 
-<div class="breadcrumbLogin"><?php echo '&nbsp;&nbsp;' . $breadcrumb->trail('&raquo;'); ?></div>
-<div class="messagestack">
+<h1><?php echo HEADING_TITLE; ?></h1>
+
 <?php
   if ($messageStack->size('login') > 0) {
     echo $messageStack->output('login');
   }
 ?>
-</div>
-<h1 class="headinglogin"><?php echo HEADING_TITLE; ?></h1>
 
-<div style="overflow:hidden;" class="contentContainer">
-	<div style="width:100%; overflow:hidden;">
-		<div style="width:48%; overflow:hidden; float:left; margin-right:10px;">
-			<div ><h2 id="headingnewcustomer"><?php echo HEADING_NEW_CUSTOMER; ?></h2><hr></div>
-			<div class="textNewCustomerLogin"><?php echo TEXT_NEW_CUSTOMER; ?></div>
-			<div class="textNewCustomerIntroductionLogin"><?php echo TEXT_NEW_CUSTOMER_INTRODUCTION; ?></div>
-		
-			<div style="float:right; margin-top:5px; "><?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'triangle-1-e', tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL')); ?></div>
-		</div>
-	
-		<div style="width:50%; overflow:hidden; float:left;">
-			<?php echo tep_draw_form('login', tep_href_link(FILENAME_LOGIN, 'action=process', 'SSL'), 'post', '', true); ?>
-			<div ><h2 id="headingreturningcustomer"><?php echo HEADING_RETURNING_CUSTOMER; ?></h2><hr></div>
-			<div class="textReturningCustomerLogin"><?php echo TEXT_RETURNING_CUSTOMER; ?></div>
-			<div style="width:100%; overflow:hidden">
-				<div class="fieldKey"><?php echo ENTRY_EMAIL_ADDRESS; ?></div>
-				<div class="fieldValue"><?php echo tep_draw_input_field('email_address', 'Enter your email', 'onblur="if(this.value==\'\')this.value=\'Enter your email\'"' . 'onfocus="if(this.value==\'Enter your email\')this.value=\'\'"' . 'style="color:#000;"'); ?></div>
-				<div class="fieldKey"><?php echo ENTRY_PASSWORD; ?></div>
-				<div class="fieldValue"><?php echo tep_draw_password_field('password' ,'Enter your password', 'onblur="if(this.value==\'\')this.value=\'Enter your password\'"' . 'onfocus="if(this.value==\'Enter your password\')this.value=\'\'"' . 'style="color:#000;"'); ?></div>
-				
-			</div>
-			<div style="text-align:left"><?php echo '<a href="' . tep_href_link(FILENAME_PASSWORD_FORGOTTEN, '', 'SSL') . '">' . TEXT_PASSWORD_FORGOTTEN . '</a>'; ?></div>
-			<br />
-			<div style="float:right; clear:both;"><?php echo tep_draw_button(IMAGE_BUTTON_LOGIN, 'key', null, 'primary'); ?></div>
-		</div>
-	</div>
-</div>
- </form>
+<div class="contentContainer" style="width:auto;">
+  <h2><?php echo HEADING_NEW_CUSTOMER; ?></h2>
 
+  <div class="contentText">
+    <p><?php echo TEXT_NEW_CUSTOMER; ?></p>
+    <p><?php echo TEXT_NEW_CUSTOMER_INTRODUCTION; ?></p>
+
+    <p class="buttonLink" align="right"><?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'triangle-1-e', tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL')); ?></p>
+
+  </div>
+</div>
+
+<div class="contentContainer" style="width:auto; margin-top:10px;">
+  <h2><?php echo HEADING_RETURNING_CUSTOMER; ?></h2>
+
+  <div class="contentText">
+    <p><?php echo TEXT_RETURNING_CUSTOMER; ?></p>
+
+    <?php echo tep_draw_form('login', tep_href_link(FILENAME_LOGIN, 'action=process', 'SSL'), 'post', '', true); ?>
+
+    <table border="0" cellspacing="0" cellpadding="2" width="100%">
+      <tr>
+        <td class="fieldKey"><?php echo ENTRY_EMAIL_ADDRESS; ?></td>
+        <td class="fieldValue"><?php echo tep_draw_input_field('email_address'); ?></td>
+      </tr>
+      <tr>
+        <td class="fieldKey"><?php echo ENTRY_PASSWORD; ?></td>
+        <td class="fieldValue"><?php echo tep_draw_password_field('password'); ?></td>
+      </tr>
+    </table>
+
+    <p><?php echo '<a href="' . tep_href_link(FILENAME_PASSWORD_FORGOTTEN, '', 'SSL') . '">' . TEXT_PASSWORD_FORGOTTEN . '</a>'; ?></p>
+
+    <p align="right"><?php echo tep_draw_button(IMAGE_BUTTON_LOGIN, 'key', null, 'primary'); ?></p>
+
+    </form>
+  </div>
+</div>
 
 <?php
   require(DIR_WS_INCLUDES . 'template_bottom.php');

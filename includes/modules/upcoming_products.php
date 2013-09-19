@@ -14,26 +14,26 @@
   if (tep_db_num_rows($expected_query) > 0) {
 ?>
 
-	<div class="ui-widget infoBoxContainer">
-		<div class="headingUpcomingProduct infoBoxHeading">
-			<span><?php echo TABLE_HEADING_UPCOMING_PRODUCTS; ?></span>
-			<span id="upcomingHeadingDate"><?php echo '<span class="upcomingImageDate">' . tep_image(DIR_WS_IMAGES . 'date.png', ' ') . '</span>&nbsp;<span id="dateExpected">' . TABLE_HEADING_DATE_EXPECTED;?></span></span>
-		</div>
+  <div class="ui-widget infoBoxContainer">
+    <div class="ui-widget-header ui-corner-top infoBoxHeading">
+      <span><?php echo TABLE_HEADING_UPCOMING_PRODUCTS; ?></span>
+      <span style="float: right;"><?php echo TABLE_HEADING_DATE_EXPECTED; ?></span>
+    </div>
 
-		<div class="contentContainer">
-			<div id="upcomingProductContent" class="productListTable">
+    <div class="ui-widget-content">
+      <table border="0" width="100%" cellspacing="0" cellpadding="2" class="productListTable">
 <?php
     while ($expected = tep_db_fetch_array($expected_query)) {
-      echo '        <div>' . "\n" .
-           '         	<span><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $expected['products_id']) . '">' . $expected['products_name'] . '</a></span>' . "\n" .
-           '          	<span style="float:right">' . tep_date_short($expected['date_expected']) . '</span>' . "\n" .
-           '        </div><hr>' . "\n";
+      echo '        <tr>' . "\n" .
+           '          <td><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $expected['products_id']) . '">' . $expected['products_name'] . '</a></td>' . "\n" .
+           '          <td align="right">' . tep_date_short($expected['date_expected']) . '</td>' . "\n" .
+           '        </tr>' . "\n";
     }
 ?>
 
-			</div>
-		</div>
-	</div>
+      </table>
+    </div>
+  </div>
 
 <?php
   }

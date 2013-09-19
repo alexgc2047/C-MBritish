@@ -119,44 +119,44 @@ function rowOutEffect(object) {
 }
 //--></script>
 <?php echo $payment_modules->javascript_validation(); ?>
-<div class="breadcrumb"><?php echo '&nbsp;&nbsp;' . $breadcrumb->trail('&raquo;'); ?></div>
-<h1 class="headingcheckoutpayment"><?php echo HEADING_TITLE; ?></h1>
+
+<h1><?php echo HEADING_TITLE; ?></h1>
 
 <?php echo tep_draw_form('checkout_payment', tep_href_link(FILENAME_CHECKOUT_CONFIRMATION, '', 'SSL'), 'post', 'onsubmit="return check_form();"', true); ?>
 
-<div class="contentContainer">
+<div class="contentContainer" style="overflow:hidden">
 
 <?php
   if (isset($HTTP_GET_VARS['payment_error']) && is_object(${$HTTP_GET_VARS['payment_error']}) && ($error = ${$HTTP_GET_VARS['payment_error']}->get_error())) {
 ?>
 
-	<div class="contentText">
-		<?php echo '<strong>' . tep_output_string_protected($error['title']) . '</strong>'; ?>
+  <div class="contentText">
+    <?php echo '<strong>' . tep_output_string_protected($error['title']) . '</strong>'; ?>
 
-		<p class="messageStackError"><?php echo tep_output_string_protected($error['error']); ?></p>
-	</div>
+    <p class="messageStackError"><?php echo tep_output_string_protected($error['error']); ?></p>
+  </div>
 
 <?php
   }
 ?>
 
-	<h2><?php echo TABLE_HEADING_BILLING_ADDRESS; ?></h2><hr>
+  <h2><?php echo TABLE_HEADING_BILLING_ADDRESS; ?></h2>
 
-	<div class="contentText">
-		<div class="ui-widget infoBoxContainer" style="float: left; padding-right:5px;">
-			<div class="headerCheckoutAddress infoBoxHeading"><?php echo TITLE_BILLING_ADDRESS; ?></div>
+  <div class="contentText">
+    <div class="ui-widget infoBoxContainer" style="float: right;">
+      <div class="ui-widget-header infoBoxHeading"><?php echo TITLE_BILLING_ADDRESS; ?></div>
 
-			<div class="contentCheckoutAddress infoBoxContents" style="padding: 5px;">
-				<?php echo tep_address_label($customer_id, $billto, true, ' ', '<br />'); ?>
-			</div>
-		</div>
+      <div class="ui-widget-content infoBoxContents">
+        <?php echo tep_address_label($customer_id, $billto, true, ' ', '<br />'); ?>
+      </div>
+    </div>
 
-		<?php echo TEXT_SELECTED_BILLING_DESTINATION; ?><br /><br /><span style="float:right;"><?php echo tep_draw_button(IMAGE_BUTTON_CHANGE_ADDRESS, 'home', tep_href_link(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', 'SSL')); ?></span>
-	</div>
+    <?php echo TEXT_SELECTED_BILLING_DESTINATION; ?><br /><br /><span class="buttonLink"><?php echo tep_draw_button(IMAGE_BUTTON_CHANGE_ADDRESS, 'home', tep_href_link(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', 'SSL')) . '</span>'; ?>
+  </div>
 
-	<div style="clear: both;"></div>
-<div id="border-bottom"></div><br />
-	<h2><?php echo TABLE_HEADING_PAYMENT_METHOD; ?></h2><hr>
+  <div style="clear: both;"></div>
+
+  <h2><?php echo TABLE_HEADING_PAYMENT_METHOD; ?></h2>
 
 <?php
   $selection = $payment_modules->selection();
@@ -164,45 +164,45 @@ function rowOutEffect(object) {
   if (sizeof($selection) > 1) {
 ?>
 
-	<div class="contentText">
-		<div style="float: right;">
-			<?php echo '<strong>' . TITLE_PLEASE_SELECT . '</strong>'; ?>
-		</div>
+  <div class="contentText">
+    <div style="float: right;">
+      <?php echo '<strong>' . TITLE_PLEASE_SELECT . '</strong>'; ?>
+    </div>
 
-		<?php echo TEXT_SELECT_PAYMENT_METHOD; ?>
-	</div>
+    <?php echo TEXT_SELECT_PAYMENT_METHOD; ?>
+  </div>
 
 <?php
     } elseif ($free_shipping == false) {
 ?>
 
-	<div class="contentText">
-		<?php echo TEXT_ENTER_PAYMENT_INFORMATION; ?>
-	</div>
+  <div class="contentText">
+    <?php echo TEXT_ENTER_PAYMENT_INFORMATION; ?>
+  </div>
 
 <?php
     }
 ?>
 
-	<div class="contentText">
+  <div class="contentText">
 
 <?php
   $radio_buttons = 0;
   for ($i=0, $n=sizeof($selection); $i<$n; $i++) {
 ?>
 
-    
+    <table border="0" width="100%" cellspacing="0" cellpadding="2">
 
 <?php
     if ( ($selection[$i]['id'] == $payment) || ($n == 1) ) {
-      echo '      <div id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
+      echo '      <tr id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
     } else {
-      echo '      <div class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
+      echo '      <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
     }
 ?>
-	<div id="checkoutPaymentContainer">
-        <div id="checkoutPaymentSelect" style="padding-top:5px; padding-bottom:5px;" ><?php echo $selection[$i]['module']; ?></div>
-        <div id="checkoutPaymentSelectRadio" style="margin-top:5px;">
+
+        <td><strong><?php echo $selection[$i]['module']; ?></strong></td>
+        <td align="right">
 
 <?php
     if (sizeof($selection) > 1) {
@@ -212,72 +212,74 @@ function rowOutEffect(object) {
     }
 ?>
 
-        </div>
-	</div>
-
+        </td>
+      </tr>
 
 <?php
     if (isset($selection[$i]['error'])) {
 ?>
 
-		
-			<div><?php echo $selection[$i]['error']; ?></div>
-		
+      <tr>
+        <td colspan="2"><?php echo $selection[$i]['error']; ?></td>
+      </tr>
 
 <?php
     } elseif (isset($selection[$i]['fields']) && is_array($selection[$i]['fields'])) {
 ?>
 
-		
-        
+      <tr>
+        <td colspan="2"><table border="0" cellspacing="0" cellpadding="2">
 
 <?php
       for ($j=0, $n2=sizeof($selection[$i]['fields']); $j<$n2; $j++) {
 ?>
 
-			
-				<div><?php echo $selection[$i]['fields'][$j]['title']; ?></div>
-				<div><?php echo $selection[$i]['fields'][$j]['field']; ?></div>
-			
+          <tr>
+            <td><?php echo $selection[$i]['fields'][$j]['title']; ?></td>
+            <td><?php echo $selection[$i]['fields'][$j]['field']; ?></td>
+          </tr>
 
 <?php
       }
 ?>
 
-        
-	
-
+        </table></td>
+      </tr>
 
 <?php
     }
 ?>
 
-    </div>
+    </table>
 
 <?php
     $radio_buttons++;
   }
 ?>
 
-</div>
-	
-<div id="border-bottom"></div><br />
-	<h2><?php echo TABLE_HEADING_COMMENTS; ?></h2><hr>
+  </div>
 
-	<div class="contentText">
-		<?php echo tep_draw_textarea_field('comments', 'soft', '60', '5', $comments); ?>
-	</div>
-<div id="border-bottom"></div><br />
-	<div id="checkout-payment-container" class="contentText">
-		<div id="checkout-payment-wrapper">
-			<div class="checkoutBarFrom"><?php echo '<a href="' . tep_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL') . '" >' . CHECKOUT_BAR_DELIVERY . '</a>'; ?></div>
-			<div class="checkoutBarCurrent"><?php echo CHECKOUT_BAR_PAYMENT; ?></div>
-			<div class="checkoutBarTo"><?php echo CHECKOUT_BAR_CONFIRMATION; ?></div>
-		</div>
-<br />
-		<div style="float: right;"><?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'triangle-1-e', null, 'primary'); ?></div>
-	</div>
+  <h2><?php echo TABLE_HEADING_COMMENTS; ?></h2>
 
+  <div class="contentText" style="width:99%">
+    <?php echo tep_draw_textarea_field('comments', 'soft', '60', '5', $comments); ?>
+  </div>
+
+  <div class="contentText">
+    <div style="float: left; width: 60%; padding-top: 5px; padding-left: 15%;">
+      <div id="coProgressBar" style="height: 5px;"></div>
+
+      <table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <tr>
+          <td align="center" width="33%" class="checkoutBarFrom"><?php echo '<a href="' . tep_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL') . '" class="checkoutBarFrom">' . CHECKOUT_BAR_DELIVERY . '</a>'; ?></td>
+          <td align="center" width="33%" class="checkoutBarCurrent"><?php echo CHECKOUT_BAR_PAYMENT; ?></td>
+          <td align="center" width="33%" class="checkoutBarTo"><?php echo CHECKOUT_BAR_CONFIRMATION; ?></td>
+        </tr>
+      </table>
+    </div>
+
+    <div style="float: right;"><?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'triangle-1-e', null, 'primary'); ?></div>
+  </div>
 </div>
 
 <script type="text/javascript">

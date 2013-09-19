@@ -60,9 +60,4 @@
   define('FILENAME_SSL_CHECK', 'ssl_check.php');
   define('FILENAME_TELL_A_FRIEND', 'tell_a_friend.php');
   define('FILENAME_UPCOMING_PRODUCTS', 'upcoming_products.php');
-  define('FILENAME_FEATURED', 'featured.php');
-  define('FILENAME_FEATURED_BOX', 'featured.php');
-  define('FILENAME_FEATURED_PRODUCTS', 'featured_products.php');
-
-
 ?>

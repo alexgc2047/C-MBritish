@@ -18,11 +18,11 @@
 
   require(DIR_WS_INCLUDES . 'template_top.php');
 ?>
-<div class="breadcrumb"><?php echo '&nbsp;&nbsp;' . $breadcrumb->trail('&raquo;'); ?></div>
-<h1 class="headingwhatsnew"><?php echo HEADING_TITLE; ?></h1>
+
+<h1><?php echo HEADING_TITLE; ?></h1>
 
 <div class="contentContainer">
-	<div class="contentText">
+  <div class="contentText">
 
 <?php
   $products_new_array = array();
@@ -34,9 +34,9 @@
 ?>
 
     <div>
-		<span style="float: right;"><?php echo TEXT_RESULT_PAGE . ' ' . $products_new_split->display_links(MAX_DISPLAY_PAGE_LINKS, tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?></span>
+      <span style="float: right;"><?php echo TEXT_RESULT_PAGE . ' ' . $products_new_split->display_links(MAX_DISPLAY_PAGE_LINKS, tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?></span>
 
-		<span class="displayProductNumber"><?php echo $products_new_split->display_count(TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW); ?></span>
+      <span><?php echo $products_new_split->display_count(TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW); ?></span>
     </div>
 
     <br />
@@ -49,36 +49,34 @@
   if ($products_new_split->number_of_rows > 0) {
 ?>
 
-    
+    <table border="0" width="100%" cellspacing="2" cellpadding="2" class="productsName">
 
 <?php
     $products_new_query = tep_db_query($products_new_split->sql_query);
     while ($products_new = tep_db_fetch_array($products_new_query)) {
       if ($new_price = tep_get_products_special_price($products_new['products_id'])) {
-        $products_price = '<del><span id="price-text-whatsnew">' . $currencies->display_price($products_new['products_price'], tep_get_tax_rate($products_new['products_tax_class_id'])) . '</span></del> <span class="productSpecialPrice">' . $currencies->display_price($new_price, tep_get_tax_rate($products_new['products_tax_class_id'])) . '</span>';
+        $products_price = '<del>' . $currencies->display_price($products_new['products_price'], tep_get_tax_rate($products_new['products_tax_class_id'])) . '</del> <span class="productSpecialPrice">' . $currencies->display_price($new_price, tep_get_tax_rate($products_new['products_tax_class_id'])) . '</span>';
       } else {
-        $products_price = $currencies->display_price($products_new['products_price'], tep_get_tax_rate($products_new['products_tax_class_id']));
+        $products_price = '<b>' . $currencies->display_price($products_new['products_price'], tep_get_tax_rate($products_new['products_tax_class_id'])) . '</b>';
       }
 ?>
-		<div id="products-new-container">
-			<div id="products-new-wrapper">
-				<div id="products-new-image" class="main" width="<?php echo SMALL_IMAGE_WIDTH + 10; ?>"  ><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products_new['products_id']) . '">' . tep_image(DIR_WS_IMAGES . $products_new['products_image'], $products_new['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a>'; ?></div>
-				<div id="products-new-info" class="main" ><?php echo '<a class="link" href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products_new['products_id']) . '">' . $products_new['products_name'] . '</a><br /><br />' . TEXT_DATE_ADDED . ' ' . tep_date_long($products_new['products_date_added']) . '<br /><br />' . TEXT_MANUFACTURER . ' ' . $products_new['manufacturers_name'] . '<br /><br />' . TEXT_PRICE . ' ' . $products_price . '<br /><br />' ; ?></div>
-				<div id="products-new-button" class="smallText"><?php echo tep_draw_button(IMAGE_BUTTON_IN_CART, 'cart', tep_href_link(FILENAME_PRODUCTS_NEW, tep_get_all_get_params(array('action')) . 'action=buy_now&products_id=' . $products_new['products_id'])); ?></div>
-			</div>
-		</div><hr>
+      <tr>
+        <td width="<?php echo SMALL_IMAGE_WIDTH + 10; ?>" valign="top" class="main removeMarginTop"><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products_new['products_id']) . '">' . tep_image(DIR_WS_IMAGES . $products_new['products_image'], $products_new['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a>'; ?></td>
+        <td valign="top" class="main"><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products_new['products_id']) . '">' . $products_new['products_name'] . '</a><br /><br />' . TEXT_DATE_ADDED . ' ' . tep_date_long($products_new['products_date_added']) . '<br />' . TEXT_MANUFACTURER . ' ' . $products_new['manufacturers_name'] . '<br /><br />' . TEXT_PRICE . ' ' . $products_price; ?></td>
+        <td align="right" valign="middle" class="smallText buttonLink"><?php echo tep_draw_button(IMAGE_BUTTON_IN_CART, 'cart', tep_href_link(FILENAME_PRODUCTS_NEW, tep_get_all_get_params(array('action')) . 'action=buy_now&products_id=' . $products_new['products_id'])); ?></td>
+      </tr>
 <?php
     }
 ?>
 
-   
+    </table>
 
 <?php
   } else {
 ?>
 
     <div>
-		<?php echo TEXT_NO_NEW_PRODUCTS; ?>
+      <?php echo TEXT_NO_NEW_PRODUCTS; ?>
     </div>
 
 <?php
@@ -90,16 +88,16 @@
     <br />
 
     <div>
-		<span style="float: right;"><?php echo TEXT_RESULT_PAGE . ' ' . $products_new_split->display_links(MAX_DISPLAY_PAGE_LINKS, tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?></span>
+      <span style="float: right;"><?php echo TEXT_RESULT_PAGE . ' ' . $products_new_split->display_links(MAX_DISPLAY_PAGE_LINKS, tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?></span>
 
-		<span class="displayProductNumber"><?php echo $products_new_split->display_count(TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW); ?></span>
+      <span><?php echo $products_new_split->display_count(TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW); ?></span>
     </div>
 
 <?php
   }
 ?>
 
-	</div>
+  </div>
 </div>
 
 <?php

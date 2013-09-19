@@ -539,15 +539,15 @@ function updateNet() {
           <tr>
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
-          <tr class="catBgColor">
+          <tr bgcolor="#ebebff">
             <td class="main"><?php echo TEXT_PRODUCTS_TAX_CLASS; ?></td>
             <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_pull_down_menu('products_tax_class_id', $tax_class_array, $pInfo->products_tax_class_id, 'onchange="updateGross()"'); ?></td>
           </tr>
-          <tr class="catBgColor">
+          <tr bgcolor="#ebebff">
             <td class="main"><?php echo TEXT_PRODUCTS_PRICE_NET; ?></td>
             <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_input_field('products_price', $pInfo->products_price, 'onkeyup="updateGross()"'); ?></td>
           </tr>
-          <tr class="catBgColor">
+          <tr bgcolor="#ebebff">
             <td class="main"><?php echo TEXT_PRODUCTS_PRICE_GROSS; ?></td>
             <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_input_field('products_price_gross', $pInfo->products_price, 'onkeyup="updateNet()"'); ?></td>
           </tr>
@@ -632,7 +632,7 @@ function addNewPiForm() {
 
 var piDelConfirmId = 0;
 
-$('#piDelConfirm').dialog({
+jQuery(document).ready(function () {$('#piDelConfirm').dialog({
   autoOpen: false,
   resizable: false,
   draggable: false,
@@ -646,6 +646,7 @@ $('#piDelConfirm').dialog({
       $(this).dialog('close');
     }
   }
+});
 });
 
 function showPiDelConfirm(piId) {
@@ -688,9 +689,9 @@ function showPiDelConfirm(piId) {
     </table>
 
 <script type="text/javascript">
-$('#products_date_available').datepicker({
+jQuery(document).ready(function () {$('#products_date_available').datepicker({
   dateFormat: 'yy-mm-dd'
-});
+});});
 </script>
 
     </form>
@@ -786,7 +787,7 @@ $('#products_date_available').datepicker({
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
             <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
-            <td class="pageHeading" align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+            <td align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td class="smallText" align="right">
 <?php

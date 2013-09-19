@@ -62,7 +62,7 @@
   }
 
   if ($new_price = tep_get_products_special_price($product_info['products_id'])) {
-    $products_price = '<del><span class="price-product-reviews-write">' . $currencies->display_price($product_info['products_price'], tep_get_tax_rate($product_info['products_tax_class_id'])) . '</span></del> <span class="productSpecialPrice">' . $currencies->display_price($new_price, tep_get_tax_rate($product_info['products_tax_class_id'])) . '</span>';
+    $products_price = '<del>' . $currencies->display_price($product_info['products_price'], tep_get_tax_rate($product_info['products_tax_class_id'])) . '</del> <span class="productSpecialPrice">' . $currencies->display_price($new_price, tep_get_tax_rate($product_info['products_tax_class_id'])) . '</span>';
   } else {
     $products_price = $currencies->display_price($product_info['products_price'], tep_get_tax_rate($product_info['products_tax_class_id']));
   }
@@ -105,17 +105,17 @@ function checkForm() {
 }
 //--></script>
 
-<div class="breadcrumb"><?php echo '&nbsp;&nbsp;' . $breadcrumb->trail('&raquo;'); ?></div>
-	<div>
-		<h1 class="headingproductreviewswrite"><?php echo $products_name, '<div style="text-align: right; margin-top: -20px; padding-bottom: 10px;">' . $products_price . '</div>';?></h1>
-	</div>
-<div class="messagestack">
+<div>
+  <h1 style="float: right;"><?php echo $products_price; ?></h1>
+  <h1><?php echo $products_name; ?></h1>
+</div>
+
 <?php
   if ($messageStack->size('review') > 0) {
     echo $messageStack->output('review');
   }
 ?>
-</div>
+
 <?php echo tep_draw_form('product_reviews_write', tep_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, 'action=process&products_id=' . $HTTP_GET_VARS['products_id']), 'post', 'onsubmit="return checkForm();"', true); ?>
 
 <div class="contentContainer">
@@ -124,42 +124,38 @@ function checkForm() {
   if (tep_not_null($product_info['products_image'])) {
 ?>
 
+  <div style="float: right; width: <?php echo SMALL_IMAGE_WIDTH+20; ?>px; text-align: center;">
+    <?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $product_info['products_id']) . '">' . tep_image(DIR_WS_IMAGES . $product_info['products_image'], addslashes($product_info['products_name']), SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'hspace="5" vspace="5"') . '</a>'; ?>
 
+    <p><?php echo tep_draw_button(IMAGE_BUTTON_IN_CART, 'cart', tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')) . 'action=buy_now')); ?></p>
+  </div>
 
 <?php
   }
 ?>
 
+  <div class="contentText">
+    <table border="0" cellspacing="0" cellpadding="2">
+      <tr>
+        <td class="fieldKey"><?php echo SUB_TITLE_FROM; ?></td>
+        <td class="fieldValue"><?php echo tep_output_string_protected($customer['customers_firstname'] . ' ' . $customer['customers_lastname']); ?></td>
+      </tr>
+      <tr>
+        <td class="fieldKey" valign="top"><?php echo SUB_TITLE_REVIEW; ?></td>
+        <td class="fieldValue"><?php echo tep_draw_textarea_field('review', 'soft', 60, 15) . '<br /><span style="float: right;">' . TEXT_NO_HTML . '</span>'; ?></td>
+      </tr>
+      <tr>
+        <td class="fieldKey"><?php echo SUB_TITLE_RATING; ?></td>
+        <td class="fieldValue"><?php echo TEXT_BAD . ' ' . tep_draw_radio_field('rating', '1') . ' ' . tep_draw_radio_field('rating', '2') . ' ' . tep_draw_radio_field('rating', '3') . ' ' . tep_draw_radio_field('rating', '4') . ' ' . tep_draw_radio_field('rating', '5') . ' ' . TEXT_GOOD; ?></td>
+      </tr>
+    </table>
+  </div>
 
-    <div id="product-reviews-write-container" class="contentText">
-		<div id="product-reviews-write-wrapper-form">
-			
-				<div class="fieldKey" ><?php echo SUB_TITLE_FROM; ?></div>
-				<div class="fieldValue" ><?php echo tep_output_string_protected($customer['customers_firstname'] . ' ' . $customer['customers_lastname']); ?></div>
-			
-			
-			
-				<div class="fieldKey"><?php echo SUB_TITLE_REVIEW; ?></div>
-				<div style="width:340px;" class="fieldValue"><?php echo tep_draw_textarea_field('review', 'soft', 60, 15, 'Write your review here', 'onblur="if(this.value==\'\')this.value=\'Write your review here\'"' . 'onfocus="if(this.value==\'Write your review here\')this.value=\'\'"' . 'style="color:#000;"') . '<br /><span class="main" style="float: right;">' . TEXT_NO_HTML . '</span>'; ?></div>
-			
-			
-				<div class="fieldKey"><?php echo SUB_TITLE_RATING; ?></div>
-				<div class="fieldValue"><?php echo TEXT_BAD . ' ' . tep_draw_radio_field('rating', '1') . ' ' . tep_draw_radio_field('rating', '2') . ' ' . tep_draw_radio_field('rating', '3') . ' ' . tep_draw_radio_field('rating', '4') . ' ' . tep_draw_radio_field('rating', '5') . ' ' . TEXT_GOOD; ?></div>
-			
-		</div>
-		<div id="product-reviews-write-wrapper-image">
-				<div id="product-reviews-write-image" width="<?php echo SMALL_IMAGE_WIDTH + 20; ?>"><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $product_info['products_id']) . '">' . tep_image(DIR_WS_IMAGES . $product_info['products_image'], addslashes($product_info['products_name']), SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'hspace="5" vspace="5"') . '</a><br /><br />'; ?></div>
-				<div id="product-reviews-write-button" ><?php echo tep_draw_button(IMAGE_BUTTON_IN_CART, 'cart', tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')) . 'action=buy_now')); ?></div>
-		</div>
-		
-    </div>
+  <div class="buttonSet">
+    <span class="buttonAction"><?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'triangle-1-e', null, 'primary'); ?></span>
 
-
-	<div class="buttonSet">
-		<span class="buttonAction"><?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'triangle-1-e', null, 'primary'); ?></span>
-
-		<?php echo tep_draw_button(IMAGE_BUTTON_BACK, 'triangle-1-w', tep_href_link(FILENAME_PRODUCT_REVIEWS, tep_get_all_get_params(array('reviews_id', 'action')))); ?>
-	</div>
+    <?php echo tep_draw_button(IMAGE_BUTTON_BACK, 'triangle-1-w', tep_href_link(FILENAME_PRODUCT_REVIEWS, tep_get_all_get_params(array('reviews_id', 'action')))); ?>
+  </div>
 </div>
 
 </form>

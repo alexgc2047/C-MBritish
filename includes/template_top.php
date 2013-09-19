@@ -52,83 +52,11 @@ $.datepicker.setDefaults($.datepicker.regional['<?php echo JQUERY_DATEPICKER_I18
 <link rel="stylesheet" type="text/css" href="ext/960gs/<?php echo ((stripos(HTML_PARAMS, 'dir="rtl"') !== false) ? 'rtl_' : ''); ?>960_24_col.css" />
 <link rel="stylesheet" type="text/css" href="stylesheet.css" />
 <?php echo $oscTemplate->getBlocks('header_tags'); ?>
-<script type="text/javascript">
-function setEqualHeight(columns)
-{
-var tallestcolumn = 0;
-columns.each(
-function()
-{
-currentHeight = $(this).height();
-if(currentHeight > tallestcolumn)
-{
-tallestcolumn = currentHeight;
-}
-}
-);
-columns.height(tallestcolumn);
-}
-$(document).ready(function() {
-setEqualHeight($("#containerColumn > div"));
-});
-
-
-</script>
-
-<script type="text/javascript">
-$(function() {
-var button = $('#loginButton');
-var box = $('#loginBox');
-var form = $('#loginForm');
-button.removeAttr('href');
-button.mouseup(function(login) {box.toggle();
-button.toggleClass('active');});
-form.mouseup(function() { return false;});
-$(this).mouseup(function(login) {if(!($(login.target).parent('#loginButton').length > 0)) {button.removeClass('active');
-box.hide();}});});
-</script>
-
-<!-- BOF Product Cycle Slideshow -->
-<script type="text/javascript" src="ext/jquery/jquery.cycle.all.min.js"></script>
-<script type="text/javascript" src="ext/jquery/jquery.easing.1.3.js"></script>
-<script type="text/javascript">
-
-function onPCS1Before() { 
-	$('#PCS1Output').animate({ 
-        opacity: 0.0
-    }, 1000 );
-} 
-function onPCS1After() { 
-    $('#PCS1Output').html($(this).attr("title"));
-	$('#PCS1Output').animate({ 
-        opacity: 1.0
-    }, 500 );
-}
-
-$(document).ready(function(){
-    // Inizialize ProductsCycleSlideshow
-	$('#PCS1').cycle({ 
-		fx:     '<?php echo PCS_FX?>',<?php echo PCS_EASING != 'None' ? "\n		easing: '".PCS_EASING."',\n" : ''?>
-		sync:   <?php echo PCS_SYNC == 'true' ? '1' : '0' ?>,
-		speed:  <?php echo PCS_SPEED?>,
-		timeout: <?php echo PCS_TIMEOUT?>,
-		pause:    <?php echo PCS_PAUSE == 'true' ? '1' : '0' ?>,
-		random:  <?php echo PCS_RANDOM == 'true' ? '1' : '0' ?>,
-//		pager:  '#PCS1Pager', //comment out this line to remove the numbered boxes under the title
-	    before:  onPCS1Before, 
-	    after:   onPCS1After
-	});
-
-});
-</script>
-
-<!-- EOF Product Cycle Slideshow -->
-
 </head>
 <body>
 
 <div id="bodyWrapper" class="container_<?php echo $oscTemplate->getGridContainerWidth(); ?>">
 
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
-<div id="containerColumn">
+
 <div id="bodyContent" class="grid_<?php echo $oscTemplate->getGridContentWidth(); ?> <?php echo ($oscTemplate->hasBlocks('boxes_column_left') ? 'push_' . $oscTemplate->getGridColumnWidth() : ''); ?>">

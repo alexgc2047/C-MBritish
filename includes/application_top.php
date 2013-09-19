@@ -426,9 +426,6 @@
 // auto expire special products
   require(DIR_WS_FUNCTIONS . 'specials.php');
   tep_expire_specials();
-  require(DIR_WS_FUNCTIONS . 'featured.php');
-  tep_expire_featured();
-
 
   require(DIR_WS_CLASSES . 'osc_template.php');
   $oscTemplate = new oscTemplate();

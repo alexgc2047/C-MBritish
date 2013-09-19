@@ -33,11 +33,11 @@
     function execute() {
       global $oscTemplate;
 
-     $data = '<div class="ui-widget infoBoxContainer">' .
-              '  <div class="infoBoxHeading headingBoxSearch">' . MODULE_BOXES_SEARCH_BOX_TITLE . '</div>' .
-              '  <div class="infoBoxContents boxContentsSearch" style="text-align: center;">' .
+      $data = '<div class="ui-widget infoBoxContainer">' .
+              '  <div class="ui-widget-header ui-corner-top infoBoxHeading">' . MODULE_BOXES_SEARCH_BOX_TITLE . '</div>' .
+              '  <div class="ui-widget-content ui-corner-bottom infoBoxContents" style="text-align: center;">' .
               '    ' . tep_draw_form('quick_find', tep_href_link(FILENAME_ADVANCED_SEARCH_RESULT, '', 'NONSSL', false), 'get') .
-              ' <div class="inputboxsearch">   ' . tep_draw_input_field('keywords', 'Search', 'onblur="if(this.value==\'\')this.value=\'Search\'"' . 'onfocus="if(this.value==\'Search\')this.value=\'\'"' . 'size="10" maxlength="30" style="width: 75%; color:#000; border:1px solid #adab99; padding-top:2px; padding-bottom:3px"') . '&nbsp;' . tep_draw_hidden_field('search_in_description', '1') . tep_hide_session_id() . '<div class="buttonboxsearch">' . tep_image_submit('button_quick_find.png', MODULE_BOXES_SEARCH_BOX_TITLE) . '</div></div>' . MODULE_BOXES_SEARCH_BOX_TEXT . '<br /><a href="' . tep_href_link(FILENAME_ADVANCED_SEARCH) . '"><strong>' . MODULE_BOXES_SEARCH_BOX_ADVANCED_SEARCH . '</strong></a>' .
+              '    ' . tep_draw_input_field('keywords', '', 'size="10" maxlength="30" style="width: 65%; padding-top:4px; padding-bottom:4px;"') . '&nbsp;' . tep_draw_hidden_field('search_in_description', '1') . tep_hide_session_id() . '<span class="buttonSearch">' . tep_image_submit('button_quick_find.png', MODULE_BOXES_SEARCH_BOX_TITLE) . '</span></span><br />' . MODULE_BOXES_SEARCH_BOX_TEXT . '<br /><a href="' . tep_href_link(FILENAME_ADVANCED_SEARCH) . '"><strong>' . MODULE_BOXES_SEARCH_BOX_ADVANCED_SEARCH . '</strong></a>' .
               '    </form>' .
               '  </div>' .
               '</div>';

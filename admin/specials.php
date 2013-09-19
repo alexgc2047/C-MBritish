@@ -125,8 +125,9 @@
         </table>
 
 <script type="text/javascript">
-$('#expdate').datepicker({
+jQuery(document).ready(function () {$('#expdate').datepicker({
   dateFormat: 'yy-mm-dd'
+});
 });
 </script>
 

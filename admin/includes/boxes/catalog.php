@@ -28,11 +28,6 @@
         'title' => BOX_CATALOG_MANUFACTURERS,
         'link' => tep_href_link(FILENAME_MANUFACTURERS)
       ),
-	  array( 
-        'code' => FILENAME_SLIDESHOW, 
-        'title' => BOX_CATALOG_SLIDESHOW, 
-        'link' => tep_href_link(FILENAME_SLIDESHOW) 
-      ),
       array(
         'code' => FILENAME_REVIEWS,
         'title' => BOX_CATALOG_REVIEWS,
@@ -42,11 +37,6 @@
         'code' => FILENAME_SPECIALS,
         'title' => BOX_CATALOG_SPECIALS,
         'link' => tep_href_link(FILENAME_SPECIALS)
-      ),
-	  array(
-        'code' => FILENAME_FEATURED,
-        'title' => BOX_CATALOG_FEATURED_PRODUCTS,
-        'link' => tep_href_link(FILENAME_FEATURED)
       ),
       array(
         'code' => FILENAME_PRODUCTS_EXPECTED,

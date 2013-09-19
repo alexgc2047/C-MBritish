@@ -39,14 +39,12 @@
     $category = tep_db_fetch_array($category_query);
 ?>
 
-<div class="breadcrumb"><?php echo '&nbsp;&nbsp;' . $breadcrumb->trail('&raquo;'); ?></div>
-<h1 class="categoryname"><?php echo $category['categories_name']; ?></h1>
+<h1><?php echo $category['categories_name']; ?></h1>
 
 <div class="contentContainer">
-	<div>
-		<div>
-			<div id="indexSubCategoryContainer">
-
+  <div class="contentText">
+    <table border="0" width="100%" cellspacing="0" cellpadding="2">
+      <tr>
 <?php
     if (isset($cPath) && strpos('_', $cPath)) {
 // check to see if there are deeper categories within the current category
@@ -72,23 +70,23 @@
       $rows++;
       $cPath_new = tep_get_path($categories['categories_id']);
       $width = (int)(100 / MAX_DISPLAY_CATEGORIES_PER_ROW) . '%';
-      echo '        <div id="indexSubCategoryImage" style="width:' . $width . '" ><a href="' . tep_href_link(FILENAME_DEFAULT, $cPath_new) . '">' . tep_image(DIR_WS_IMAGES . $categories['categories_image'], $categories['categories_name'], SUBCATEGORY_IMAGE_WIDTH, SUBCATEGORY_IMAGE_HEIGHT) . '</a><br /><br />' . '<a href="' . tep_href_link(FILENAME_DEFAULT, $cPath_new) . '">' . $categories['categories_name'] . '</a><br /><br />' . '</div>' . "\n";
+      echo '        <td align="center" class="smallText subCategoriesName subCategoriesImageRemove" width="' . $width . '" valign="top"><a href="' . tep_href_link(FILENAME_DEFAULT, $cPath_new) . '">' . tep_image(DIR_WS_IMAGES . $categories['categories_image'], $categories['categories_name'], SUBCATEGORY_IMAGE_WIDTH, SUBCATEGORY_IMAGE_HEIGHT) . '<br />' . $categories['categories_name'] . '</a></td>' . "\n";
       if ((($rows / MAX_DISPLAY_CATEGORIES_PER_ROW) == floor($rows / MAX_DISPLAY_CATEGORIES_PER_ROW)) && ($rows != $number_of_categories)) {
-        echo '      </div>' . "\n";
-        echo '      <div>' . "\n";
+        echo '      </tr>' . "\n";
+        echo '      <tr>' . "\n";
       }
     }
 
 // needed for the new products module shown below
     $new_products_category_id = $current_category_id;
 ?>
-      </div>
-    </div>
+      </tr>
+    </table>
 
     <br />
 
-<div style="clear:both"><?php include(DIR_WS_MODULES . FILENAME_FEATURED); ?></div>
-<div style="clear:both"><?php include(DIR_WS_MODULES . FILENAME_NEW_PRODUCTS); ?></div>
+<?php include(DIR_WS_MODULES . FILENAME_NEW_PRODUCTS); ?>
+
   </div>
 </div>
 
@@ -206,8 +204,7 @@
     }
 ?>
 
-<div class="breadcrumb"><?php echo '&nbsp;&nbsp;' . $breadcrumb->trail('&raquo;'); ?></div>
-<h1 class="categoryname"><?php echo $catname; ?></h1>
+<h1><?php echo $catname; ?></h1>
 
 <div class="contentContainer">
 
@@ -221,7 +218,7 @@
       }
       $filterlist_query = tep_db_query($filterlist_sql);
       if (tep_db_num_rows($filterlist_query) > 1) {
-        echo '<div class="dropdownlist">' . tep_draw_form('filter', FILENAME_DEFAULT, 'get') . '<p align="right">' . TEXT_SHOW . '&nbsp;';
+        echo '<div>' . tep_draw_form('filter', FILENAME_DEFAULT, 'get') . '<p align="right">' . TEXT_SHOW . '&nbsp;';
         if (isset($HTTP_GET_VARS['manufacturers_id']) && !empty($HTTP_GET_VARS['manufacturers_id'])) {
           echo tep_draw_hidden_field('manufacturers_id', $HTTP_GET_VARS['manufacturers_id']);
           $options = array(array('id' => '', 'text' => TEXT_ALL_CATEGORIES));
@@ -246,33 +243,64 @@
 <?php
   } else { // default page
 ?>
+<div class="contentContainer bannerHomepage">
 
-<div class="headingtop"></div>
+	<div class="grid_7 alpha" style="margin-top:0px;">
+<?php
+			if ($banner = tep_banner_exists('dynamic', 'l270x80')) {
+		?>
 
-<div class="breadcrumbtop"><?php echo '&nbsp;&nbsp;' . $breadcrumb->trail('&raquo;'); ?></div>
+		<div>
+			<?php echo tep_display_banner('static', $banner); ?>
+		</div>
 
 
+		<?php
+		}
+		?>
+	</div>
+	<div class="grid_7 omega" style="margin-top:0px;">
+<?php
+			if ($banner = tep_banner_exists('dynamic', 'r270x80')) {
+		?>
+
+		<div>
+			<?php echo tep_display_banner('static', $banner); ?>
+		</div>
+
+
+		<?php
+		}
+		?>
+		
+	</div>
+</div>
+  <h1 style="background:none;"><?php echo HEADING_TITLE; ?></h1>
+ 
 <div class="contentContainer">
+ 
+  <div class="contentText welcomeMessage">
+
+    <?php echo tep_customer_greeting(); ?>
+  </div>
+
 <?php
     if (tep_not_null(TEXT_MAIN)) {
 ?>
 
   <div class="contentText">
+ 
     <?php echo TEXT_MAIN; ?>
   </div>
 
 <?php
     }
 
-    include(DIR_WS_MODULES . FILENAME_FEATURED);
-	include(DIR_WS_MODULES . FILENAME_NEW_PRODUCTS);
-	
+    include(DIR_WS_MODULES . FILENAME_NEW_PRODUCTS);
+    include(DIR_WS_MODULES . FILENAME_UPCOMING_PRODUCTS);
 ?>
 
 </div>
-
-<?php include(DIR_WS_MODULES . FILENAME_UPCOMING_PRODUCTS);?>
-
 
 <?php
   }

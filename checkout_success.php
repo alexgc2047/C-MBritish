@@ -63,17 +63,17 @@
 
   require(DIR_WS_INCLUDES . 'template_top.php');
 ?>
-<div class="breadcrumb"><?php echo '&nbsp;&nbsp;' . $breadcrumb->trail('&raquo;'); ?></div>
-<h1 class="headingcheckoutsuccess"><?php echo HEADING_TITLE; ?></h1>
+
+<h1><?php echo HEADING_TITLE; ?></h1>
 
 <?php echo tep_draw_form('order', tep_href_link(FILENAME_CHECKOUT_SUCCESS, 'action=update', 'SSL')); ?>
 
-<div id="checkoutSuccessContainer" class="contentContainer">
-	<div class="contentText">
-		<?php echo TEXT_SUCCESS; ?>
-	</div>
+<div class="contentContainer" style="overflow:hidden">
+  <div class="contentText">
+    <?php echo TEXT_SUCCESS; ?>
+  </div>
 
-	<div class="contentText">
+  <div class="contentText">
 
 <?php
   if ($global['global_product_notifications'] != '1') {
@@ -93,11 +93,11 @@
   echo TEXT_SEE_ORDERS . '<br /><br />' . TEXT_CONTACT_STORE_OWNER;
 ?>
 
-	</div>
+  </div>
 
-	<div class="contentText">
-		<h4><?php echo TEXT_THANKS_FOR_SHOPPING; ?></h4>
-	</div>
+  <div class="contentText">
+    <h3><?php echo TEXT_THANKS_FOR_SHOPPING; ?></h3>
+  </div>
 
 <?php
   if (DOWNLOAD_ENABLED == 'true') {
@@ -105,9 +105,9 @@
   }
 ?>
 
-	<div class="buttonSet">
-		<span class="buttonAction"><?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'triangle-1-e', null, 'primary'); ?></span>
-	</div>
+  <div class="buttonSet">
+    <span class="buttonAction"><?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'triangle-1-e', null, 'primary'); ?></span>
+  </div>
 </div>
 
 </form>

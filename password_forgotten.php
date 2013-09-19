@@ -56,16 +56,14 @@
 
   require(DIR_WS_INCLUDES . 'template_top.php');
 ?>
-<div class="breadcrumb"><?php echo '&nbsp;&nbsp;' . $breadcrumb->trail('&raquo;'); ?></div>
-<h1 class="headingpasswordforgotten"><?php echo HEADING_TITLE; ?></h1>
-<div class="messagestack">
+
+<h1><?php echo HEADING_TITLE; ?></h1>
+
 <?php
   if ($messageStack->size('password_forgotten') > 0) {
     echo $messageStack->output('password_forgotten');
   }
-?>
-</div>
-<?php
+
   if ($password_reset_initiated == true) {
 ?>
 
@@ -82,15 +80,15 @@
 <?php echo tep_draw_form('password_forgotten', tep_href_link(FILENAME_PASSWORD_FORGOTTEN, 'action=process', 'SSL'), 'post', '', true); ?>
 
 <div class="contentContainer">
-	<div class="contentText">
+  <div class="contentText">
     <div><?php echo TEXT_MAIN; ?></div>
-<br />
-    <div>
-		<div style="width:100%; overflow:hidden;">
-			<div class="fieldKey"><?php echo ENTRY_EMAIL_ADDRESS; ?></div>
-			<div class="fieldValue"><?php echo tep_draw_input_field('email_address', 'Enter your email', 'onblur="if(this.value==\'\')this.value=\'Enter your email\'"' . 'onfocus="if(this.value==\'Enter your email\')this.value=\'\'"' . 'style="color:#000;"'); ?></div>
-		</div>
-	</div>
+
+    <table border="0" width="100%" cellspacing="0" cellpadding="2">
+      <tr>
+        <td class="fieldKey"><?php echo ENTRY_EMAIL_ADDRESS; ?></td>
+        <td class="fieldValue"><?php echo tep_draw_input_field('email_address'); ?></td>
+      </tr>
+    </table>
   </div>
 
   <div class="buttonSet">

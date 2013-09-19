@@ -287,11 +287,13 @@ function popupImageWindow(url) {
         </table>
 
 <script type="text/javascript">
-$('#date_scheduled').datepicker({
+jQuery(document).ready(function () {$('#date_scheduled').datepicker({
   dateFormat: 'yy-mm-dd'
 });
-$('#expires_date').datepicker({
+});
+jQuery(document).ready(function () {$('#expires_date').datepicker({
   dateFormat: 'yy-mm-dd'
+});
 });
 </script>
 

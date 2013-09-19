@@ -58,23 +58,15 @@ define('HEADER_TITLE_TOP', 'Top');
 define('HEADER_TITLE_CATALOG', 'Catalog');
 define('HEADER_TITLE_LOGOFF', 'Log Off');
 define('HEADER_TITLE_LOGIN', 'Log In');
-define('HEADER_TITLE_NEW_PRODUCTS', 'What\'s New?');
+define('HEADER_TITLE_LANGUAGE_HEADER', 'Language:');
+define('HEADER_TITLE_CURRENCY_HEADER', 'Currency:');
+define('HEADER_TITLE_HOME', 'Home');
+define('HEADER_TITLE_PRODUCTS_NEW', 'New Products');
 define('HEADER_TITLE_PRODUCTS_SPECIALS', 'Specials');
 define('HEADER_TITLE_PRODUCTS_REVIEWS', 'Reviews');
 define('HEADER_TITLE_CONTACT_US', 'Contact Us');
-define('HEADER_TITLE_HOME', 'Home');
+define('HEADER_TITLE_SEARCH_BOX_TITLE', 'Search');
 define('HEADER_TITLE_ADVANCED_SEARCH', 'Advanced Search');
-define('HEADER_TITLE_SEARCH_BOX_TEXT', 'find the product you are looking for.');
-define('HEADER_TITLE_SEARCH_BOX_TITLE', 'Quick Find');
-define('HEADER_TITLE_LANGUAGE_HEADER', 'Language:');
-define('HEADER_TITLE_CURRENCY_HEADER', 'Currency:');
-define('HEADER_TITLE_HOME_ICON', 'Home');
-define('HEADER_TITLE_WHATSNEW_ICON', 'What\'s New');
-define('HEADER_TITLE_SPECIALS_ICON', 'Specials');
-define('HEADER_TITLE_REVIEWS_ICON', 'Reviews');
-define('HEADER_TITLE_CONTACTUS_ICON', 'Contact Us');
-define('HEADER_TITLE_CALL_US', 'CALL US: 1-800-888-7800');
-define('HEADER_TITLE_LOST_PASSWORD', 'Lost Password?');
 
 // footer text in includes/footer.php
 define('FOOTER_TEXT_REQUESTS_SINCE', 'requests since');
@@ -187,7 +179,6 @@ define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Displaying <strong>%d</strong> to <stro
 define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Displaying <strong>%d</strong> to <strong>%d</strong> (of <strong>%d</strong> reviews)');
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW', 'Displaying <strong>%d</strong> to <strong>%d</strong> (of <strong>%d</strong> new products)');
 define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'Displaying <strong>%d</strong> to <strong>%d</strong> (of <strong>%d</strong> specials)');
-define('TEXT_DISPLAY_NUMBER_OF_FEATURED_PRODUCTS', 'Displaying <strong>%d</strong> to <strong>%d</strong> (of <strong>%d</strong> featured products)');
 
 define('PREVNEXT_TITLE_FIRST_PAGE', 'First Page');
 define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'Previous Page');
@@ -225,7 +216,6 @@ define('IMAGE_BUTTON_TELL_A_FRIEND', 'Tell a Friend');
 define('IMAGE_BUTTON_UPDATE', 'Update');
 define('IMAGE_BUTTON_UPDATE_CART', 'Update Cart');
 define('IMAGE_BUTTON_WRITE_REVIEW', 'Write Review');
-define('IMAGE_BUTTON_SHOPPING_CART_DELETE', 'Delete');
 
 define('SMALL_IMAGE_BUTTON_DELETE', 'Delete');
 define('SMALL_IMAGE_BUTTON_EDIT', 'Edit');
@@ -237,11 +227,11 @@ define('ICON_ERROR', 'Error');
 define('ICON_SUCCESS', 'Success');
 define('ICON_WARNING', 'Warning');
 
-define('TEXT_GREETING_PERSONAL', 'Welcome back <span class="greetUser">%s!</span> Would you like to see which <a href="%s"><u>new products</u></a> are available to purchase?');
-define('TEXT_GREETING_PERSONAL_RELOGON', '<small>If you are not %s, please <a href="%s"><u>log yourself in</u></a> with your account information.</small>');
-define('TEXT_GREETING_GUEST', 'Welcome <span class="greetUser">Guest!</span> Would you like to <a href="%s"><u>log yourself in</u></a>? Or would you prefer to <a href="%s"><u>create an account</u></a>?');
-define('TEXT_GREETING_PERSONAL_CUSTOMER', 'Welcome back, <span class="greetUserheader">%s!</span>&nbsp;<span class="headerIcon" style="padding-right:5px; position:relative; top:3px;">' . tep_image(DIR_WS_IMAGES . 'unlocked-16x16.png', 'logoff') . '</span><a href="%s">Logoff</a>');
-define('TEXT_GREETING_GUEST_CUSTOMER', '<span class="headerIcon" style="padding-right:5px;">' . tep_image(DIR_WS_IMAGES . 'locked-16x16.png', 'login') . '</span><a href="%s">Login</a>&nbsp;&nbsp;&nbsp;<span class="headerIcon" style="padding-right:5px;">' . tep_image(DIR_WS_IMAGES . 'my-account1-16x16.png', 'create an account') . '</span><a href="%s">Create an account</a>');
+define('TEXT_GREETING_PERSONAL', 'Welcome back <span class="greetUser">%s!</span> Would you like to see which <a href="%s">new products</a> are available to purchase?');
+define('TEXT_GREETING_PERSONAL_RELOGON', '<small>If you are not %s, please <a href="%s">log yourself in</a> with your account information.</small>');
+define('TEXT_GREETING_GUEST', 'Welcome <span class="greetUser">Guest!</span> Would you like to <a href="%s">log yourself in</a>? Or would you prefer to <a href="%s">create an account</a>?');
+define('TEXT_GREETING_PERSONAL_CUSTOMER', 'Welcome back, <span class="greetUserheader">%s!</span>&nbsp;<span class="arrowBulletLogin">' . tep_image(DIR_WS_IMAGES . 'arrow.png', 'logoff') . '</span><a href="%s">Logoff</a>');
+define('TEXT_GREETING_GUEST_CUSTOMER', '<span class="arrowBulletLogin">' . tep_image(DIR_WS_IMAGES . 'arrow.png', 'login') . '</span><a href="%s">Login</a>&nbsp;&nbsp;&nbsp;<span class="arrowBulletLogin">' . tep_image(DIR_WS_IMAGES . 'arrow.png', 'create an account') . '</span><a href="%s">Create an account</a>');
 define('TEXT_SORT_PRODUCTS', 'Sort products ');
 define('TEXT_DESCENDINGLY', 'descendingly');
 define('TEXT_ASCENDINGLY', 'ascendingly');
@@ -250,7 +240,7 @@ define('TEXT_BY', ' by ');
 define('TEXT_REVIEW_BY', 'by %s');
 define('TEXT_REVIEW_WORD_COUNT', '%s words');
 define('TEXT_REVIEW_RATING', 'Rating: %s [%s]');
-define('TEXT_REVIEW_DATE_ADDED', '<span class="dateaddedtext">Date Added:</span> %s');
+define('TEXT_REVIEW_DATE_ADDED', 'Date Added: %s');
 define('TEXT_NO_REVIEWS', 'There are currently no product reviews.');
 
 define('TEXT_NO_NEW_PRODUCTS', 'There are currently no products.');
@@ -265,25 +255,5 @@ define('TEXT_CCVAL_ERROR_INVALID_DATE', 'The expiry date entered for the credit 
 define('TEXT_CCVAL_ERROR_INVALID_NUMBER', 'The credit card number entered is invalid. Please check the number and try again.');
 define('TEXT_CCVAL_ERROR_UNKNOWN_CARD', 'The first four digits of the number entered are: %s. If that number is correct, we do not accept that type of credit card. If it is wrong, please try again.');
 
-define('FOOTER_TEXT_BODY', 'Copyright &copy; ' . date('Y') . ' <a href="' . tep_href_link(FILENAME_DEFAULT) . '">' . STORE_NAME . '</a>&nbsp;&nbsp;Powered by <a href="http://www.oscommerce.com" target="_blank">osCommerce</a>&nbsp;&nbsp;Template by <a href="http://www.eyefuldesign.info" target="_blank">Eyeful Design</a><br />Icons by <a href="http://creativecommons.org/licenses/by-sa/3.0/deed.de" target="_blank">PC Stutgart 100 Icon Pack</a>, <a href="http://dryicons.com" target="_blank">DryIcons</a>&nbsp;&nbsp;Pattern by <a href="http://patterrific.com" target="_blank">Patterrific</a>');
-define('FOOTER_TEXT_LINK', '<a href="' . tep_href_link(FILENAME_DEFAULT) . '">' . 'Home' . '</a><a href="' . tep_href_link(FILENAME_CONTACT_US) . '">' . 'Contact Us' . '</a><a href="' . tep_href_link(FILENAME_PRIVACY) . '">' . 'Privacy Notice' . '</a><a href="' . tep_href_link(FILENAME_CONDITIONS) . '">' . 'Conditions of Use' . '</a><a href="' . tep_href_link(FILENAME_SHIPPING) . '">' . 'Shipping & Returns' . '</a><a href="' . tep_href_link(FILENAME_ADVANCED_SEARCH) . '">' . 'Advanced Search' . '</a>'); 
-define('FOOTER_TITLE_HEADING_INFORMATION', 'Information');
-define('FOOTER_TITLE_HEADING_LINKS', 'Menu');
-define('FOOTER_TITLE_HEADING_MYACCOUNT', 'My Account');
-define('FOOTER_TITLE_HOME', 'Home');
-define('FOOTER_TITLE_NEW_PRODUCTS', 'New Products');
-define('FOOTER_TITLE_PRODUCTS_SPECIALS', 'Specials');
-define('FOOTER_TITLE_PRODUCTS_REVIEWS', 'Reviews');
-define('FOOTER_TITLE_CONTACT_US', 'Contact us');
-define('FOOTER_TITLE_PRIVACY_NOTICE', 'Privacy Notice');
-define('FOOTER_TITLE_CONDITIONS_OF_USE', 'Conditions of use');
-define('FOOTER_TITLE_SHIPPING_AND_RETURNS', 'Shipping & Returns');
-define('FOOTER_TITLE_ADVANCED_SEARCH', 'Advanced Search');
-define('FOOTER_TITLE_MYACCOUNT', 'My Account');
-define('FOOTER_TITLE_CHECKOUT', 'Checkout');
-define('FOOTER_TITLE_CART_CONTENTS', 'Cart Contents');
-define('FOOTER_TITLE_PRODUCTS_FEATURED', 'Featured Products');
-define('BOX_CATALOG_FEATURED_PRODUCTS', 'Featured Products');
-define('BOX_HEADING_FEATURED', 'Featured');
-
+define('FOOTER_TEXT_BODY', 'Copyright &copy; ' . date('Y') . ' <a href="' . tep_href_link(FILENAME_DEFAULT) . '">' . STORE_NAME . '</a>&nbsp;|&nbsp;Powered by <a href="http://www.oscommerce.com" target="_blank">osCommerce</a><br />Template by <a href="http://www.eyefuldesign.info" target="_blank">Eyeful Design</a>');
 ?>

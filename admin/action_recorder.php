@@ -87,10 +87,10 @@
 
     <table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
-        <td ><table border="0" width="100%" cellspacing="0" cellpadding="2" height="40">
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2" height="40">
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+            <td align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td class="smallText" align="right">
 <?php
@@ -110,7 +110,7 @@
                 </td>
               </tr>
             </table></td>
-            <td class="pageHeading smallText" align="right"><?php echo tep_draw_button(IMAGE_DELETE, 'trash', tep_href_link(FILENAME_ACTION_RECORDER, 'action=expire' . (isset($HTTP_GET_VARS['module']) && in_array($HTTP_GET_VARS['module'], $modules_array) ? '&module=' . $HTTP_GET_VARS['module'] : '')), 'primary'); ?></td>
+            <td class="smallText" align="right"><?php echo tep_draw_button(IMAGE_DELETE, 'trash', tep_href_link(FILENAME_ACTION_RECORDER, 'action=expire' . (isset($HTTP_GET_VARS['module']) && in_array($HTTP_GET_VARS['module'], $modules_array) ? '&module=' . $HTTP_GET_VARS['module'] : '')), 'primary'); ?></td>
           </tr>
         </table></td>
       </tr>

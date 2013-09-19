@@ -30,7 +30,4 @@ define('TEXT_BUY', 'Buy 1 \'');
 define('TEXT_NOW', '\' now');
 define('TEXT_ALL_CATEGORIES', 'All Categories');
 define('TEXT_ALL_MANUFACTURERS', 'All Manufacturers');
-define('TABLE_HEADING_FEATURED_PRODUCTS', 'Featured Products');
-define('TABLE_HEADING_FEATURED_PRODUCTS_CATEGORY', 'Featured Products in %s');
-
 ?>

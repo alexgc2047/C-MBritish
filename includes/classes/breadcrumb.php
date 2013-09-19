@@ -32,7 +32,7 @@
         if (isset($this->_trail[$i]['link']) && tep_not_null($this->_trail[$i]['link'])) {
           $trail_string .= '<a href="' . $this->_trail[$i]['link'] . '" class="headerNavigation">' . $this->_trail[$i]['title'] . '</a>';
         } else {
-          $trail_string .= '&nbsp;&nbsp;' . $this->_trail[$i]['title'] . '&nbsp;&nbsp;' ;
+          $trail_string .= $this->_trail[$i]['title'];
         }
 
         if (($i+1) < $n) $trail_string .= $separator;

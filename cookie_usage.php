@@ -18,25 +18,25 @@
 
   require(DIR_WS_INCLUDES . 'template_top.php');
 ?>
-<div class="breadcrumb"><?php echo '&nbsp;&nbsp;' . $breadcrumb->trail('&raquo;'); ?></div>
-<h1 class="headingcookieusage"><?php echo HEADING_TITLE; ?></h1>
 
-<div id="cookieUsageContainer" class="contentContainer">
-	<div class="contentText">
-		<div id="cookieUsageHeadingContainer" class="ui-widget infoBoxContainer">
-			<div class="headerCheckoutAddress infoBoxHeading"><?php echo BOX_INFORMATION_HEADING; ?></div>
+<h1><?php echo HEADING_TITLE; ?></h1>
 
-			<div id="cookieUsageContentContainer" class="contentCheckoutAddress infoBoxContents">
-				<?php echo BOX_INFORMATION; ?>
-			</div>
-		</div>
+<div class="contentContainer">
+  <div class="contentText">
+    <div class="ui-widget infoBoxContainer" style=" width: 40%; float: right; padding: 0 0 10px 10px;">
+      <div class="ui-widget-header infoBoxHeading"><?php echo BOX_INFORMATION_HEADING; ?></div>
 
-		<?php echo TEXT_INFORMATION; ?>
-	</div>
+      <div class="ui-widget-content infoBoxContents">
+        <?php echo BOX_INFORMATION; ?>
+      </div>
+    </div>
 
-	<div class="buttonSet">
-		<span class="buttonAction"><?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'triangle-1-e', tep_href_link(FILENAME_DEFAULT)); ?></span>
-	</div>
+    <?php echo TEXT_INFORMATION; ?>
+  </div>
+
+  <div class="buttonSet">
+    <span class="buttonAction"><?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'triangle-1-e', tep_href_link(FILENAME_DEFAULT)); ?></span>
+  </div>
 </div>
 
 <?php

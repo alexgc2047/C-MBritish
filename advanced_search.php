@@ -107,35 +107,34 @@ function popupWindow(url) {
 }
 //--></script>
 
-<div class="breadcrumb"><?php echo '&nbsp;&nbsp;' . $breadcrumb->trail('&raquo;'); ?></div>
-<h1 class="headingadvancedsearch"><?php echo HEADING_TITLE_1; ?></h1>
-<div class="messagestack">
+<h1><?php echo HEADING_TITLE_1; ?></h1>
+
 <?php
   if ($messageStack->size('search') > 0) {
     echo $messageStack->output('search');
   }
 ?>
-</div>
+
 <?php echo tep_draw_form('advanced_search', tep_href_link(FILENAME_ADVANCED_SEARCH_RESULT, '', 'NONSSL', false), 'get', 'onsubmit="return check_form(this);"') . tep_hide_session_id(); ?>
 
 <div class="contentContainer">
-	<h2><?php echo HEADING_SEARCH_CRITERIA; ?></h2><span style="float:right;"><?php echo '<a href="' . tep_href_link(FILENAME_POPUP_SEARCH_HELP) . '" target="_blank" onclick="$(\'#helpSearch\').dialog(\'open\'); return false;">' . TEXT_SEARCH_HELP_LINK . '</a>'; ?></span><br /><hr style="clear:both">
+  <h2><?php echo HEADING_SEARCH_CRITERIA; ?></h2>
 
-	<div class="contentText">
-		<div>
-			<?php echo tep_draw_input_field('keywords', 'Enter your text here','onblur="if(this.value==\'\')this.value=\'Enter your text here\'"' . 'onfocus="if(this.value==\'Enter your text here\')this.value=\'\'"' . 'style="color:#000; width:100%; padding-top:2px; padding-bottom:2px;"') . tep_draw_hidden_field('search_in_description', '1'); ?>
-		</div>
+  <div class="contentText">
+    <div>
+      <?php echo tep_draw_input_field('keywords', '', 'style="width: 100%"') . tep_draw_hidden_field('search_in_description', '1'); ?>
+    </div>
 
-		<br />
+    <br />
 
-		<div>
-			
-			<span style="float: right;"><?php echo tep_draw_button(IMAGE_BUTTON_SEARCH, 'search', null, 'primary'); ?></span>
-		</div>
+    <div>
+      <span><?php echo '<a href="' . tep_href_link(FILENAME_POPUP_SEARCH_HELP) . '" target="_blank" onclick="$(\'#helpSearch\').dialog(\'open\'); return false;">' . TEXT_SEARCH_HELP_LINK . '</a>'; ?></span>
+      <span style="float: right;"><?php echo tep_draw_button(IMAGE_BUTTON_SEARCH, 'search', null, 'primary'); ?></span>
+    </div>
 
-		<div id="helpSearch" title="<?php echo HEADING_SEARCH_HELP; ?>">
-			<p><?php echo TEXT_SEARCH_HELP; ?></p>
-		</div>
+    <div id="helpSearch" title="<?php echo HEADING_SEARCH_HELP; ?>">
+      <p><?php echo TEXT_SEARCH_HELP; ?></p>
+    </div>
 
 <script type="text/javascript">
 jQuery(document).ready(function () {$('#helpSearch').dialog({
@@ -148,40 +147,39 @@ jQuery(document).ready(function () {$('#helpSearch').dialog({
 });});
 </script>
 
-
     <br />
 
-		<div id="advanced-search-wrapper">
-		
-			<div class="fieldKey"><?php echo ENTRY_CATEGORIES; ?></div>
-			<div class="fieldValue"><?php echo tep_draw_pull_down_menu('categories_id', tep_get_categories(array(array('id' => '', 'text' => TEXT_ALL_CATEGORIES)))); ?></div>
-		
-			
-			<div class="fieldKey">&nbsp;&nbsp;</div>
-			<div class="fieldValue"><?php echo tep_draw_checkbox_field('inc_subcat', '1', true) . ' ' . ENTRY_INCLUDE_SUBCATEGORIES; ?></div>
-			
-		
-			<div class="fieldKey"><?php echo ENTRY_MANUFACTURERS; ?></div>
-			<div class="fieldValue"><?php echo tep_draw_pull_down_menu('manufacturers_id', tep_get_manufacturers(array(array('id' => '', 'text' => TEXT_ALL_MANUFACTURERS)))); ?></div>
-		
-		
-			<div class="fieldKey"><?php echo ENTRY_PRICE_FROM; ?></div>
-			<div class="fieldValue"><?php echo tep_draw_input_field('pfrom'); ?></div>
-		
-		
-			<div class="fieldKey"><?php echo ENTRY_PRICE_TO; ?></div>
-			<div class="fieldValue"><?php echo tep_draw_input_field('pto'); ?></div>
-	
-		
-			<div class="fieldKey"><?php echo ENTRY_DATE_FROM; ?></div>
-			<div class="fieldValue"><?php echo tep_draw_input_field('dfrom', '', 'id="dfrom"'); ?><script type="text/javascript">jQuery(document).ready(function () {$('#dfrom').datepicker({dateFormat: '<?php echo JQUERY_DATEPICKER_FORMAT; ?>', changeMonth: true, changeYear: true, yearRange: '-10:+0'});});</script></div>
-		
-	
-			<div class="fieldKey"><?php echo ENTRY_DATE_TO; ?></div>
-			<div class="fieldValue"><?php echo tep_draw_input_field('dto', '', 'id="dto"'); ?><script type="text/javascript">jQuery(document).ready(function () {$('#dto').datepicker({dateFormat: '<?php echo JQUERY_DATEPICKER_FORMAT; ?>', changeMonth: true, changeYear: true, yearRange: '-10:+0'});});</script></div>
-		
-		</div>
-	</div>
+    <table border="0" width="100%" cellspacing="0" cellpadding="2">
+      <tr>
+        <td class="fieldKey"><?php echo ENTRY_CATEGORIES; ?></td>
+        <td class="fieldValue"><?php echo tep_draw_pull_down_menu('categories_id', tep_get_categories(array(array('id' => '', 'text' => TEXT_ALL_CATEGORIES)))); ?></td>
+      </tr>
+      <tr>
+        <td class="fieldKey">&nbsp;</td>
+        <td class="smallText"><?php echo tep_draw_checkbox_field('inc_subcat', '1', true) . ' ' . ENTRY_INCLUDE_SUBCATEGORIES; ?></td>
+      </tr>
+      <tr>
+        <td class="fieldKey"><?php echo ENTRY_MANUFACTURERS; ?></td>
+        <td class="fieldValue"><?php echo tep_draw_pull_down_menu('manufacturers_id', tep_get_manufacturers(array(array('id' => '', 'text' => TEXT_ALL_MANUFACTURERS)))); ?></td>
+      </tr>
+      <tr>
+        <td class="fieldKey"><?php echo ENTRY_PRICE_FROM; ?></td>
+        <td class="fieldValue"><?php echo tep_draw_input_field('pfrom'); ?></td>
+      </tr>
+      <tr>
+        <td class="fieldKey"><?php echo ENTRY_PRICE_TO; ?></td>
+        <td class="fieldValue"><?php echo tep_draw_input_field('pto'); ?></td>
+      </tr>
+      <tr>
+        <td class="fieldKey"><?php echo ENTRY_DATE_FROM; ?></td>
+        <td class="fieldValue"><?php echo tep_draw_input_field('dfrom', '', 'id="dfrom"'); ?><script type="text/javascript">jQuery(document).ready(function () {$('#dfrom').datepicker({dateFormat: '<?php echo JQUERY_DATEPICKER_FORMAT; ?>', changeMonth: true, changeYear: true, yearRange: '-10:+0'});});</script></td>
+      </tr>
+      <tr>
+        <td class="fieldKey"><?php echo ENTRY_DATE_TO; ?></td>
+        <td class="fieldValue"><?php echo tep_draw_input_field('dto', '', 'id="dto"'); ?><script type="text/javascript">jQuery(document).ready(function () {$('#dto').datepicker({dateFormat: '<?php echo JQUERY_DATEPICKER_FORMAT; ?>', changeMonth: true, changeYear: true, yearRange: '-10:+0'});});</script></td>
+      </tr>
+    </table>
+  </div>
 </div>
 
 </form>
