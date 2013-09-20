@@ -38,4 +38,9 @@ define('TEXT_NO_COMMENTS_AVAILABLE', 'No comments available.');
 define('TABLE_HEADING_DOWNLOAD_DATE', 'Link expires: ');
 define('TABLE_HEADING_DOWNLOAD_COUNT', ' downloads remaining');
 define('HEADING_DOWNLOAD', 'Download links');
+// added customer pdf invoice
+define ('PDF_INVOICE','PDF Invoice');
+define ('PDF_DOWNLOAD_LINK','If you would like to view / print a pdf version of this invoice, click <a title="Click here to view / print a pdf version of this invoice" href="%s">here</a>');
+// end added customer pdf invoice
+
 ?>

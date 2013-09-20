@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id$
+  $Id: filenames.php,v 1.4 2003/06/11 17:38:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2012 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -42,7 +42,6 @@
   define('FILENAME_LOGOFF', 'logoff.php');
   define('FILENAME_NEW_PRODUCTS', 'new_products.php');
   define('FILENAME_PASSWORD_FORGOTTEN', 'password_forgotten.php');
-  define('FILENAME_PASSWORD_RESET', 'password_reset.php');
   define('FILENAME_POPUP_IMAGE', 'popup_image.php');
   define('FILENAME_POPUP_SEARCH_HELP', 'popup_search_help.php');
   define('FILENAME_PRIVACY', 'privacy.php');
@@ -60,4 +59,7 @@
   define('FILENAME_SSL_CHECK', 'ssl_check.php');
   define('FILENAME_TELL_A_FRIEND', 'tell_a_friend.php');
   define('FILENAME_UPCOMING_PRODUCTS', 'upcoming_products.php');
+  // added customer pdf invoice
+  define('FILENAME_CUSTOMER_PDF','pdfinvoice.php');
+  // end added customer pdf invoice
 ?>

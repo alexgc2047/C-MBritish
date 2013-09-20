@@ -38,4 +38,8 @@ define('TEXT_NO_COMMENTS_AVAILABLE', 'No hay comentarios.');
 define('TABLE_HEADING_DOWNLOAD_DATE', 'Enlace Caducidad: ');
 define('TABLE_HEADING_DOWNLOAD_COUNT', ' descargas restantes');
 define('HEADING_DOWNLOAD', 'Enlaces de descarga');
+// added customer pdf invoice
+define ('PDF_INVOICE','PDF Invoice');
+define ('PDF_DOWNLOAD_LINK','Si desea revisar / imprimir una versión en pdf del resumen de cuenta, haga <a title="Click here to view / print a pdf version of this invoice" href="%s">Clic Aqui</a>');
+// end added customer pdf invoice
 ?>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-09-2013 a las 19:55:59
+-- Tiempo de generación: 20-09-2013 a las 05:37:12
 -- Versión del servidor: 5.5.32
 -- Versión de PHP: 5.4.19
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `action_recorder` (
   KEY `idx_action_recorder_user_id` (`user_id`),
   KEY `idx_action_recorder_identifier` (`identifier`),
   KEY `idx_action_recorder_date_added` (`date_added`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
 
 --
 -- Volcado de datos para la tabla `action_recorder`
@@ -79,7 +79,12 @@ INSERT INTO `action_recorder` (`id`, `module`, `user_id`, `user_name`, `identifi
 (29, 'ar_tell_a_friend', 2, 'dsadas', '127.0.0.1', '0', '2013-02-15 10:05:14'),
 (30, 'ar_admin_login', 1, 'admin', '127.0.0.1', '1', '2013-02-15 10:19:49'),
 (31, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-19 11:30:21'),
-(32, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-19 12:50:27');
+(32, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-19 12:50:27'),
+(33, 'ar_admin_login', 0, 'Karlis', '', '0', '2013-09-19 13:03:54'),
+(34, 'ar_admin_login', 0, 'Karlis', '', '0', '2013-09-19 13:04:03'),
+(35, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-19 13:04:57'),
+(36, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-19 14:01:03'),
+(37, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-19 14:35:54');
 
 -- --------------------------------------------------------
 
@@ -103,14 +108,16 @@ CREATE TABLE IF NOT EXISTS `address_book` (
   `entry_zone_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`address_book_id`),
   KEY `idx_address_book_customers_id` (`customers_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `address_book`
 --
 
 INSERT INTO `address_book` (`address_book_id`, `customers_id`, `entry_gender`, `entry_company`, `entry_firstname`, `entry_lastname`, `entry_street_address`, `entry_suburb`, `entry_postcode`, `entry_city`, `entry_state`, `entry_country_id`, `entry_zone_id`) VALUES
-(2, 2, 'm', 'red', 'dian', 'santoso', 'florida', '', '34343', 'florida', '', 223, 18);
+(2, 2, 'm', 'red', 'dian', 'santoso', 'florida', '', '34343', 'florida', '', 223, 18),
+(3, 3, 'f', '', 'Karla', 'Arroyo', 'Justo Sierra 136', '15 de Mayo', '38020', 'Celaya', 'Guanajuato', 138, 0),
+(4, 4, 'm', '', 'Alejandro', 'Gomez', 'Leandro Valle 403', 'Apaseo el Alto', '38500', 'Apaseo el Alto', 'Guanajuato', 138, 0);
 
 -- --------------------------------------------------------
 
@@ -236,10 +243,10 @@ INSERT INTO `banners_history` (`banners_history_id`, `banners_id`, `banners_show
 (26, 11, 137, 0, '2013-02-15 06:49:39'),
 (27, 10, 137, 0, '2013-02-15 06:49:39'),
 (28, 2, 291, 0, '2013-02-15 06:49:40'),
-(29, 3, 47, 2, '2013-09-19 11:28:36'),
-(30, 11, 20, 0, '2013-09-19 11:28:36'),
-(31, 10, 20, 0, '2013-09-19 11:28:36'),
-(32, 2, 46, 0, '2013-09-19 11:28:37');
+(29, 3, 131, 2, '2013-09-19 11:28:36'),
+(30, 11, 31, 0, '2013-09-19 11:28:36'),
+(31, 10, 31, 0, '2013-09-19 11:28:36'),
+(32, 2, 143, 0, '2013-09-19 11:28:37');
 
 -- --------------------------------------------------------
 
@@ -343,7 +350,7 @@ CREATE TABLE IF NOT EXISTS `configuration` (
   `use_function` varchar(255) DEFAULT NULL,
   `set_function` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`configuration_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=284 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=331 ;
 
 --
 -- Volcado de datos para la tabla `configuration`
@@ -417,7 +424,7 @@ INSERT INTO `configuration` (`configuration_id`, `configuration_title`, `configu
 (65, 'Company', 'ACCOUNT_COMPANY', 'true', 'Display company in the customers account', 5, 3, NULL, '2013-01-19 19:33:33', NULL, 'tep_cfg_select_option(array(''true'', ''false''), '),
 (66, 'Suburb', 'ACCOUNT_SUBURB', 'true', 'Display suburb in the customers account', 5, 4, NULL, '2013-01-19 19:33:33', NULL, 'tep_cfg_select_option(array(''true'', ''false''), '),
 (67, 'State', 'ACCOUNT_STATE', 'true', 'Display state in the customers account', 5, 5, NULL, '2013-01-19 19:33:33', NULL, 'tep_cfg_select_option(array(''true'', ''false''), '),
-(68, 'Installed Modules', 'MODULE_PAYMENT_INSTALLED', 'cod.php;paypal_express.php', 'List of payment module filenames separated by a semi-colon. This is automatically updated. No need to edit. (Example: cod.php;paypal_express.php)', 6, 0, NULL, '2013-01-19 19:33:33', NULL, NULL),
+(68, 'Installed Modules', 'MODULE_PAYMENT_INSTALLED', 'cod.php;paypal_express.php;paypal_standard.php', 'List of payment module filenames separated by a semi-colon. This is automatically updated. No need to edit. (Example: cod.php;paypal_express.php)', 6, 0, NULL, '2013-01-19 19:33:33', NULL, NULL),
 (69, 'Installed Modules', 'MODULE_ORDER_TOTAL_INSTALLED', 'ot_subtotal.php;ot_tax.php;ot_shipping.php;ot_total.php', 'List of order_total module filenames separated by a semi-colon. This is automatically updated. No need to edit. (Example: ot_subtotal.php;ot_tax.php;ot_shipping.php;ot_total.php)', 6, 0, NULL, '2013-01-19 19:33:33', NULL, NULL),
 (70, 'Installed Modules', 'MODULE_SHIPPING_INSTALLED', 'flat.php;item.php;table.php;zones.php', 'List of shipping module filenames separated by a semi-colon. This is automatically updated. No need to edit. (Example: ups.php;flat.php;item.php)', 6, 0, NULL, '2013-01-19 19:33:33', NULL, NULL),
 (71, 'Installed Modules', 'MODULE_ACTION_RECORDER_INSTALLED', 'ar_admin_login.php;ar_contact_us.php;ar_reset_password.php;ar_tell_a_friend.php', 'List of action recorder module filenames separated by a semi-colon. This is automatically updated. No need to edit.', 6, 0, NULL, '2013-01-19 19:33:33', NULL, NULL),
@@ -429,7 +436,7 @@ INSERT INTO `configuration` (`configuration_id`, `configuration_title`, `configu
 (77, 'Enable Flat Shipping', 'MODULE_SHIPPING_FLAT_STATUS', 'True', 'Do you want to offer flat rate shipping?', 6, 0, NULL, '2013-01-19 19:33:33', NULL, 'tep_cfg_select_option(array(''True'', ''False''), '),
 (78, 'Shipping Cost', 'MODULE_SHIPPING_FLAT_COST', '5.00', 'The shipping cost for all orders using this shipping method.', 6, 0, NULL, '2013-01-19 19:33:33', NULL, NULL),
 (79, 'Tax Class', 'MODULE_SHIPPING_FLAT_TAX_CLASS', '0', 'Use the following tax class on the shipping fee.', 6, 0, NULL, '2013-01-19 19:33:33', 'tep_get_tax_class_title', 'tep_cfg_pull_down_tax_classes('),
-(80, 'Shipping Zone', 'MODULE_SHIPPING_FLAT_ZONE', '1', 'If a zone is selected, only enable this shipping method for that zone.', 6, 0, NULL, '2013-01-19 19:33:33', 'tep_get_zone_class_title', 'tep_cfg_pull_down_zone_classes('),
+(80, 'Shipping Zone', 'MODULE_SHIPPING_FLAT_ZONE', '0', 'If a zone is selected, only enable this shipping method for that zone.', 6, 0, NULL, '2013-01-19 19:33:33', 'tep_get_zone_class_title', 'tep_cfg_pull_down_zone_classes('),
 (81, 'Sort Order', 'MODULE_SHIPPING_FLAT_SORT_ORDER', '0', 'Sort order of display.', 6, 0, NULL, '2013-01-19 19:33:33', NULL, NULL),
 (82, 'Default Currency', 'DEFAULT_CURRENCY', 'USD', 'Default Currency', 6, 0, NULL, '2013-01-19 19:33:33', NULL, NULL),
 (83, 'Default Language', 'DEFAULT_LANGUAGE', 'en', 'Default Language', 6, 0, NULL, '2013-01-19 19:33:33', NULL, NULL),
@@ -633,7 +640,54 @@ INSERT INTO `configuration` (`configuration_id`, `configuration_title`, `configu
 (280, 'Zone 1 Shipping Table', 'MODULE_SHIPPING_ZONES_COST_1', '3:8.50,7:10.50,99:20.00', 'Shipping rates to Zone 1 destinations based on a group of maximum order weights. Example: 3:8.50,7:10.50,... Weights less than or equal to 3 would cost 8.50 for Zone 1 destinations.', 6, 0, NULL, '2013-01-19 21:14:30', NULL, NULL),
 (281, 'Zone 1 Handling Fee', 'MODULE_SHIPPING_ZONES_HANDLING_1', '0', 'Handling Fee for this shipping zone', 6, 0, NULL, '2013-01-19 21:14:30', NULL, NULL),
 (282, 'Enable Digg Module', 'MODULE_SOCIAL_BOOKMARKS_DIGG_STATUS', 'True', 'Do you want to allow products to be shared through Digg?', 6, 1, NULL, '2013-01-19 21:41:45', NULL, 'tep_cfg_select_option(array(''True'', ''False''), '),
-(283, 'Sort Order', 'MODULE_SOCIAL_BOOKMARKS_DIGG_SORT_ORDER', '60', 'Sort order of display. Lowest is displayed first.', 6, 0, NULL, '2013-01-19 21:41:45', NULL, NULL);
+(283, 'Sort Order', 'MODULE_SOCIAL_BOOKMARKS_DIGG_SORT_ORDER', '60', 'Sort order of display. Lowest is displayed first.', 6, 0, NULL, '2013-01-19 21:41:45', NULL, NULL),
+(284, 'Enable PayPal Website Payments Standard', 'MODULE_PAYMENT_PAYPAL_STANDARD_STATUS', 'True', 'Do you want to accept PayPal Website Payments Standard payments?', 6, 3, NULL, '2013-09-19 13:06:36', NULL, 'tep_cfg_select_option(array(''True'', ''False''), '),
+(285, 'E-Mail Address', 'MODULE_PAYMENT_PAYPAL_STANDARD_ID', 'sprtn_link.hrdy@hotmail.com', 'The PayPal seller e-mail address to accept payments for', 6, 4, NULL, '2013-09-19 13:06:36', NULL, NULL),
+(286, 'Sort order of display.', 'MODULE_PAYMENT_PAYPAL_STANDARD_SORT_ORDER', '0', 'Sort order of display. Lowest is displayed first.', 6, 0, NULL, '2013-09-19 13:06:36', NULL, NULL),
+(287, 'Payment Zone', 'MODULE_PAYMENT_PAYPAL_STANDARD_ZONE', '0', 'If a zone is selected, only enable this payment method for that zone.', 6, 2, NULL, '2013-09-19 13:06:36', 'tep_get_zone_class_title', 'tep_cfg_pull_down_zone_classes('),
+(288, 'Set Preparing Order Status', 'MODULE_PAYMENT_PAYPAL_STANDARD_PREPARE_ORDER_STATUS_ID', '5', 'Set the status of prepared orders made with this payment module to this value', 6, 0, NULL, '2013-09-19 13:06:36', 'tep_get_order_status_name', 'tep_cfg_pull_down_order_statuses('),
+(289, 'Set PayPal Acknowledged Order Status', 'MODULE_PAYMENT_PAYPAL_STANDARD_ORDER_STATUS_ID', '0', 'Set the status of orders made with this payment module to this value', 6, 0, NULL, '2013-09-19 13:06:36', 'tep_get_order_status_name', 'tep_cfg_pull_down_order_statuses('),
+(290, 'Gateway Server', 'MODULE_PAYMENT_PAYPAL_STANDARD_GATEWAY_SERVER', 'Live', 'Use the testing (sandbox) or live gateway server for transactions?', 6, 6, NULL, '2013-09-19 13:06:36', NULL, 'tep_cfg_select_option(array(''Live'', ''Sandbox''), '),
+(291, 'Transaction Method', 'MODULE_PAYMENT_PAYPAL_STANDARD_TRANSACTION_METHOD', 'Sale', 'The processing method to use for each transaction.', 6, 0, NULL, '2013-09-19 13:06:36', NULL, 'tep_cfg_select_option(array(''Authorization'', ''Sale''), '),
+(292, 'Page Style', 'MODULE_PAYMENT_PAYPAL_STANDARD_PAGE_STYLE', '', 'The page style to use for the transaction procedure (defined at your PayPal Profile page)', 6, 4, NULL, '2013-09-19 13:06:36', NULL, NULL),
+(293, 'Debug E-Mail Address', 'MODULE_PAYMENT_PAYPAL_STANDARD_DEBUG_EMAIL', '', 'All parameters of an Invalid IPN notification will be sent to this email address if one is entered.', 6, 4, NULL, '2013-09-19 13:06:36', NULL, NULL),
+(294, 'Enable Encrypted Web Payments', 'MODULE_PAYMENT_PAYPAL_STANDARD_EWP_STATUS', 'False', 'Do you want to enable Encrypted Web Payments?', 6, 3, NULL, '2013-09-19 13:06:36', NULL, 'tep_cfg_select_option(array(''True'', ''False''), '),
+(295, 'Your Private Key', 'MODULE_PAYMENT_PAYPAL_STANDARD_EWP_PRIVATE_KEY', '', 'The location of your Private Key to use for signing the data. (*.pem)', 6, 4, NULL, '2013-09-19 13:06:36', NULL, NULL),
+(296, 'Your Public Certificate', 'MODULE_PAYMENT_PAYPAL_STANDARD_EWP_PUBLIC_KEY', '', 'The location of your Public Certificate to use for signing the data. (*.pem)', 6, 4, NULL, '2013-09-19 13:06:36', NULL, NULL),
+(297, 'PayPals Public Certificate', 'MODULE_PAYMENT_PAYPAL_STANDARD_EWP_PAYPAL_KEY', '', 'The location of the PayPal Public Certificate for encrypting the data.', 6, 4, NULL, '2013-09-19 13:06:36', NULL, NULL),
+(298, 'Your PayPal Public Certificate ID', 'MODULE_PAYMENT_PAYPAL_STANDARD_EWP_CERT_ID', '', 'The Certificate ID to use from your PayPal Encrypted Payment Settings Profile.', 6, 4, NULL, '2013-09-19 13:06:36', NULL, NULL),
+(299, 'Working Directory', 'MODULE_PAYMENT_PAYPAL_STANDARD_EWP_WORKING_DIRECTORY', '', 'The working directory to use for temporary files. (trailing slash needed)', 6, 4, NULL, '2013-09-19 13:06:36', NULL, NULL),
+(300, 'OpenSSL Location', 'MODULE_PAYMENT_PAYPAL_STANDARD_EWP_OPENSSL', '/usr/bin/openssl', 'The location of the openssl binary file.', 6, 4, NULL, '2013-09-19 13:06:36', NULL, NULL),
+(301, 'Only display invoice for delivered orders?', 'DISPLAY_PDF_DELIVERED_ONLY', 'false', 'Would you like to display a PDF invoice link only if the order status has been set as delivered?<br />[ Default = true ]<br />', 16, 1, '2013-09-19 13:33:27', '2013-02-12 12:00:00', '', 'tep_cfg_select_option(array(''false'', ''true''),'),
+(302, 'Force PDF download?', 'FORCE_PDF_INVOICE_DOWNLOAD', 'false', 'Choose how you want the generated invoice displayed to the customer.<br />Inline - opens within browser using plugin.<br />[ This is the default value - false ]<br />Download - force browser to offer PDF for download - set to true to enable this feature.<', 16, 2, '2013-02-12 12:00:00', '2013-02-12 12:00:00', NULL, 'tep_cfg_select_option(array(''false'', ''true''),'),
+(303, 'Invoice Date', 'PDF_INV_DATE', 'order', 'Do you want the invoice date to be today''s date or the date of order?<br />[ Default = order ]<br />', 16, 3, '2013-02-12 12:00:00', '2013-02-12 12:00:00', '', 'tep_cfg_select_option(array(''order'', ''today''),'),
+(304, 'Choose Logo', 'PDF_INVOICE_IMAGE', 'includes/modules/pdf_invoice/sample_logo.png', 'Path and name of store logo to insert into PDF<br />Max dimensions 600 x 180px<br />Valid formats: jpg, gif, png<br />', 16, 4, '2013-02-12 12:00:00', '2013-02-12 12:00:00', NULL, ''),
+(305, 'Image Correction Factor', 'PDF_INV_IMG_CORRECTION', '0.18', 'Adjust value to fine-tune image size.<br />[ Default = 0.18 ]<br />See readme.txt for details.<br />', 16, 5, '2013-02-12 12:00:00', '2013-02-12 12:00:00', NULL, ''),
+(306, 'Set Invoice Font', 'PDF_INV_CORE_FONT', 'arial', 'Choose a font for the PDF invoice.<br />Arial<br />Times<br />Courier<br />Helvetica<br />', 16, 6, '2013-02-12 12:00:00', '2013-02-12 12:00:00', NULL, 'tep_cfg_select_option(array(''arial'', ''times'',''courier'',''helvetica''),'),
+(307, 'Set Default Text Colour', 'PDF_INV_STANDARD_COLOR', '#000000', 'Choose a hexidecimal colour for normal invoice text.<br />Enter as six character hex number, with or without #<br />', 16, 7, '2013-02-12 12:00:00', '2013-02-12 12:00:00', NULL, ''),
+(308, 'Set Store Name Text Colour', 'PDF_INV_COM_NAME_COLOR', '#000099', 'Choose a hexidecimal colour for the company name.<br />Enter as six character hex number, with or without #<br />', 16, 8, '2013-02-12 12:00:00', '2013-02-12 12:00:00', NULL, ''),
+(309, 'Set Company Address Text Colour', 'PDF_INV_COM_ADDRESS_COLOR', '#424242', 'Choose a hexidecimal colour for the company address &amp; other details.<br />Enter as six character hex number, with or without #<br />', 16, 9, '2013-02-12 12:00:00', '2013-02-12 12:00:00', NULL, ''),
+(310, 'Set Company email Address Text Colour', 'PDF_INV_COM_EMAIL_COLOR', '#009999', 'Choose a hexidecimal colour for the company email address &amp; other details.<br />Enter as six character hex number, with or without #<br />', 16, 10, '2013-02-12 12:00:00', '2013-02-12 12:00:00', NULL, ''),
+(311, 'Set Company Web Address Text Colour', 'PDF_INV_COM_WEB_ADDRESS_COLOR', '#009999', 'Choose a hexidecimal colour for the company web address &amp; other details.<br />Enter as six character hex number, with or without #<br />', 16, 11, '2013-02-12 12:00:00', '2013-02-12 12:00:00', NULL, ''),
+(312, 'Set Invoice Number, ID &amp; Date Text Colour', 'PDF_INV_NUMIDDATE_COLOR', '#990000', 'Choose a hexidecimal colour for the invoice number, id &amp; date.<br />Enter as six character hex number, with or without #<br />', 16, 12, '2013-02-12 12:00:00', '2013-02-12 12:00:00', NULL, ''),
+(313, 'Set Invoice Line &amp; Text Colour', 'PDF_INV_INVLINE_COLOR', '#808080', 'Choose a hexidecimal colour for invoice line &amp; text.<br />Enter as six character hex number, with or without #<br />', 16, 13, '2013-02-12 12:00:00', '2013-02-12 12:00:00', NULL, ''),
+(314, 'Set Invoice Footer Text Colour', 'PDF_INV_FOOTER_COLOR', '#990000', 'Choose a hexidecimal colour for invoice footer text.<br />Enter as six character hex number, with or without #<br />', 16, 14, '2013-02-12 12:00:00', '2013-02-12 12:00:00', NULL, ''),
+(315, 'Set Box Border Colour', 'PDF_INV_BORDER_COLOR', '#666666', 'Choose a hexidecimal colour for the box border colour.<br />Enter as six character hex number, with or without #<br />', 16, 15, '2013-02-12 12:00:00', '2013-02-12 12:00:00', NULL, ''),
+(316, 'Set Box Fill Colour', 'PDF_INV_CELL_COLOR', '#EEEEEE', 'Choose a hexidecimal colour for the box fill colour.<br />Enter as six character hex number, with or without #<br />', 16, 16, '2013-02-12 12:00:00', '2013-02-12 12:00:00', NULL, ''),
+(317, 'Do you want to display a text watermark?', 'PDF_SHOW_WATERMARK', 'false', 'Would you like to display a text watermark through the invoice?<br />[ Default = false ]<br />', 16, 17, '2013-02-12 12:00:00', '2013-02-12 12:00:00', '', 'tep_cfg_select_option(array(''false'', ''true''),'),
+(318, 'Set Watermark Text', 'PDF_INV_WATERMARK_TEXT', 'Copy Invoice', 'Enter text for watermark. [ Default = "Copy Invoice" ]<br />', 16, 18, '2013-02-12 12:00:00', '2013-02-12 12:00:00', NULL, ''),
+(319, 'Set Watermark Colour', 'PDF_INV_WATERMARK_COLOR', '#EEEEEE', 'Choose a hexidecimal colour for the watermark. KEEP IT PALE!<br />Enter as six character hex number, with or without #<br />', 16, 19, '2013-02-12 12:00:00', '2013-02-12 12:00:00', NULL, ''),
+(320, 'Footer Text', 'PDF_INV_FOOTER_TEXT', 'Thank you for your order.', 'Enter some text (eg address or marketing) for the invoice footer.<br />', 16, 20, '2013-02-12 12:00:00', '2013-02-12 12:00:00', NULL, ''),
+(321, 'Do you want to display a Tax reference?', 'DISPLAY_PDF_TAX_NUMBER', 'false', 'Would you like to display your VAT / Tax reference on the invoice?<br />[ Default = false ]<br />', 16, 21, '2013-02-12 12:00:00', '2013-02-12 12:00:00', '', 'tep_cfg_select_option(array(''false'', ''true''),'),
+(322, 'Set Tax Number description', 'PDF_TAX_NAME', 'VAT number:', 'Choose a prefix description for your VAT / Tax reference.<br />[ Default = VAT number: ]<br />', 16, 22, '2013-02-12 12:00:00', '2013-02-12 12:00:00', NULL, ''),
+(323, 'Enter Tax Number', 'PDF_TAX_NUMBER', '', 'Enter your VAT / Tax number here.<br />', 16, 23, '2013-02-12 12:00:00', '2013-02-12 12:00:00', NULL, ''),
+(324, 'Remove http:// from the web address?', 'REMOVE_HTTP_WEB_ADDRESS', 'true', 'Would you like to remove http:// (if present) from the web address on the invoice?<br />[ Default = true ]<br />', 16, 24, '2013-02-12 12:00:00', '2013-02-12 12:00:00', '', 'tep_cfg_select_option(array(''false'', ''true''),'),
+(325, 'Show the customer reference number?', 'DISPLAY_CUSTOMER_REFERENCE', 'false', 'Would you like to display the customer reference number on the invoice?<br />[ Default = false ]<br />', 16, 25, '2013-02-12 12:00:00', '2013-02-12 12:00:00', '', 'tep_cfg_select_option(array(''false'', ''true''),'),
+(326, 'Do you want to display order comments?', 'DISPLAY_PDF_COMMENTS', 'false', 'Would you like to display comments linked to this order?<br />[ Default = false ]<br />', 16, 26, '2013-02-12 12:00:00', '2013-02-12 12:00:00', '', 'tep_cfg_select_option(array(''false'', ''true''),'),
+(327, 'Show the products model?', 'DISPLAY_PRODUCT_MODEL', 'false', 'Would you like to display the product model on the invoice?<br />[ Default = false ]<br />', 16, 27, '2013-02-12 12:00:00', '2013-02-12 12:00:00', '', 'tep_cfg_select_option(array(''false'', ''true''),'),
+(328, 'Choose the size of the products model box.', 'PRODUCT_MODEL_BOX_WIDTH', '24', 'If you have chosen to show the products model box how wide do you want it?<br />[ Default = 24 ]<br />', 16, 28, '2013-02-12 12:00:00', '2013-02-12 12:00:00', NULL, ''),
+(329, 'Display currency symbol in product lines?', 'DISPLAY_PROD_LINE_CURRENCY', 'false', 'Would you like to display the currency symbol in the product lines on the invoice?<br />[ Default = false ]<br />', 16, 29, '2013-02-12 12:00:00', '2013-02-12 12:00:00', '', 'tep_cfg_select_option(array(''false'', ''true''),'),
+(330, 'Do you want to display a page number?', 'DISPLAY_PAGE_NUMBER', 'false', 'Would you like to display the page number in the footer?<br />[ Default = false ]<br />', 16, 30, '2013-02-12 12:00:00', '2013-02-12 12:00:00', '', 'tep_cfg_select_option(array(''false'', ''true''),');
 
 -- --------------------------------------------------------
 
@@ -648,7 +702,7 @@ CREATE TABLE IF NOT EXISTS `configuration_group` (
   `sort_order` int(5) DEFAULT NULL,
   `visible` int(1) DEFAULT '1',
   PRIMARY KEY (`configuration_group_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Volcado de datos para la tabla `configuration_group`
@@ -669,7 +723,8 @@ INSERT INTO `configuration_group` (`configuration_group_id`, `configuration_grou
 (12, 'E-Mail Options', 'General setting for E-Mail transport and HTML E-Mails', 12, 1),
 (13, 'Download', 'Downloadable products options', 13, 1),
 (14, 'GZip Compression', 'GZip compression options', 14, 1),
-(15, 'Sessions', 'Session options', 15, 1);
+(15, 'Sessions', 'Session options', 15, 1),
+(16, 'PDF Invoices', 'Options for configuring PDF invoices', 16, 1);
 
 -- --------------------------------------------------------
 
@@ -687,7 +742,7 @@ CREATE TABLE IF NOT EXISTS `counter` (
 --
 
 INSERT INTO `counter` (`startdate`, `counter`) VALUES
-('20130119', 2118);
+('20130119', 2215);
 
 -- --------------------------------------------------------
 
@@ -1010,14 +1065,16 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `customers_newsletter` char(1) DEFAULT NULL,
   PRIMARY KEY (`customers_id`),
   KEY `idx_customers_email_address` (`customers_email_address`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `customers`
 --
 
 INSERT INTO `customers` (`customers_id`, `customers_gender`, `customers_firstname`, `customers_lastname`, `customers_dob`, `customers_email_address`, `customers_default_address_id`, `customers_telephone`, `customers_fax`, `customers_password`, `customers_newsletter`) VALUES
-(2, 'm', 'dian', 'santoso', '2013-02-01 00:00:00', 'budal@gmail.com', 2, '6776763', '', '$P$DPnJCpby0nVVRufUy/RuyJChsxuUu51', '0');
+(2, 'm', 'dian', 'santoso', '2013-02-01 00:00:00', 'budal@gmail.com', 2, '6776763', '', '$P$DPnJCpby0nVVRufUy/RuyJChsxuUu51', '0'),
+(3, 'f', 'Karla', 'Arroyo', '1990-05-04 00:00:00', 'nocturnaop9@hotmail.com', 3, '1234567890', '123677', '$P$D458M1RndzMpIwyXbdToz8hOtVsQKk/', ''),
+(4, 'm', 'Alejandro', 'Gomez', '1992-04-07 00:00:00', 'sprtn_link.hrdy@hotmail.com', 4, '524611978553', '', '$P$DjOZtXLGtXrtN2us5IqoYw6g.Eccld0', '');
 
 -- --------------------------------------------------------
 
@@ -1034,14 +1091,16 @@ CREATE TABLE IF NOT EXISTS `customers_basket` (
   `customers_basket_date_added` char(8) DEFAULT NULL,
   PRIMARY KEY (`customers_basket_id`),
   KEY `idx_customers_basket_customers_id` (`customers_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Volcado de datos para la tabla `customers_basket`
 --
 
 INSERT INTO `customers_basket` (`customers_basket_id`, `customers_id`, `products_id`, `customers_basket_quantity`, `final_price`, `customers_basket_date_added`) VALUES
-(5, 2, '32', 1, NULL, '20130214');
+(5, 2, '32', 1, NULL, '20130214'),
+(6, 3, '37', 1, NULL, '20130919'),
+(7, 3, '32', 1, NULL, '20130919');
 
 -- --------------------------------------------------------
 
@@ -1082,7 +1141,9 @@ CREATE TABLE IF NOT EXISTS `customers_info` (
 --
 
 INSERT INTO `customers_info` (`customers_info_id`, `customers_info_date_of_last_logon`, `customers_info_number_of_logons`, `customers_info_date_account_created`, `customers_info_date_account_last_modified`, `global_product_notifications`, `password_reset_key`, `password_reset_date`) VALUES
-(2, '2013-02-15 09:15:31', 14, '2013-02-01 09:24:26', '2013-02-01 21:49:39', 0, NULL, NULL);
+(2, '2013-02-15 09:15:31', 14, '2013-02-01 09:24:26', '2013-02-01 21:49:39', 0, NULL, NULL),
+(3, '2013-09-19 14:02:10', 1, '2013-09-19 13:42:12', NULL, 0, NULL, NULL),
+(4, '2013-09-19 22:12:36', 1, '2013-09-19 14:38:19', NULL, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1284,7 +1345,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `currency_value` decimal(14,6) DEFAULT NULL,
   PRIMARY KEY (`orders_id`),
   KEY `idx_orders_customers_id` (`customers_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Volcado de datos para la tabla `orders`
@@ -1293,7 +1354,8 @@ CREATE TABLE IF NOT EXISTS `orders` (
 INSERT INTO `orders` (`orders_id`, `customers_id`, `customers_name`, `customers_company`, `customers_street_address`, `customers_suburb`, `customers_city`, `customers_postcode`, `customers_state`, `customers_country`, `customers_telephone`, `customers_email_address`, `customers_address_format_id`, `delivery_name`, `delivery_company`, `delivery_street_address`, `delivery_suburb`, `delivery_city`, `delivery_postcode`, `delivery_state`, `delivery_country`, `delivery_address_format_id`, `billing_name`, `billing_company`, `billing_street_address`, `billing_suburb`, `billing_city`, `billing_postcode`, `billing_state`, `billing_country`, `billing_address_format_id`, `payment_method`, `cc_type`, `cc_owner`, `cc_number`, `cc_expires`, `last_modified`, `date_purchased`, `orders_status`, `orders_date_finished`, `currency`, `currency_value`) VALUES
 (3, 2, 'dian santoso', 'red', 'florida', '', 'florida', '34343', 'Florida', 'United States', '6776763', 'budal@gmail.com', 2, 'dian santoso', 'red', 'florida', '', 'florida', '34343', 'Florida', 'United States', 2, 'dian santoso', 'red', 'florida', '', 'florida', '34343', 'Florida', 'United States', 2, 'Cash on Delivery', '', '', '', '', NULL, '2013-02-01 21:20:07', 1, NULL, 'USD', '1.000000'),
 (4, 2, 'dian santoso', 'red', 'florida', '', 'florida', '34343', 'Florida', 'United States', '6776763', 'budal@gmail.com', 2, 'dian santoso', 'red', 'florida', '', 'florida', '34343', 'Florida', 'United States', 2, 'dian santoso', 'red', 'florida', '', 'florida', '34343', 'Florida', 'United States', 2, 'Cash on Delivery', '', '', '', '', NULL, '2013-02-07 09:38:56', 1, NULL, 'USD', '1.000000'),
-(5, 2, 'dian santoso', 'red', 'florida', '', 'florida', '34343', 'Florida', 'United States', '6776763', 'budal@gmail.com', 2, 'dian santoso', 'red', 'florida', '', 'florida', '34343', 'Florida', 'United States', 2, 'dian santoso', 'red', 'florida', '', 'florida', '34343', 'Florida', 'United States', 2, 'Cash on Delivery', '', '', '', '', NULL, '2013-02-15 08:39:56', 1, NULL, 'USD', '1.000000');
+(5, 2, 'dian santoso', 'red', 'florida', '', 'florida', '34343', 'Florida', 'United States', '6776763', 'budal@gmail.com', 2, 'dian santoso', 'red', 'florida', '', 'florida', '34343', 'Florida', 'United States', 2, 'dian santoso', 'red', 'florida', '', 'florida', '34343', 'Florida', 'United States', 2, 'Cash on Delivery', '', '', '', '', NULL, '2013-02-15 08:39:56', 1, NULL, 'USD', '1.000000'),
+(6, 4, 'Alejandro Gomez', '', 'Leandro Valle 403', 'Apaseo el Alto', 'Apaseo el Alto', '38500', 'Guanajuato', 'Mexico', '524611978553', 'sprtn_link.hrdy@hotmail.com', 1, 'Alejandro Gomez', '', 'Leandro Valle 403', 'Apaseo el Alto', 'Apaseo el Alto', '38500', 'Guanajuato', 'Mexico', 1, 'Alejandro Gomez', '', 'Leandro Valle 403', 'Apaseo el Alto', 'Apaseo el Alto', '38500', 'Guanajuato', 'Mexico', 1, 'Pago contra entrega', '', '', '', '', NULL, '2013-09-19 14:41:01', 1, NULL, 'USD', '1.000000');
 
 -- --------------------------------------------------------
 
@@ -1314,7 +1376,7 @@ CREATE TABLE IF NOT EXISTS `orders_products` (
   PRIMARY KEY (`orders_products_id`),
   KEY `idx_orders_products_orders_id` (`orders_id`),
   KEY `idx_orders_products_products_id` (`products_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Volcado de datos para la tabla `orders_products`
@@ -1329,7 +1391,8 @@ INSERT INTO `orders_products` (`orders_products_id`, `orders_id`, `products_id`,
 (9, 3, 29, 'BR-D-M', 'Classic Wooden Arm Chair', '40.0000', '40.0000', '7.0000', 1),
 (10, 4, 29, 'BR-D-M', 'Classic Wooden Arm Chair', '40.0000', '40.0000', '7.0000', 1),
 (11, 5, 32, 'FMW', 'Clean Blue Modern Jacket', '55.0000', '55.0000', '7.0000', 1),
-(12, 5, 35, 'GWATSA', 'Wood Sleek Jacket', '31.0000', '31.0000', '7.0000', 1);
+(12, 5, 35, 'GWATSA', 'Wood Sleek Jacket', '31.0000', '31.0000', '7.0000', 1),
+(13, 6, 32, 'FMW', 'Clean Blue Modern Jacket', '55.0000', '55.0000', '0.0000', 1);
 
 -- --------------------------------------------------------
 
@@ -1398,7 +1461,10 @@ INSERT INTO `orders_status` (`orders_status_id`, `language_id`, `orders_status_n
 (3, 4, 'Delivered', 1, 0),
 (4, 1, 'PayPal [Transactions]', 0, 0),
 (4, 2, 'PayPal [Transactions]', 1, 0),
-(4, 4, 'PayPal [Transactions]', 1, 0);
+(4, 4, 'PayPal [Transactions]', 1, 0),
+(5, 1, 'Preparing [PayPal Standard]', 0, 0),
+(5, 2, 'Preparing [PayPal Standard]', 0, 0),
+(5, 4, 'Preparing [PayPal Standard]', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1415,7 +1481,7 @@ CREATE TABLE IF NOT EXISTS `orders_status_history` (
   `comments` text,
   PRIMARY KEY (`orders_status_history_id`),
   KEY `idx_orders_status_history_orders_id` (`orders_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Volcado de datos para la tabla `orders_status_history`
@@ -1424,7 +1490,8 @@ CREATE TABLE IF NOT EXISTS `orders_status_history` (
 INSERT INTO `orders_status_history` (`orders_status_history_id`, `orders_id`, `orders_status_id`, `date_added`, `customer_notified`, `comments`) VALUES
 (3, 3, 1, '2013-02-01 21:20:08', 1, 'cxs asadad dasda dad'),
 (4, 4, 1, '2013-02-07 09:38:56', 1, 'gh gh h hghgh'),
-(5, 5, 1, '2013-02-15 08:39:56', 1, '');
+(5, 5, 1, '2013-02-15 08:39:56', 1, ''),
+(6, 6, 1, '2013-09-19 14:41:01', 1, '');
 
 -- --------------------------------------------------------
 
@@ -1442,7 +1509,7 @@ CREATE TABLE IF NOT EXISTS `orders_total` (
   `sort_order` int(11) NOT NULL,
   PRIMARY KEY (`orders_total_id`),
   KEY `idx_orders_total_orders_id` (`orders_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 --
 -- Volcado de datos para la tabla `orders_total`
@@ -1460,7 +1527,10 @@ INSERT INTO `orders_total` (`orders_total_id`, `orders_id`, `title`, `text`, `va
 (17, 5, 'Sub-Total:', '$92.02', '92.0200', 'ot_subtotal', 1),
 (18, 5, 'FL TAX 7.0%:', '$6.02', '6.0200', 'ot_tax', 3),
 (19, 5, 'Flat Rate (Best Way):', '$5.00', '5.0000', 'ot_shipping', 2),
-(20, 5, 'Total:', '<strong>$97.02</strong>', '97.0200', 'ot_total', 4);
+(20, 5, 'Total:', '<strong>$97.02</strong>', '97.0200', 'ot_total', 4),
+(21, 6, 'SubTotal:', '$55.00', '55.0000', 'ot_subtotal', 1),
+(22, 6, 'Tarifa Plana (Mejor manera):', '$5.00', '5.0000', 'ot_shipping', 2),
+(23, 6, 'Total:', '<strong>$60.00</strong>', '60.0000', 'ot_total', 4);
 
 -- --------------------------------------------------------
 
@@ -1495,7 +1565,7 @@ INSERT INTO `products` (`products_id`, `products_quantity`, `products_model`, `p
 (29, 43, 'BR-D-M', 'image-1.jpg', '45.0000', '2013-01-19 21:24:06', '2013-02-15 06:47:09', NULL, '2.00', 1, 1, 10, 2),
 (30, 34, 'BR-W-P', 'image-2.jpg', '35.0000', '2013-01-19 21:25:16', '2013-02-15 06:52:49', NULL, '2.00', 1, 1, 10, 0),
 (31, 54, 'FFW', 'image-3.jpg', '45.0000', '2013-01-19 21:27:57', '2013-02-15 06:48:40', NULL, '3.00', 1, 1, 10, 1),
-(32, 32, 'FMW', 'image-2.jpg', '55.0000', '2013-01-19 21:29:02', '2013-02-15 06:48:05', NULL, '3.00', 1, 1, 10, 1),
+(32, 31, 'FMW', 'image-2.jpg', '55.0000', '2013-01-19 21:29:02', '2013-02-15 06:48:05', NULL, '3.00', 1, 1, 10, 2),
 (33, 55, 'FS', 'image-4.jpg', '35.0000', '2013-01-19 21:30:08', '2013-02-15 06:49:23', NULL, '2.00', 1, 1, 10, 0),
 (34, 64, 'GEASF1', 'image-2.jpg', '55.0000', '2013-01-19 21:32:54', '2013-02-15 06:51:55', NULL, '2.00', 1, 1, 10, 1),
 (35, 53, 'GWATSA', 'image-1.jpg', '35.0000', '2013-01-19 21:33:44', '2013-02-15 06:52:20', '0000-00-00 00:00:00', '3.00', 1, 1, 10, 2),
@@ -1571,9 +1641,9 @@ INSERT INTO `products_description` (`products_id`, `language_id`, `products_name
 (31, 1, 'Elegant Jacket', 'Elegant Jacket', 'elegant.com', 14),
 (31, 2, 'Elegant Jacket', 'Elegant Jacket', 'elegant.com', 0),
 (31, 4, 'Elegant Jacket', 'Elegant Jacket', 'elegant.com', 0),
-(32, 1, 'Clean Blue Modern Jacket', 'Clean Blue Modern Jacket', 'modern.com', 14),
+(32, 1, 'Clean Blue Modern Jacket', 'Clean Blue Modern Jacket', 'modern.com', 15),
 (32, 2, 'Clean Blue Modern Jacket', 'Clean Blue Modern Jacket', 'modern.com', 0),
-(32, 4, 'Clean Blue Modern Jacket', 'Clean Blue Modern Jacket', 'modern.com', 0),
+(32, 4, 'Clean Blue Modern Jacket', 'Clean Blue Modern Jacket', 'modern.com', 2),
 (33, 1, 'Strong Jacket', 'Strong Jacket', 'classic.com', 2),
 (33, 2, 'Strong Jacket', 'Strong Jacket', 'classic.com', 0),
 (33, 4, 'Strong Jacket', 'Strong Jacket', 'classic.com', 0),
@@ -1586,7 +1656,7 @@ INSERT INTO `products_description` (`products_id`, `language_id`, `products_name
 (36, 1, 'White Futuristic Jacket', 'White Futuristic Jacket', 'futuristic.com', 9),
 (36, 2, 'White Futuristic Jacket', 'White Futuristic Jacket', 'futuristic.com', 0),
 (36, 4, 'White Futuristic Jacket', 'White Futuristic Jacket', 'futuristic.com', 0),
-(37, 1, 'Modern Jacket', 'Modern Jacket', 'modern.com', 6),
+(37, 1, 'Modern Jacket', 'Modern Jacket', 'modern.com', 7),
 (37, 2, 'Modern Jacket', 'Modern Jacket', 'modern.com', 0),
 (37, 4, 'Modern Jacket', 'Modern Jacket', 'modern.com', 1);
 
@@ -1883,9 +1953,12 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 --
 
 INSERT INTO `sessions` (`sesskey`, `expiry`, `value`) VALUES
-('816ig7v6g5b0b1m8n95msnec45', 1379612925, 'sessiontoken|s:32:"e43b8debe89412b39bf512a01827819d";cart|O:12:"shoppingCart":5:{s:8:"contents";a:0:{}s:5:"total";d:48.150000000000005684341886080801486968994140625;s:6:"weight";d:2;s:6:"cartID";s:5:"64084";s:12:"content_type";b:0;}language|s:7:"espanol";languages_id|s:1:"4";currency|s:3:"USD";navigation|O:17:"navigationHistory":2:{s:4:"path";a:1:{i:0;a:4:{s:4:"page";s:9:"index.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:1:{s:8:"language";s:2:"es";}s:4:"post";a:0:{}}}s:8:"snapshot";a:0:{}}'),
+('09mq7dt06mt2n8mo6nq9tv0lt5', 1379618092, 'language|s:7:"english";languages_id|s:1:"1";admin|a:2:{s:2:"id";s:1:"1";s:8:"username";s:5:"admin";}'),
+('60l9ffkapcmf1ovpu3v28o3jm5', 1379618019, 'sessiontoken|s:32:"dd175faee70491f8ec4e473e7e58dae3";cart|O:12:"shoppingCart":5:{s:8:"contents";a:2:{i:37;a:1:{s:3:"qty";s:1:"1";}i:32;a:1:{s:3:"qty";s:1:"1";}}s:5:"total";d:100;s:6:"weight";d:6;s:6:"cartID";s:5:"61409";s:12:"content_type";s:8:"physical";}language|s:7:"english";languages_id|s:1:"1";currency|s:3:"USD";navigation|O:17:"navigationHistory":2:{s:4:"path";a:4:{i:0;a:4:{s:4:"page";s:9:"index.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:4:{s:5:"cPath";s:5:"24_25";s:4:"sort";s:2:"2a";s:6:"action";s:7:"buy_now";s:11:"products_id";s:2:"32";}s:4:"post";a:0:{}}i:1;a:4:{s:4:"page";s:17:"shopping_cart.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}i:2;a:4:{s:4:"page";s:21:"checkout_shipping.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}i:3;a:4:{s:4:"page";s:11:"account.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}}s:8:"snapshot";a:0:{}}customer_id|i:3;customer_first_name|s:5:"Karla";customer_default_address_id|i:3;customer_country_id|s:3:"138";customer_zone_id|i:0;sendto|i:3;cartID|s:5:"61409";comments|N;shipping|N;'),
+('816ig7v6g5b0b1m8n95msnec45', 1379618661, 'sessiontoken|s:32:"1466fca4d368e5c6e516609589292dbd";cart|O:12:"shoppingCart":4:{s:8:"contents";a:0:{}s:5:"total";i:0;s:6:"weight";i:0;s:12:"content_type";b:0;}language|s:7:"espanol";languages_id|s:1:"4";currency|s:3:"USD";navigation|O:17:"navigationHistory":2:{s:4:"path";a:1:{i:0;a:4:{s:4:"page";s:9:"index.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}}s:8:"snapshot";a:0:{}}'),
 ('a945c8tvclee0bgvvcfu2bqud2', 1379610889, 'language|s:7:"english";languages_id|s:1:"1";admin|a:2:{s:2:"id";s:1:"1";s:8:"username";s:5:"admin";}'),
-('flq7if9fnc3p6r3393qs6vdfn2', 1379614552, 'language|s:7:"espanol";languages_id|s:1:"4";admin|a:2:{s:2:"id";s:1:"1";s:8:"username";s:5:"admin";}'),
+('ceh82rv7eruqpg36kar152heo0', 1379649627, 'sessiontoken|s:32:"1571a3fdb69394aad51e1ca4007bfb77";cart|O:12:"shoppingCart":5:{s:8:"contents";a:0:{}s:5:"total";i:0;s:6:"weight";i:0;s:6:"cartID";s:5:"34834";s:12:"content_type";b:0;}language|s:7:"english";languages_id|s:1:"1";currency|s:3:"USD";navigation|O:17:"navigationHistory":2:{s:4:"path";a:4:{i:0;a:4:{s:4:"page";s:9:"index.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}i:1;a:4:{s:4:"page";s:17:"shopping_cart.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}i:2;a:4:{s:4:"page";s:11:"account.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}i:3;a:4:{s:4:"page";s:19:"account_history.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:1:{s:8:"language";s:2:"en";}s:4:"post";a:0:{}}}s:8:"snapshot";a:0:{}}customer_id|s:1:"4";customer_default_address_id|s:1:"4";customer_first_name|s:9:"Alejandro";customer_country_id|s:3:"138";customer_zone_id|s:1:"0";'),
+('flq7if9fnc3p6r3393qs6vdfn2', 1379648151, 'language|s:7:"espanol";languages_id|s:1:"4";redirect_origin|a:2:{s:4:"page";s:9:"index.php";s:3:"get";a:0:{}}'),
 ('ibbkv8dfs77md3p0kmd4vhak06', 1379614416, 'sessiontoken|s:32:"9f42b08e13cce0f706e615cf1be0b82d";cart|O:12:"shoppingCart":5:{s:8:"contents";a:0:{}s:5:"total";i:0;s:6:"weight";i:0;s:6:"cartID";N;s:12:"content_type";b:0;}language|s:6:"french";languages_id|s:1:"2";currency|s:3:"USD";navigation|O:17:"navigationHistory":2:{s:4:"path";a:1:{i:0;a:4:{s:4:"page";s:9:"index.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}}s:8:"snapshot";a:4:{s:4:"page";s:11:"account.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}}');
 
 -- --------------------------------------------------------
@@ -1987,7 +2060,7 @@ CREATE TABLE IF NOT EXISTS `whos_online` (
 --
 
 INSERT INTO `whos_online` (`customer_id`, `full_name`, `session_id`, `ip_address`, `time_entry`, `time_last_click`, `last_page_url`) VALUES
-(0, 'Guest', 'ibbkv8dfs77md3p0kmd4vhak06', '::1', '1379611583', '1379612976', '/C&MBritish/index.php');
+(4, 'Alejandro Gomez', 'ceh82rv7eruqpg36kar152heo0', '::1', '1379646757', '1379648185', '/C&MBritish/account_history.php?language=en');
 
 -- --------------------------------------------------------
 
