@@ -15,14 +15,17 @@
 // the following cPath references come from application_top.php
   $category_depth = 'top';
   if (isset($cPath) && tep_not_null($cPath)) {
+ 
     $categories_products_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS_TO_CATEGORIES . " where categories_id = '" . (int)$current_category_id . "'");
     $categories_products = tep_db_fetch_array($categories_products_query);
-    if ($categories_products['total'] > 0) {
+    
+	if ($categories_products['total'] > 0) {
       $category_depth = 'products'; // display products
     } else {
       $category_parent_query = tep_db_query("select count(*) as total from " . TABLE_CATEGORIES . " where parent_id = '" . (int)$current_category_id . "'");
       $category_parent = tep_db_fetch_array($category_parent_query);
-      if ($category_parent['total'] > 0) {
+	
+  if ($category_parent['total'] > 0) {
         $category_depth = 'nested'; // navigate through the categories
       } else {
         $category_depth = 'products'; // category has no products, but display the 'no products' message
@@ -33,13 +36,24 @@
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_DEFAULT);
 
   require(DIR_WS_INCLUDES . 'template_top.php');
-
-  if ($category_depth == 'nested') {
-    $category_query = tep_db_query("select cd.categories_name, c.categories_image from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = '" . (int)$current_category_id . "' and cd.categories_id = '" . (int)$current_category_id . "' and cd.language_id = '" . (int)$languages_id . "'");
+  
+    if ($category_depth == 'nested') {
+    /*** Begin Header Tags SEO ***/
+    $category_query = tep_db_query("select cd.categories_name, c.categories_image, cd.categories_htc_title_tag, cd.categories_htc_description from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = '" . (int)$current_category_id . "' and cd.categories_id = '" . (int)$current_category_id . "' and cd.language_id = '" . (int)$languages_id . "'");
+    /*** end Header Tags SEO ***/
     $category = tep_db_fetch_array($category_query);
 ?>
 
-<h1><?php echo $category['categories_name']; ?></h1>
+<h1><?php echo $category['categories_htc_title_tag']; ?></h1>
+
+<?php 
+/*** Begin Header Tags SEO ***/ 
+if (tep_not_null($category['categories_htc_description'])) { 
+   echo '<h2 style="text-decoration:none;">' . $category['categories_htc_description'] . '</h2>';
+} 
+/*** End Header Tags SEO ***/ 
+?>
+
 
 <div class="contentContainer">
   <div class="contentText">
@@ -85,7 +99,14 @@
 
     <br />
 
-<?php include(DIR_WS_MODULES . FILENAME_NEW_PRODUCTS); ?>
+<!--- BEGIN Header Tags SEO Social Bookmarks -->
+<?php if (HEADER_TAGS_DISPLAY_SOCIAL_BOOKMARKS == 'true') {
+   include(DIR_WS_MODULES . 'header_tags_social_bookmarks.php');
+ } 
+?>
+<!--- END Header Tags SEO Social Bookmarks -->
+
+	<?php include(DIR_WS_MODULES . FILENAME_NEW_PRODUCTS); ?>
 
   </div>
 </div>
@@ -192,19 +213,22 @@
       }
     }
 
-    $catname = HEADING_TITLE;
-    if (isset($HTTP_GET_VARS['manufacturers_id']) && !empty($HTTP_GET_VARS['manufacturers_id'])) {
+        /*** Begin Header Tags SEO ***/
+    if (isset($HTTP_GET_VARS['manufacturers_id'])) {
       $image = tep_db_query("select manufacturers_image, manufacturers_name as catname from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . (int)$HTTP_GET_VARS['manufacturers_id'] . "'");
       $image = tep_db_fetch_array($image);
-      $catname = $image['catname'];
+      $db_query = tep_db_query("select manufacturers_htc_title_tag as htc_title, manufacturers_htc_description as htc_description from " . TABLE_MANUFACTURERS_INFO . " where languages_id = '" . (int)$languages_id . "' and manufacturers_id = '" . (int)$HTTP_GET_VARS['manufacturers_id'] . "'");
     } elseif ($current_category_id) {
       $image = tep_db_query("select c.categories_image, cd.categories_name as catname from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = '" . (int)$current_category_id . "' and c.categories_id = cd.categories_id and cd.language_id = '" . (int)$languages_id . "'");
       $image = tep_db_fetch_array($image);
-      $catname = $image['catname'];
+      $db_query = tep_db_query("select categories_htc_title_tag as htc_title, categories_htc_description as htc_description from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . (int)$current_category_id . "' and language_id = '" . (int)$languages_id . "'");
     }
+    $htc = tep_db_fetch_array($db_query);
 ?>
 
-<h1><?php echo $catname; ?></h1>
+<h1><?php echo $htc['htc_title']; ?></h1>
+    <?php /*** End Header Tags SEO ***/ ?>
+
 
 <div class="contentContainer">
 
@@ -235,10 +259,23 @@
       }
     }
 
+        /*** Begin Header Tags SEO ***/ 
+    if (tep_not_null($htc['htc_description'])) { 
+        echo '<h2 style="text-decoration:none;">'. $htc['htc_description'] . '</h2>';
+    }
+    /*** End Header Tags SEO ***/ 
+          
     include(DIR_WS_MODULES . FILENAME_PRODUCT_LISTING);
 ?>
 
 </div>
+    <!--- BEGIN Header Tags SEO Social Bookmarks -->
+    <?php if (HEADER_TAGS_DISPLAY_SOCIAL_BOOKMARKS == 'true') {
+      include(DIR_WS_MODULES . 'header_tags_social_bookmarks.php'); 
+    }
+    ?>
+    <!--- END Header Tags SEO Social Bookmarks -->
+
 
 <?php
   } else { // default page
@@ -293,8 +330,14 @@
     <?php echo TEXT_MAIN; ?>
   </div>
 
-<?php
+
+  <?php
     }
+    // <!--- BEGIN Header Tags SEO Social Bookmarks -->
+    if (HEADER_TAGS_DISPLAY_SOCIAL_BOOKMARKS == 'true') {
+      include(DIR_WS_MODULES . 'header_tags_social_bookmarks.php'); 
+    }	
+    // <!--- END Header Tags SEO Social Bookmarks --> 
 
     include(DIR_WS_MODULES . FILENAME_NEW_PRODUCTS);
     include(DIR_WS_MODULES . FILENAME_UPCOMING_PRODUCTS);

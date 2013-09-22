@@ -35,4 +35,8 @@ define('ERROR_TO_ADDRESS', 'Error: El Correo Electrónico de tu amigo debe ser u
 define('ERROR_FROM_NAME', 'Error: Su nombre no puede estar vacío.');
 define('ERROR_FROM_ADDRESS', 'Error: Su dirección de correo electrónico debe ser una dirección v&aacute;lida de correo electrónico.');
 define('ERROR_ACTION_RECORDER', 'Error: Un correo electrónico ya ha sido enviado. Por favor intente de nuevo en %s minutos.');
+/**** BEGIN ARTICLE MANAGER ****/
+define('TEXT_EMAIL_LINK_ARTICLE', 'Para ver el articulo haga clic en el link de abajo o copie y pegue el vinculo en su navegador:' . "\n\n" . '%s');
+/**** END ARTICLE MANAGER ****/
+
 ?>

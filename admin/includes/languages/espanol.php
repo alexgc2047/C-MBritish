@@ -298,4 +298,28 @@ define('ERROR_FILE_NOT_SAVED', 'Error: Archivo subido no guardado.');
 define('ERROR_FILETYPE_NOT_ALLOWED', 'Error: Tipo de archivo subido no permitido.');
 define('SUCCESS_FILE_SAVED_SUCCESSFULLY', 'Exito: Archivo subido guardado exitosamente.');
 define('WARNING_NO_FILE_UPLOADED', 'Advertencia: Ning&uacute;n archivo subido.');
+/**** BEGIN ARTICLE MANAGER ****/
+define('BOX_HEADING_ARTICLES', 'Administrador de Articulos');
+define('BOX_TOPICS_ARTICLES', 'Topics/Articulos');
+define('BOX_ARTICLES_CONFIG', 'Configuración');
+define('BOX_ARTICLES_AUTHORS', 'Autores');
+define('BOX_ARTICLES_BLOG_COMMENTS', 'Comentarios de Blog');
+define('BOX_ARTICLES_REVIEWS', 'Reseña');
+define('BOX_ARTICLES_XSELL', 'Cross-Sell Articles');
+define('IMAGE_NEW_TOPIC', 'Nuevo Topic');
+define('IMAGE_NEW_ARTICLE', 'Nuevo Articulo');
+define('TEXT_DISPLAY_NUMBER_OF_AUTHORS', 'Mostrando <b>%d</b> to <b>%d</b> (of <b>%d</b> autores)');
+/**** END ARTICLE MANAGER ****/
+/*** Begin Header Tags SEO ***/
+// header_tags_seo text in includes/boxes/header_tags_seo.php
+define('BOX_HEADING_HEADER_TAGS_SEO', 'Header Tags SEO');
+define('BOX_HEADER_TAGS_ADD_A_PAGE', 'Page Control');
+define('BOX_HEADER_TAGS_FILL_TAGS', 'Fill Tags');
+define('BOX_HEADER_TAGS_KEYWORDS', 'Keywords');
+define('BOX_HEADER_TAGS_SILO', 'Silo Control');
+define('BOX_HEADER_TAGS_TEST', 'Test');
+/*** End Header Tags SEO ***/
+
+define('TBL_LINK_TITLE','Sistema de Administración Alternativo');
+
 ?>

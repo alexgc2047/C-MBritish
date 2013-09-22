@@ -21,6 +21,11 @@
     include(DIR_WS_BOXES . 'localization.php');
     include(DIR_WS_BOXES . 'reports.php');
     include(DIR_WS_BOXES . 'tools.php');
+	include(DIR_WS_BOXES . 'articles.php');
+	/*** Begin Header Tags SEO ***/
+	include(DIR_WS_BOXES . 'header_tags_seo.php');
+	/*** End Header Tags SEO ***/
+
 ?>
 
 <div id="adminAppMenu">

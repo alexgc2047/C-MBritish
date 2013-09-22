@@ -35,4 +35,8 @@ define('ERROR_TO_ADDRESS', 'Erreur : L\'adresse électronique de votre contact d
 define('ERROR_FROM_NAME', 'Erreur : Votre nom ne doit pas être vide.');
 define('ERROR_FROM_ADDRESS', 'Erreur : Votre adresse électronique doit être une adresse électronique valide.');
 define('ERROR_ACTION_RECORDER', 'Erreur: Un e-mail a déjà été envoyé. Veuillez ré-essayer dans %s minutes.');
+/**** BEGIN ARTICLE MANAGER ****/
+define('TEXT_EMAIL_LINK_ARTICLE', 'To view the article click on the link below or copy and paste the link into your web browser:' . "\n\n" . '%s');
+/**** END ARTICLE MANAGER ****/
+
 ?>

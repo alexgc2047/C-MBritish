@@ -99,4 +99,13 @@ define('ERROR_CANNOT_LINK_TO_SAME_CATEGORY', 'Error: No se pueden enlazar produc
 define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Error: No se puede escribir en el directorio de imágenes del catálogo: ' . DIR_FS_CATALOG_IMAGES);
 define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Error: No existe el directorio de imágenes del catálogo: ' . DIR_FS_CATALOG_IMAGES);
 define('ERROR_CANNOT_MOVE_CATEGORY_TO_PARENT', 'Error: La categoría NO puede ser movida dentro de la categoría hijo.');
+/*** Begin Header Tags SEO ***/
+define('TEXT_PRODUCT_METTA_INFO', '<b>Meta Tag Information</b>');
+define('TEXT_PRODUCTS_PAGE_TITLE', 'Product Title Tag:');
+define('TEXT_PRODUCTS_HEADER_DESCRIPTION', 'Product Description Tag:');
+define('TEXT_PRODUCTS_KEYWORDS', 'Product Keywords Tag:');
+define('TEXT_PRODUCTS_LISTING_TEXT', 'Product Listing Text');
+define('TEXT_PRODUCTS_SUB_TEXT', 'Product Page Sub Text:');
+/*** End Header Tags SEO ***/
+
 ?>

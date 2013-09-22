@@ -61,9 +61,21 @@
         for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
           $categories_name_array = $HTTP_POST_VARS['categories_name'];
 
+          /*** Begin Header Tags SEO ***/
+          $categories_htc_title_array = $HTTP_POST_VARS['categories_htc_title_tag'];
+          $categories_htc_desc_array = $HTTP_POST_VARS['categories_htc_desc_tag'];
+          $categories_htc_keywords_array = $HTTP_POST_VARS['categories_htc_keywords_tag'];
+          $categories_htc_description_array = $HTTP_POST_VARS['categories_htc_description'];
+
           $language_id = $languages[$i]['id'];
 
-          $sql_data_array = array('categories_name' => tep_db_prepare_input($categories_name_array[$language_id]));
+          $sql_data_array = array('categories_name' => tep_db_prepare_input($categories_name_array[$language_id]),
+           'categories_htc_title_tag' => (tep_not_null($categories_htc_title_array[$language_id]) ? tep_db_prepare_input(strip_tags($categories_htc_title_array[$language_id])) :  tep_db_prepare_input(strip_tags($categories_name_array[$language_id]))),
+           'categories_htc_desc_tag' => (tep_not_null($categories_htc_desc_array[$language_id]) ? tep_db_prepare_input($categories_htc_desc_array[$language_id]) :  tep_db_prepare_input($categories_name_array[$language_id])),
+           'categories_htc_keywords_tag' => (tep_not_null($categories_htc_keywords_array[$language_id]) ? tep_db_prepare_input(strip_tags($categories_htc_keywords_array[$language_id])) :  tep_db_prepare_input(strip_tags($categories_name_array[$language_id]))),
+           'categories_htc_description' => tep_db_prepare_input($categories_htc_description_array[$language_id]));
+          /*** End Header Tags SEO ***/
+
 
           if ($action == 'insert_category') {
             $insert_sql_data = array('categories_id' => $categories_id,
@@ -89,7 +101,14 @@
           tep_reset_cache_block('also_purchased');
         }
 
-        tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cID=' . $categories_id));
+        /*** Begin Header Tags SEO ***/
+        if (HEADER_TAGS_ENABLE_CACHE != 'None') {
+          require_once(DIR_WS_FUNCTIONS . 'header_tags.php');
+          ResetCache_HeaderTags('index.php', 'c_' . $categories_id);
+        }
+        /*** End Header Tags SEO ***/
+
+		tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cID=' . $categories_id));
         break;
       case 'delete_category_confirm':
         if (isset($HTTP_POST_VARS['categories_id'])) {
@@ -140,7 +159,14 @@
           tep_reset_cache_block('also_purchased');
         }
 
-        tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath));
+        /*** Begin Header Tags SEO ***/
+        if (HEADER_TAGS_ENABLE_CACHE != 'None') {
+          require_once(DIR_WS_FUNCTIONS . 'header_tags.php');
+          ResetCache_HeaderTags('index.php', 'c_' . $categories_id);
+        }
+        /*** End Header Tags SEO ***/
+
+		tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath));
         break;
       case 'delete_product_confirm':
         if (isset($HTTP_POST_VARS['products_id']) && isset($HTTP_POST_VARS['product_categories']) && is_array($HTTP_POST_VARS['product_categories'])) {
@@ -164,7 +190,14 @@
           tep_reset_cache_block('also_purchased');
         }
 
-        tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath));
+        /*** Begin Header Tags SEO ***/
+        if (HEADER_TAGS_ENABLE_CACHE != 'None') {
+          require_once(DIR_WS_FUNCTIONS . 'header_tags.php');
+          ResetCache_HeaderTags('product_info.php', 'p_' . $product_id);
+        }
+        /*** End Header Tags SEO ***/
+
+		tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath));
         break;
       case 'move_category_confirm':
         if (isset($HTTP_POST_VARS['categories_id']) && ($HTTP_POST_VARS['categories_id'] != $HTTP_POST_VARS['move_to_category_id'])) {
@@ -248,9 +281,17 @@
         for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
           $language_id = $languages[$i]['id'];
 
-          $sql_data_array = array('products_name' => tep_db_prepare_input($HTTP_POST_VARS['products_name'][$language_id]),
-                                  'products_description' => tep_db_prepare_input($HTTP_POST_VARS['products_description'][$language_id]),
-                                  'products_url' => tep_db_prepare_input($HTTP_POST_VARS['products_url'][$language_id]));
+          /*** Begin Header Tags SEO ***/
+            $sql_data_array = array('products_name' => tep_db_prepare_input($HTTP_POST_VARS['products_name'][$language_id]),
+                                    'products_description' => tep_db_prepare_input($HTTP_POST_VARS['products_description'][$language_id]),
+                                    'products_url' => tep_db_prepare_input($HTTP_POST_VARS['products_url'][$language_id]),
+                                    'products_head_title_tag' => ((tep_not_null($HTTP_POST_VARS['products_head_title_tag'][$language_id])) ? tep_db_prepare_input(strip_tags($HTTP_POST_VARS['products_head_title_tag'][$language_id])) : tep_db_prepare_input(strip_tags($HTTP_POST_VARS['products_name'][$language_id]))),
+                                    'products_head_desc_tag' => ((tep_not_null($HTTP_POST_VARS['products_head_desc_tag'][$language_id])) ? tep_db_prepare_input(strip_tags($HTTP_POST_VARS['products_head_desc_tag'][$language_id])) : tep_db_prepare_input(strip_tags($HTTP_POST_VARS['products_name'][$language_id]))),
+                                    'products_head_keywords_tag' => ((tep_not_null($HTTP_POST_VARS['products_head_keywords_tag'][$language_id])) ? tep_db_prepare_input(strip_tags($HTTP_POST_VARS['products_head_keywords_tag'][$language_id])) : tep_db_prepare_input(strip_tags($HTTP_POST_VARS['products_name'][$language_id]))),                                     
+                                    'products_head_listing_text' => tep_db_prepare_input($HTTP_POST_VARS['products_head_listing_text'][$language_id]),                                     
+                                    'products_head_sub_text' => tep_db_prepare_input($HTTP_POST_VARS['products_head_sub_text'][$language_id]));
+           /*** End Header Tags SEO ***/
+
 
           if ($action == 'insert_product') {
             $insert_sql_data = array('products_id' => $products_id,
@@ -325,7 +366,14 @@
           tep_reset_cache_block('also_purchased');
         }
 
-        tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $products_id));
+        /*** Begin Header Tags SEO ***/
+          if (HEADER_TAGS_ENABLE_CACHE != 'None') {
+            require_once(DIR_WS_FUNCTIONS . 'header_tags.php');
+            ResetCache_HeaderTags('product_info.php', 'p_' . $products_id);
+          }
+          /*** End Header Tags SEO ***/
+
+		tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $products_id));
         break;
       case 'copy_to_confirm':
         if (isset($HTTP_POST_VARS['products_id']) && isset($HTTP_POST_VARS['categories_id'])) {
@@ -349,10 +397,13 @@
             tep_db_query("insert into " . TABLE_PRODUCTS . " (products_quantity, products_model,products_image, products_price, products_date_added, products_date_available, products_weight, products_status, products_tax_class_id, manufacturers_id) values ('" . tep_db_input($product['products_quantity']) . "', '" . tep_db_input($product['products_model']) . "', '" . tep_db_input($product['products_image']) . "', '" . tep_db_input($product['products_price']) . "',  now(), " . (empty($product['products_date_available']) ? "null" : "'" . tep_db_input($product['products_date_available']) . "'") . ", '" . tep_db_input($product['products_weight']) . "', '0', '" . (int)$product['products_tax_class_id'] . "', '" . (int)$product['manufacturers_id'] . "')");
             $dup_products_id = tep_db_insert_id();
 
-            $description_query = tep_db_query("select language_id, products_name, products_description, products_url from " . TABLE_PRODUCTS_DESCRIPTION . " where products_id = '" . (int)$products_id . "'");
+                       /*** Begin Header Tags SEO ***/
+            $description_query = tep_db_query("select language_id, products_name, products_description, products_head_title_tag, products_head_desc_tag, products_head_keywords_tag, products_head_listing_text, products_head_sub_text, products_url from " . TABLE_PRODUCTS_DESCRIPTION . " where products_id = '" . (int)$products_id . "'");
             while ($description = tep_db_fetch_array($description_query)) {
-              tep_db_query("insert into " . TABLE_PRODUCTS_DESCRIPTION . " (products_id, language_id, products_name, products_description, products_url, products_viewed) values ('" . (int)$dup_products_id . "', '" . (int)$description['language_id'] . "', '" . tep_db_input($description['products_name']) . "', '" . tep_db_input($description['products_description']) . "', '" . tep_db_input($description['products_url']) . "', '0')");
-            }
+              tep_db_query("insert into " . TABLE_PRODUCTS_DESCRIPTION . " (products_id, language_id, products_name, products_description, products_head_title_tag, products_head_desc_tag, products_head_keywords_tag, products_head_listing_text, products_head_sub_text, products_url, products_viewed) values ('" . (int)$dup_products_id . "', '" . (int)$description['language_id'] . "', '" . tep_db_input($description['products_name']) . "', '" . tep_db_input($description['products_description']) . "', '" . tep_db_input($description['products_head_title_tag']) . "', '" . tep_db_input($description['products_head_desc_tag']) . "', '" . tep_db_input($description['products_head_keywords_tag']) . "', '" . tep_db_input($description['products_head_listing_text']) . "', '" . tep_db_input($description['products_head_sub_text']) . "', '" . tep_db_input($description['products_url']) . "', '0')");
+            }       
+           /*** End Header Tags SEO ***/
+
 
             $product_images_query = tep_db_query("select image, htmlcontent, sort_order from " . TABLE_PRODUCTS_IMAGES . " where products_id = '" . (int)$products_id . "'");
             while ($product_images = tep_db_fetch_array($product_images_query)) {
@@ -403,8 +454,11 @@
 
     $pInfo = new objectInfo($parameters);
 
-    if (isset($HTTP_GET_VARS['pID']) && empty($HTTP_POST_VARS)) {
-      $product_query = tep_db_query("select pd.products_name, pd.products_description, pd.products_url, p.products_id, p.products_quantity, p.products_model, p.products_image, p.products_price, p.products_weight, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . (int)$HTTP_GET_VARS['pID'] . "' and p.products_id = pd.products_id and pd.language_id = '" . (int)$languages_id . "'");
+        if (isset($HTTP_GET_VARS['pID']) && empty($HTTP_POST_VARS)) {
+   /*** Begin Header Tags SEO ***/
+      $product_query = tep_db_query("select pd.products_name, pd.products_description, pd.products_head_title_tag, pd.products_head_desc_tag, pd.products_head_keywords_tag, pd.products_head_listing_text, pd.products_head_sub_text, pd.products_url, p.products_id, p.products_quantity, p.products_model, p.products_image, p.products_price, p.products_weight, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . (int)$HTTP_GET_VARS['pID'] . "' and p.products_id = pd.products_id and pd.language_id = '" . (int)$languages_id . "'");
+   /*** End Header Tags SEO ***/
+
       $product = tep_db_fetch_array($product_query);
 
       $pInfo->objectInfo($product);
@@ -557,6 +611,7 @@ function updateNet() {
 <script type="text/javascript"><!--
 updateGross();
 //--></script>
+<?php /*** Begin Header Tags SEO ***/ ?>
 <?php
     for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
 ?>
@@ -565,7 +620,139 @@ updateGross();
             <td><table border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td class="main" valign="top"><?php echo tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']); ?>&nbsp;</td>
-                <td class="main"><?php echo tep_draw_textarea_field('products_description[' . $languages[$i]['id'] . ']', 'soft', '70', '15', (empty($pInfo->products_id) ? '' : tep_get_products_description($pInfo->products_id, $languages[$i]['id']))); ?></td>
+                <td class="main">
+                <?php 
+                  if (HEADER_TAGS_ENABLE_HTML_EDITOR == 'No Editor' || HEADER_TAGS_ENABLE_EDITOR_PRODUCTS == 'false')
+                    echo tep_draw_textarea_field('products_description[' . $languages[$i]['id'] . ']', 'soft', '70', '15', (isset($products_description[$languages[$i]['id']]) ? $products_description[$languages[$i]['id']] : tep_get_products_description($pInfo->products_id, $languages[$i]['id']))); 
+                  else 
+                  {
+                    if (HEADER_TAGS_ENABLE_HTML_EDITOR == 'FCKEditor') { 
+                      echo tep_draw_fckeditor('products_description[' . $languages[$i]['id'] . ']', '600', '300', (isset($products_description[$languages[$i]['id']]) ? $products_description[$languages[$i]['id']] : tep_get_products_description($pInfo->products_id, $languages[$i]['id']))); 
+                    } else if (HEADER_TAGS_ENABLE_HTML_EDITOR == 'CKEditor') { 
+                      echo tep_draw_textarea_field('products_description[' . $languages[$i]['id'] . ']', 'soft', '110', '15', (isset($products_description[$languages[$i]['id']]) ? $products_description[$languages[$i]['id']] : tep_get_products_description($pInfo->products_id, $languages[$i]['id'])), 'id = "products_description[' . $languages[$i]['id'] . ']" class="ckeditor"'); 
+                    } else { 
+                      echo tep_draw_textarea_field('products_description[' . $languages[$i]['id'] . ']', 'soft', '70', '15', (isset($products_description[$languages[$i]['id']]) ? $products_description[$languages[$i]['id']] : tep_get_products_description($pInfo->products_id, $languages[$i]['id']))); 
+                    }
+                  } 
+                ?>
+                </td>
+
+              </tr>
+            </table></td>
+          </tr>
+<?php
+    }
+?>
+          <tr>
+            <td colspan="2" class="main"><hr><?php echo TEXT_PRODUCT_METTA_INFO; ?></td>
+          </tr>
+          <tr>
+            <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+          </tr>          
+<?php         
+    for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
+?>
+
+          <tr>
+            <td class="main" valign="top"><?php if ($i == 0) echo TEXT_PRODUCTS_PAGE_TITLE; ?></td>
+            <td><table border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td class="main" valign="top"><?php echo tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']); ?>&nbsp;</td>
+                <td class="main"><?php echo tep_draw_textarea_field('products_head_title_tag[' . $languages[$i]['id'] . ']', 'soft', '70', '5', (isset($products_head_title_tag[$languages[$i]['id']]) ? stripslashes($products_head_title_tag[$languages[$i]['id']]) : tep_get_products_head_title_tag($pInfo->products_id, $languages[$i]['id']))); ?></td>
+              </tr>
+            </table></td>
+          </tr>
+<?php
+    }
+    for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
+?>
+          <tr>
+            <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+          </tr>          
+           <tr>
+            <td class="main" valign="top"><?php if ($i == 0) echo TEXT_PRODUCTS_HEADER_DESCRIPTION; ?></td>
+            <td><table border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td class="main" valign="top"><?php echo tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']); ?>&nbsp;</td>
+                <td class="main"><?php echo tep_draw_textarea_field('products_head_desc_tag[' . $languages[$i]['id'] . ']', 'soft', '70', '5', (isset($products_head_desc_tag[$languages[$i]['id']]) ? stripslashes($products_head_desc_tag[$languages[$i]['id']]) : tep_get_products_head_desc_tag($pInfo->products_id, $languages[$i]['id']))); ?></td>
+              </tr>
+            </table></td>
+          </tr>
+<?php
+    }
+    for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
+?>
+          <tr>
+            <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+          </tr>          
+           <tr>
+            <td class="main" valign="top"><?php if ($i == 0) echo TEXT_PRODUCTS_KEYWORDS; ?></td>
+            <td><table border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td class="main" valign="top"><?php echo tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']); ?>&nbsp;</td>
+                <td class="main"><?php echo tep_draw_textarea_field('products_head_keywords_tag[' . $languages[$i]['id'] . ']', 'soft', '70', '5', (isset($products_head_keywords_tag[$languages[$i]['id']]) ? stripslashes($products_head_keywords_tag[$languages[$i]['id']]) : tep_get_products_head_keywords_tag($pInfo->products_id, $languages[$i]['id']))); ?></td>
+              </tr>
+            </table></td>
+          </tr>
+<?php
+    }
+    for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
+?>
+          <tr>
+            <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+          </tr>          
+           <tr>
+            <td class="main" valign="top"><?php if ($i == 0) echo TEXT_PRODUCTS_LISTING_TEXT; ?></td>
+            <td><table border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td class="main" valign="top"><?php echo tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']); ?>&nbsp;</td>
+                <td class="main">
+                <?php 
+                  if (HEADER_TAGS_ENABLE_HTML_EDITOR == 'No Editor' || HEADER_TAGS_ENABLE_EDITOR_LISTING_TEXT == 'false')
+                    echo tep_draw_textarea_field('products_head_listing_text[' . $languages[$i]['id'] . ']', 'soft', '70', '5', (isset($products_head_listing_text[$languages[$i]['id']]) ? stripslashes($products_head_listing_text[$languages[$i]['id']]) : tep_get_products_head_listing_text($pInfo->products_id, $languages[$i]['id'])));
+                  else 
+                  {
+                    if (HEADER_TAGS_ENABLE_HTML_EDITOR == 'FCKEditor') { 
+                      echo tep_draw_fckeditor('products_head_listing_text[' . $languages[$i]['id'] . ']', '600', '300', (isset($products_head_listing_text[$languages[$i]['id']]) ? $products_head_listing_text[$languages[$i]['id']] : tep_get_products_head_listing_text($pInfo->products_id, $languages[$i]['id']))); 
+                    } else if (HEADER_TAGS_ENABLE_HTML_EDITOR == 'CKEditor') { 
+                      echo tep_draw_textarea_field('products_head_listing_text[' . $languages[$i]['id'] . ']', 'soft', '110', '15', (isset($products_head_listing_text[$languages[$i]['id']]) ? $products_head_listing_text[$languages[$i]['id']] : tep_get_products_head_listing_text($pInfo->products_id, $languages[$i]['id'])), 'id = "products_head_listing_text[' . $languages[$i]['id'] . ']" class="ckeditor"'); 
+                    } else { 
+                      echo tep_draw_textarea_field('products_head_listing_text[' . $languages[$i]['id'] . ']', 'soft', '70', '15', (isset($products_head_listing_text[$languages[$i]['id']]) ? $products_head_listing_text[$languages[$i]['id']] : tep_get_products_head_listing_text($pInfo->products_id, $languages[$i]['id']))); 
+                    }
+                  } 
+                 ?>                  
+                 </td>
+              </tr>
+            </table></td>
+          </tr>
+<?php
+    }
+    for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
+?>
+          <tr>
+            <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+          </tr>          
+           <tr>
+            <td class="main" valign="top"><?php if ($i == 0) echo TEXT_PRODUCTS_SUB_TEXT; ?></td>
+            <td><table border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td class="main" valign="top"><?php echo tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']); ?>&nbsp;</td>
+                <td class="main">
+                <?php 
+                  if (HEADER_TAGS_ENABLE_HTML_EDITOR == 'No Editor' || HEADER_TAGS_ENABLE_EDITOR_SUB_TEXT == 'false')
+                    echo tep_draw_textarea_field('products_head_sub_text[' . $languages[$i]['id'] . ']', 'soft', '70', '5', (isset($products_head_sub_text[$languages[$i]['id']]) ? stripslashes($products_head_sub_text[$languages[$i]['id']]) : tep_get_products_head_sub_text($pInfo->products_id, $languages[$i]['id'])));
+                  else 
+                  {
+                    if (HEADER_TAGS_ENABLE_HTML_EDITOR == 'FCKEditor') { 
+                      echo tep_draw_fckeditor('products_head_sub_text[' . $languages[$i]['id'] . ']', '600', '300', (isset($products_head_sub_text[$languages[$i]['id']]) ? $products_head_sub_text[$languages[$i]['id']] : tep_get_products_head_sub_text($pInfo->products_id, $languages[$i]['id']))); 
+                    } else if (HEADER_TAGS_ENABLE_HTML_EDITOR == 'CKEditor') { 
+                      echo tep_draw_textarea_field('products_head_sub_text[' . $languages[$i]['id'] . ']', 'soft', '110', '15', (isset($products_head_sub_text[$languages[$i]['id']]) ? $products_head_sub_text[$languages[$i]['id']] : tep_get_products_head_sub_text($pInfo->products_id, $languages[$i]['id'])), 'id = "products_head_sub_text[' . $languages[$i]['id'] . ']" class="ckeditor"'); 
+                    } else { 
+                      echo tep_draw_textarea_field('products_head_sub_text[' . $languages[$i]['id'] . ']', 'soft', '70', '15', (isset($products_head_sub_text[$languages[$i]['id']]) ? $products_head_sub_text[$languages[$i]['id']] : tep_get_products_head_sub_text($pInfo->products_id, $languages[$i]['id']))); 
+                    }
+                  } 
+                 ?>                  
+                 </td>
               </tr>
             </table></td>
           </tr>
@@ -575,6 +762,11 @@ updateGross();
           <tr>
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
+          <tr>
+            <td colspan="2" class="main"><hr></td>
+          </tr>
+<?php /*** End Header Tags SEO ***/ ?>
+
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_QUANTITY; ?></td>
             <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_input_field('products_quantity', $pInfo->products_quantity); ?></td>
@@ -695,19 +887,30 @@ jQuery(document).ready(function () {$('#products_date_available').datepicker({
 </script>
 
     </form>
+<?php /*** Begin Header Tags SEO ***/ ?>
 <?php
   } elseif ($action == 'new_product_preview') {
-    $product_query = tep_db_query("select p.products_id, pd.language_id, pd.products_name, pd.products_description, pd.products_url, p.products_quantity, p.products_model, p.products_image, p.products_price, p.products_weight, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.manufacturers_id  from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and p.products_id = '" . (int)$HTTP_GET_VARS['pID'] . "'");
+      $product_query = tep_db_query("select p.products_id, pd.language_id, pd.products_name, pd.products_description, pd.products_head_title_tag, pd.products_head_desc_tag, pd.products_head_keywords_tag, pd.products_url, p.products_quantity, p.products_model, p.products_image, p.products_price, p.products_weight, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.manufacturers_id  from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and p.products_id = '" . (int)$HTTP_GET_VARS['pID'] . "'");
+      /*** End Header Tags SEO ***/
+
     $product = tep_db_fetch_array($product_query);
 
     $pInfo = new objectInfo($product);
     $products_image_name = $pInfo->products_image;
 
+    /*** Begin Header Tags SEO ***/
     $languages = tep_get_languages();
     for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
       $pInfo->products_name = tep_get_products_name($pInfo->products_id, $languages[$i]['id']);
       $pInfo->products_description = tep_get_products_description($pInfo->products_id, $languages[$i]['id']);
+      $pInfo->products_head_title_tag = tep_db_prepare_input($products_head_title_tag[$languages[$i]['id']]);
+      $pInfo->products_head_desc_tag = tep_db_prepare_input($products_head_desc_tag[$languages[$i]['id']]);
+      $pInfo->products_head_keywords_tag = tep_db_prepare_input($products_head_keywords_tag[$languages[$i]['id']]);
+      $pInfo->products_head_listing_text = tep_db_prepare_input($products_head_listing_text[$languages[$i]['id']]);
+      $pInfo->products_head_sub_text = tep_db_prepare_input($products_head_sub_text[$languages[$i]['id']]);
       $pInfo->products_url = tep_get_products_url($pInfo->products_id, $languages[$i]['id']);
+    /*** End Header Tags SEO ***/
+
 ?>
     <table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
@@ -825,9 +1028,12 @@ jQuery(document).ready(function () {$('#products_date_available').datepicker({
     if (isset($HTTP_GET_VARS['search'])) {
       $search = tep_db_prepare_input($HTTP_GET_VARS['search']);
 
-      $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = cd.categories_id and cd.language_id = '" . (int)$languages_id . "' and cd.categories_name like '%" . tep_db_input($search) . "%' order by c.sort_order, cd.categories_name");
+          /*** Begin Header Tags SEO ***/
+      $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, cd.categories_htc_title_tag, cd.categories_htc_desc_tag, cd.categories_htc_keywords_tag, cd.categories_htc_description from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = cd.categories_id and cd.language_id = '" . (int)$languages_id . "' and cd.categories_name like '%" . tep_db_input($search) . "%' order by c.sort_order, cd.categories_name");
     } else {
-      $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.parent_id = '" . (int)$current_category_id . "' and c.categories_id = cd.categories_id and cd.language_id = '" . (int)$languages_id . "' order by c.sort_order, cd.categories_name");
+      $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, cd.categories_htc_title_tag, cd.categories_htc_desc_tag, cd.categories_htc_keywords_tag, cd.categories_htc_description from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.parent_id = '" . (int)$current_category_id . "' and c.categories_id = cd.categories_id and cd.language_id = '" . (int)$languages_id . "' order by c.sort_order, cd.categories_name");
+    /*** End Header Tags SEO ***/
+
     }
     while ($categories = tep_db_fetch_array($categories_query)) {
       $categories_count++;
@@ -934,11 +1140,38 @@ jQuery(document).ready(function () {$('#products_date_available').datepicker({
         $languages = tep_get_languages();
         for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
           $category_inputs_string .= '<br />' . tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . tep_draw_input_field('categories_name[' . $languages[$i]['id'] . ']');
+		  /*** Begin Header Tags SEO ***/
+          $category_htc_title_string .= '<br>' . tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . tep_draw_input_field('categories_htc_title_tag[' . $languages[$i]['id'] . ']');
+          $category_htc_desc_string .= '<br>' . tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . tep_draw_input_field('categories_htc_desc_tag[' . $languages[$i]['id'] . ']');
+          $category_htc_keywords_string .= '<br>' . tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . tep_draw_input_field('categories_htc_keywords_tag[' . $languages[$i]['id'] . ']');
+          if (HEADER_TAGS_ENABLE_HTML_EDITOR == 'No Editor' || HEADER_TAGS_ENABLE_EDITOR_CATEGORIES == 'false')
+            $headertags_editor_str = tep_draw_textarea_field('categories_htc_description[' . $languages[$i]['id'] . ']', 'soft', 30, 5, '');
+          else
+          {
+            if (HEADER_TAGS_ENABLE_HTML_EDITOR == 'FCKEditor') {
+              $headertags_editor_str = '<input type="hidden" id="categories_htc_description['. $languages[$i]['id'] . ']" name="categories_htc_description[' . $languages[$i]['id'] . ']" value="" style="display:none" /><input type="hidden" id="categories_htc_description[' . $languages[$i]['id'] . ']___Config" value="" style="display:none" /><iframe id="categories_htc_description[' . $languages[$i]['id'] . ']___Frame" src="fckeditor/editor/fckeditor.html?InstanceName=categories_htc_description[' . $languages[$i]['id'] . ']&amp;Toolbar=Default" width="600" height="300" frameborder="0" scrolling="no"></iframe>';
+            } else if (HEADER_TAGS_ENABLE_HTML_EDITOR == 'CKEditor') {
+              $headertags_editor_str = tep_draw_textarea_field('categories_htc_description[' . $languages[$i]['id'] . ']', 'soft', 30, 5, '', 'id = "categories_htc_description[' . $languages[$i]['id'] . ']" class="ckeditor"');
+            } else {
+              $headertags_editor_str = tep_draw_textarea_field('categories_htc_description[' . $languages[$i]['id'] . ']', 'soft', 30, 5, '');
+            }
+          }
+
+          $category_htc_description_string .= '<br>' . tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . $headertags_editor_str;
+          /*** End Header Tags SEO ***/
+
         }
 
         $contents[] = array('text' => '<br />' . TEXT_CATEGORIES_NAME . $category_inputs_string);
         $contents[] = array('text' => '<br />' . TEXT_CATEGORIES_IMAGE . '<br />' . tep_draw_file_field('categories_image'));
         $contents[] = array('text' => '<br />' . TEXT_SORT_ORDER . '<br />' . tep_draw_input_field('sort_order', '', 'size="2"'));
+		/*** Begin Header Tags SEO ***/
+        $contents[] = array('text' => '<br>' . 'Header Tags Category Title' . $category_htc_title_string);
+        $contents[] = array('text' => '<br>' . 'Header Tags Category Description' . $category_htc_desc_string);
+        $contents[] = array('text' => '<br>' . 'Header Tags Category Keywords' . $category_htc_keywords_string);
+        $contents[] = array('text' => '<br>' . 'Header Tags Categories Description' . $category_htc_description_string);
+        /*** End Header Tags SEO ***/
+
         $contents[] = array('align' => 'center', 'text' => '<br />' . tep_draw_button(IMAGE_SAVE, 'disk', null, 'primary') . tep_draw_button(IMAGE_CANCEL, 'close', tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath)));
         break;
       case 'edit_category':
@@ -951,12 +1184,39 @@ jQuery(document).ready(function () {$('#products_date_available').datepicker({
         $languages = tep_get_languages();
         for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
           $category_inputs_string .= '<br />' . tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . tep_draw_input_field('categories_name[' . $languages[$i]['id'] . ']', tep_get_category_name($cInfo->categories_id, $languages[$i]['id']));
+		  /*** Begin Header Tags SEO ***/
+          $category_htc_title_string .= '<br>' . tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . tep_draw_input_field('categories_htc_title_tag[' . $languages[$i]['id'] . ']', tep_get_category_htc_title($cInfo->categories_id, $languages[$i]['id']));
+          $category_htc_desc_string .= '<br>' . tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . tep_draw_input_field('categories_htc_desc_tag[' . $languages[$i]['id'] . ']', tep_get_category_htc_desc($cInfo->categories_id, $languages[$i]['id']));
+          $category_htc_keywords_string .= '<br>' . tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . tep_draw_input_field('categories_htc_keywords_tag[' . $languages[$i]['id'] . ']', tep_get_category_htc_keywords($cInfo->categories_id, $languages[$i]['id']));
+          if (HEADER_TAGS_ENABLE_HTML_EDITOR == 'No Editor')
+            $headertags_editor_str = tep_draw_textarea_field('categories_htc_description[' . $languages[$i]['id'] . ']', 'soft', 30, 5, tep_get_category_htc_description($cInfo->categories_id, $languages[$i]['id']));
+          else
+          {
+            if (HEADER_TAGS_ENABLE_HTML_EDITOR == 'FCKEditor') {
+              $headertags_editor_str = '<input type="hidden" id="categories_htc_description[' . $languages[$i]['id'] . ']" name="categories_htc_description[' . $languages[$i]['id'] .']" value="' . tep_get_category_htc_description($cInfo->categories_id, $languages[$i]['id']) . '" style="display:none" /><input type="hidden" id="categories_htc_description['.$languages[$i]['id'].']___Config" value="" style="display:none" /><iframe id="categories_htc_description['.$languages[$i]['id'].']___Frame" src="fckeditor/editor/fckeditor.html?InstanceName=categories_htc_description['.$languages[$i]['id'].']&amp;Toolbar=Default" width="600" height="300" frameborder="0" scrolling="no"></iframe>';
+            } else if (HEADER_TAGS_ENABLE_HTML_EDITOR == 'CKEditor') {
+              $headertags_editor_str = tep_draw_textarea_field('categories_htc_description[' . $languages[$i]['id'] . ']', 'soft', 30, 5, tep_get_category_htc_description($cInfo->categories_id, $languages[$i]['id']), 'id = "categories_htc_description[' . $languages[$i]['id'] . ']" class="ckeditor"');
+            } else {
+              $headertags_editor_str = tep_draw_textarea_field('categories_htc_description[' . $languages[$i]['id'] . ']', 'soft', 30, 5, tep_get_category_htc_description($cInfo->categories_id, $languages[$i]['id']));
+            }
+          }
+
+          $category_htc_description_string .= '<br>' . tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . $headertags_editor_str;
+          /*** End Header Tags SEO ***/
+
         }
 
         $contents[] = array('text' => '<br />' . TEXT_EDIT_CATEGORIES_NAME . $category_inputs_string);
         $contents[] = array('text' => '<br />' . tep_image(DIR_WS_CATALOG_IMAGES . $cInfo->categories_image, $cInfo->categories_name) . '<br />' . DIR_WS_CATALOG_IMAGES . '<br /><strong>' . $cInfo->categories_image . '</strong>');
         $contents[] = array('text' => '<br />' . TEXT_EDIT_CATEGORIES_IMAGE . '<br />' . tep_draw_file_field('categories_image'));
         $contents[] = array('text' => '<br />' . TEXT_EDIT_SORT_ORDER . '<br />' . tep_draw_input_field('sort_order', $cInfo->sort_order, 'size="2"'));
+		/*** Begin Header Tags SEO ***/
+        $contents[] = array('text' => '<br>' . 'Header Tags Category Title' . $category_htc_title_string);
+        $contents[] = array('text' => '<br>' . 'Header Tags Category Description' . $category_htc_desc_string);
+        $contents[] = array('text' => '<br>' . 'Header Tags Category Keywords' . $category_htc_keywords_string);
+        $contents[] = array('text' => '<br>' . 'Header Tags Categories Description' . $category_htc_description_string);
+        /*** End Header Tags SEO ***/
+
         $contents[] = array('align' => 'center', 'text' => '<br />' . tep_draw_button(IMAGE_SAVE, 'disk', null, 'primary') . tep_draw_button(IMAGE_CANCEL, 'close', tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id)));
         break;
       case 'delete_category':

@@ -225,4 +225,24 @@
                         array('title' => TEXT_CACHE_MANUFACTURERS, 'code' => 'manufacturers', 'file' => 'manufacturers_box-language.cache', 'multiple' => true),
                         array('title' => TEXT_CACHE_ALSO_PURCHASED, 'code' => 'also_purchased', 'file' => 'also_purchased-language.cache', 'multiple' => true)
                        );
+	/**** BEGIN ARTICLE MANAGER ****/
+// include the articles functions
+  require(DIR_WS_FUNCTIONS . 'articles.php');
+
+// Article Manager
+  if (isset($HTTP_GET_VARS['tPath'])) {
+    $tPath = $HTTP_GET_VARS['tPath'];
+  } else {
+    $tPath = '';
+  }
+
+  if (tep_not_null($tPath)) {
+    $tPath_array = tep_parse_topic_path($tPath);
+    $tPath = implode('_', $tPath_array);
+    $current_topic_id = $tPath_array[(sizeof($tPath_array)-1)];
+  } else {
+    $current_topic_id = 0;
+  }
+/**** END ARTICLE MANAGER ****/
+
 ?>

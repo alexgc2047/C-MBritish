@@ -15,6 +15,15 @@
   }
 ?>
 
+<?php /*** Begin Header Tags SEO ***/
+if (HEADER_TAGS_DISPLAY_PAGE_TOP_TITLE == 'true') {
+?>
+ <div style="text-align:center; color:#aaa; font-size:10px;"><?php echo $header_tags_array['title']; ?></div>
+<?php
+}
+/*** End Header Tags SEO ***/
+?>
+
 <div id="header" class="grid_24">
 	<div class="searchWrapper">
 		<div class="search">
@@ -29,9 +38,13 @@
   ?>		</ul>
 		</div>
 	</div>
-	<div class="storeLogo grid_6 alpha">
-		<?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT) . '">' . tep_image(DIR_WS_IMAGES . 'store_logo.png', STORE_NAME) . '</a>'; ?>
-	</div>
+	  <?php /*** Begin Header Tags SEO ***/ ?>
+  <div id="storeLogo"><?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT) . '">' . tep_image(DIR_WS_IMAGES . 'store_logo.png', (tep_not_null($header_tags_array['logo_text']) ? $header_tags_array['logo_text'] : STORE_NAME)) . '</a>'; ?></div>
+  <?php /*** End Header Tags SEO ***/ ?>
+
+	<!--<div class="storeLogo grid_6 alpha">
+		php //echo '<a href="' . tep_href_link(FILENAME_DEFAULT) . '">' . tep_image(DIR_WS_IMAGES . 'store_logo.png', STORE_NAME) . '</a>';
+	</div>-->
 	<div class="headerLink grid_18 omega">
 	
 		<?php

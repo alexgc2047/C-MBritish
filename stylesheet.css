@@ -1,3 +1,4 @@
+@import url("headertags_seo_styles.css");
 /*
   $Id$
 
@@ -22,7 +23,7 @@ body {
   margin:0px;
   font-size:10px;
   font-family:Tahoma, Arial, Lucida Grande, Lucida Sans, Verdana, sans-serif;
-
+  /*margin-top: 36px;*/     
 }
 .ui-widget {
   font-family:Tahoma, Arial, Lucida Grande, Lucida Sans, Verdana, sans-serif;
@@ -881,3 +882,43 @@ SPAN.errorText {
   margin-right: 5px;
 }
 #piGal ul.thumbs li{ height:100px !important;}
+
+/* Inicio - Static Bar */
+
+.barra_main {margin:0 auto; width:960px !important; min-width:800px; }
+#barra_header {background:#F0F7FD; padding:0; text-align:right; margin:0 auto; width:960px; -webkit-box-shadow:inset 0px -2px 3px 0px #b4b4b4; -moz-box-shadow:inset 0px -2px 3px 0px #b4b4b4; box-shadow:inset 0px -2px 3px 0px #b4b4b4; border:0px solid #bcbcbc; border-top:0; border-radius:0 0 16px 16px; -moz-border-radius:0 0 16px 16px; -webkit-border-bottom-left-radius:16px; -webkit-border-bottom-right-radius:16px; position:fixed; top:0; z-index:3 !important; }
+.clearfix:after {content:"."; display:block; height:0; clear:both; visibility:hidden; }
+
+ul.barra_dropdown {position:relative; }
+ul.barra_dropdown li {font-weight:bold; float:left; zoom:1; background:transparent; padding:8px; border-right:1px solid #c3c3c3; -webkit-box-shadow:inset -1px 0px 0px 0px #dadada; -moz-box-shadow:inset -1px 0px 0px 0px #dadada; box-shadow:inset -1px 0px 0px 0px #dadada; }
+ul.barra_dropdown li a {display:block; padding:0px 8px; text-shadow:0 1px 0 #eee;color:#555; }
+ul.barra_dropdown a:hover {color:#000; box-shadow:inset 0 0 0 #000; -moz-box-shadow:inset 0 0 0 #000; -webkit-box-shadow:inset 0 0 0 #000; }
+ul.barra_dropdown li:hover{background:#98C3E1; color:black; position:relative; border-left:1px solid #ccc;padding-left:7px; padding-top:16px; box-shadow:inset 0 0 0 #000; -moz-box-shadow:inset 0 0 0 #000; -webkit-box-shadow:inset 0 0 0 #000; }
+ul.barra_dropdown ul {width:200px; visibility:hidden; position:absolute; top:100%; left:0; }
+ul.barra_dropdown ul li {font-weight:normal; background: #98C3E1; color:#444; border:1px solid #ccc; border-top:0; float:none; margin-left: -1px; height:35px; width:230px; border-radius:0 0 8px 8px; -moz-border-radius:0 0 8px 8px; -webkit-border-bottom-left-radius:8px; -webkit-border-bottom-right-radius:8px; padding-left:7px; padding-rigth:5px; }
+ul.barra_dropdown li:hover>ul {visibility:visible }
+
+#barra_search {margin:6px; }
+#barra_search_wrap {position:relative; display:block; background:#fff; height: 26px; line-height:25px; -moz-border-radius:3px 4px 4px 3px; -webkit-border-top-left-radius:3px; -webkit-border-top-right-radius:4px; -webkit-border-bottom-right-radius:4px; -webkit-border-bottom-left-radius:3px; border-radius:3px 4px 4px 3px; border:1px solid #e0e0e0; }
+
+.right {float:right; }
+.left {float:left; }
+.hide {display:none; }
+
+#barra_nav_explore {list-style-type:none; border-right:1px solid #c3c3c3; -webkit-box-shadow:inset -1px 0px 0px 0px #dadada; -moz-box-shadow:inset -1px 0px 0px 0px #dadada; box-shadow:inset -1px 0px 0px 0px #dadada; }
+#barra_nav_explore {padding:8px 8px 7px 8px !important; }
+#barra_nav_explore:hover {background:#98C3E1; }
+#barra_nav_explore a {color:#777; text-shadow:0 1px 0 #eee; }
+
+#barra_nav_user {color:#9f9f9f; font-size:11px; padding-right:10px; }
+#barra_nav_user a {color:#777; text-shadow:0 1px 0 #eee; }
+#barra_nav_user.not_logged_in {height:26px; padding:6px 0 4px; }
+#barra_nav_user #register_link {background:#86B5D9; color:#fff; display:inline-block; padding:3px 8px;border:1px solid #72A9D3; -webkit-box-shadow:inset 0px 1px 0 rgba(255,255,255,0.2), 0px 1px 4px rgba(0,0,0,0.4); -moz-box-shadow:inset 0px 1px 0 rgba(255,255,255,0.2), 0px 1px 4px rgba(0,0,0,0.4); box-shadow:inset 0px 1px 0 rgba(255,255,255,0.2), 0px 1px 4px rgba(0,0,0,0.4); text-shadow:0px 1px 2px rgba(0,0,0,0.3); margin-right:15px; }
+#barra_adv_search {width:16px; height:16px; background:url('images/advanced_search.png') no-repeat right 50%; text-indent: -3000em !important; display:inline-block !important; margin:4px 0 4px 4px;padding:0 !important; text-align:left; border-style:hidden; }
+
+ul, li, fieldset {margin:0; padding:0; }
+ul {list-style:none; }
+.ipsList_inline>li {display:inline-block; margin:0 3px; }
+fieldset,img { border: 0; }
+
+/* Fin - Static Bar */

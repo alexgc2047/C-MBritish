@@ -124,6 +124,12 @@
     tep_redirect(tep_href_link(FILENAME_ADVANCED_SEARCH, tep_get_all_get_params(), 'NONSSL', true, false));
   }
 
+  /*** Begin Header Tags SEO ***/
+  if (HEADER_TAGS_STORE_KEYWORDS == 'true') {
+      require(DIR_WS_MODULES . 'header_tags_keywords.php');
+  }
+  /*** End Header Tags SEO ***/
+
   $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link(FILENAME_ADVANCED_SEARCH));
   $breadcrumb->add(NAVBAR_TITLE_2, tep_href_link(FILENAME_ADVANCED_SEARCH_RESULT, tep_get_all_get_params(), 'NONSSL', true, false));
 
@@ -177,9 +183,21 @@
 
   $select_str = "select distinct " . $select_column_list . " m.manufacturers_id, p.products_id, pd.products_name, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, IF(s.status, s.specials_new_products_price, p.products_price) as final_price ";
 
+    /*** Begin Header Tags SEO ***/
+  if (HEADER_TAGS_SEARCH_KEYWORDS == 'true') {
+    $select_str .= ", hts.keyword ";
+  }
+  /*** End Header Tags SEO ***/
+
   if ( (DISPLAY_PRICE_WITH_TAX == 'true') && (tep_not_null($pfrom) || tep_not_null($pto)) ) {
     $select_str .= ", SUM(tr.tax_rate) as tax_rate ";
   }
+
+  /*** Begin Header Tags SEO ***/
+  if (HEADER_TAGS_SEARCH_KEYWORDS == 'true') {
+     $from_str .= " left join " . TABLE_HEADERTAGS_SEARCH . " hts on p.products_id = hts.product_id ";
+  }
+  /*** END Header Tags SEO ***/
 
   $from_str = "from " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS . " m using(manufacturers_id) left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id";
 
@@ -228,7 +246,13 @@
           break;
         default:
           $keyword = tep_db_prepare_input($search_keywords[$i]);
-          $where_str .= "(pd.products_name like '%" . tep_db_input($keyword) . "%' or p.products_model like '%" . tep_db_input($keyword) . "%' or m.manufacturers_name like '%" . tep_db_input($keyword) . "%'";
+          /*** Begin Header Tags SEO ***/
+          if (HEADER_TAGS_SEARCH_KEYWORDS == 'true') {
+            $where_str .= " or hts.keyword like '%" . tep_db_input($keyword) . "%'";
+          }
+          /*** End Header Tags SEO ***/
+
+		  $where_str .= "(pd.products_name like '%" . tep_db_input($keyword) . "%' or p.products_model like '%" . tep_db_input($keyword) . "%' or m.manufacturers_name like '%" . tep_db_input($keyword) . "%'";
           if (isset($HTTP_GET_VARS['search_in_description']) && ($HTTP_GET_VARS['search_in_description'] == '1')) $where_str .= " or pd.products_description like '%" . tep_db_input($keyword) . "%'";
           $where_str .= ')';
           break;

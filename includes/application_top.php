@@ -454,33 +454,67 @@
   $breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER);
   $breadcrumb->add(HEADER_TITLE_CATALOG, tep_href_link(FILENAME_DEFAULT));
 
+/*** Begin Header Tags SEO ***/
 // add category names or the manufacturer name to the breadcrumb trail
   if (isset($cPath_array)) {
     for ($i=0, $n=sizeof($cPath_array); $i<$n; $i++) {
-      $categories_query = tep_db_query("select categories_name from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . (int)$cPath_array[$i] . "' and language_id = '" . (int)$languages_id . "'");
+      $categories_query = tep_db_query("select categories_htc_title_tag from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . (int)$cPath_array[$i] . "' and language_id = '" . (int)$languages_id . "' LIMIT 1");
       if (tep_db_num_rows($categories_query) > 0) {
         $categories = tep_db_fetch_array($categories_query);
-        $breadcrumb->add($categories['categories_name'], tep_href_link(FILENAME_DEFAULT, 'cPath=' . implode('_', array_slice($cPath_array, 0, ($i+1)))));
+        $breadcrumb->add($categories['categories_htc_title_tag'], tep_href_link(FILENAME_DEFAULT, 'cPath=' . implode('_', array_slice($cPath_array, 0, ($i+1)))));
       } else {
         break;
       }
     }
-  } elseif (isset($HTTP_GET_VARS['manufacturers_id'])) {
-    $manufacturers_query = tep_db_query("select manufacturers_name from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . (int)$HTTP_GET_VARS['manufacturers_id'] . "'");
+  } elseif (isset($_GET['manufacturers_id'])) {
+    $manufacturers_query = tep_db_query("select manufacturers_htc_title_tag from " . TABLE_MANUFACTURERS_INFO . " where manufacturers_id = '" . (int)$_GET['manufacturers_id'] . "' AND languages_id = '" . (int)$languages_id . "' LIMIT 1");
     if (tep_db_num_rows($manufacturers_query)) {
       $manufacturers = tep_db_fetch_array($manufacturers_query);
-      $breadcrumb->add($manufacturers['manufacturers_name'], tep_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $HTTP_GET_VARS['manufacturers_id']));
+      $breadcrumb->add($manufacturers['manufacturers_htc_title_tag'], tep_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $_GET['manufacturers_id']));
     }
   }
 
-// add the products model to the breadcrumb trail
-  if (isset($HTTP_GET_VARS['products_id'])) {
-    $model_query = tep_db_query("select products_model from " . TABLE_PRODUCTS . " where products_id = '" . (int)$HTTP_GET_VARS['products_id'] . "'");
-    if (tep_db_num_rows($model_query)) {
-      $model = tep_db_fetch_array($model_query);
-      $breadcrumb->add($model['products_model'], tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $HTTP_GET_VARS['products_id']));
-    }
+// add the products name to the breadcrumb trail
+ if (isset($_GET['products_id'])) {
+  $products_query = tep_db_query("select pd.products_head_title_tag from " . TABLE_PRODUCTS . " p left join " . TABLE_PRODUCTS_DESCRIPTION . " pd on p.products_id = pd.products_id where p.products_id = '" . (int)$_GET['products_id'] . "' and pd.language_id ='" .  (int)$languages_id . "' LIMIT 1");
+  if (tep_db_num_rows($products_query)) {
+    $products = tep_db_fetch_array($products_query);
+    $breadcrumb->add($products['products_head_title_tag'], tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $_GET['products_id']));
   }
+ }
+/**** BEGIN ARTICLE MANAGER ****/
+// include the articles functions
+  require(DIR_WS_FUNCTIONS . 'articles.php');
+
+// calculate topic path
+  if (isset($HTTP_GET_VARS['tPath'])) {
+    $tPath = $HTTP_GET_VARS['tPath'];
+  } elseif (isset($HTTP_GET_VARS['articles_id']) && !isset($HTTP_GET_VARS['authors_id'])) {
+    $tPath = tep_get_article_path($HTTP_GET_VARS['articles_id']);
+  } else {
+    $tPath = '';
+  }
+
+  if (tep_not_null($tPath)) {
+    $tPath_array = tep_parse_topic_path($tPath);
+    $tPath = implode('_', $tPath_array);
+    $current_topic_id = $tPath_array[(sizeof($tPath_array)-1)];
+  } else {
+    $current_topic_id = 0;
+  }
+
+  if (isset($_GET['articles_id'])) {
+    $articlesPage = FILENAME_ARTICLE_INFO . "?articles_id=" . $_GET['articles_id'];
+    $pageTags_query = tep_db_query("select page_name, page_title from " . TABLE_HEADERTAGS . " where page_name like '" . $articlesPage . "' and language_id = '" . (int)$languages_id . "' LIMIT 1");
+    if (tep_db_num_rows($pageTags_query) == 1) {
+      $pageTags = tep_db_fetch_array($pageTags_query);
+      $breadcrumb->add('Articles', tep_href_link(FILENAME_ARTICLES));
+      $breadcrumb->add($pageTags['page_title'], tep_href_link($articlesPage));
+    }  
+  }
+ /**** END ARTICLE MANAGER ****/
+
+ /*** End Header Tags SEO ***/
 
 // initialize the message stack for output messages
   require(DIR_WS_CLASSES . 'message_stack.php');

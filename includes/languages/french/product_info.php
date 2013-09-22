@@ -18,4 +18,8 @@ define('TEXT_DATE_AVAILABLE', '<font color="#ff0000">Ce produit sera en stock le
 define('TEXT_ALSO_PURCHASED_PRODUCTS', 'Les clients qui ont acheté ce produit ont aussi acheté ');
 define('TEXT_PRODUCT_OPTIONS', 'Options :');
 define('TEXT_CLICK_TO_ENLARGE', 'Cliquer pour agrandir');
+/*** Begin Header Tags SEO ***/
+define('TEXT_VIEWING', 'Regarde actuellement:');
+/*** End Header Tags SEO ***/
+
 ?>

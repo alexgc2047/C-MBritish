@@ -266,4 +266,31 @@ define('TEXT_CCVAL_ERROR_INVALID_DATE', 'La fecha de caducidad de la tarjeta de 
 define('TEXT_CCVAL_ERROR_INVALID_NUMBER', 'El n&uacute;mero de tarjeta de cr&eacute;dito no es v&aacute;lida. Por favor, compruebe el n&uacute;mero y vuelva a intentarlo.');
 define('TEXT_CCVAL_ERROR_UNKNOWN_CARD', 'Los primeros cuatro d&iacute;gitos del n&uacute;mero de introducir son: %s. Si ese n&uacute;mero es correcto, no aceptamos este tipo de tarjetas de cr&eacute;dito. Si es incorrecto, por favor, int&eacute;ntelo de nuevo.');
 define('FOOTER_TEXT_BODY', 'Copyright &copy; ' . date('Y') . ' <a href="' . tep_href_link(FILENAME_DEFAULT) . '">' . STORE_NAME . '</a><br />Powered by <a href="http://www.oscommerce.com" target="_blank">osCommerce</a>');
+/*** Begin Header Tags SEO ***/
+define('BOX_HEADING_HEADERTAGS_TAGCLOUD', 'Busquedas Populares');
+define('TEXT_SEE_MORE', 'Ver más');
+/*** End Header Tags SEO ***/
+/**** BEGIN ARTICLE MANAGER ****/
+define('BOX_HEADING_ARTICLES', 'Articulos');
+define('BOX_ALL_ARTICLES', 'Todos los Articulos');
+define('BOX_ALL_BLOG_ARTICLES', 'Todos los Articulos de Blog');
+define('BOX_ARTICLE_SUBMIT', 'Enviar un articulo');
+define('BOX_ARTICLE_TOPICS', 'Todos los Topics');
+define('BOX_NEW_ARTICLES', 'Nuevos Articulos');
+define('TEXT_ARTICLE_SEARCH', 'Buscar en nuestros articulos');
+define('TEXT_ARTICLE_SEARCH_STRING', 'Escriba palabras clave');
+define('TEXT_DISPLAY_NUMBER_OF_ARTICLES', 'Mostrando <b>%d</b> to <b>%d</b> (of <b>%d</b> articulos)');
+define('TEXT_DISPLAY_NUMBER_OF_ARTICLES_NEW', 'Mostrando <b>%d</b> to <b>%d</b> (of <b>%d</b> nuevos articulos)');
+define('TEXT_ARTICLES', 'Lista de los articulos con los mas recientes primero.');  
+define('TABLE_HEADING_AUTHOR', 'Autor');
+define('TABLE_HEADING_ABSTRACT', 'Resumen');
+define('TEXT_PXSELL_ARTICLES', 'Articulos Relacionados');
+define('BOX_HEADING_AUTHORS', 'Articulos por autor');
+define('BOX_ARTICLES_BLOG_COMMENTS', 'Comentarios deblog');
+define('NAVBAR_TITLE_DEFAULT', 'Articulos');
+define('BOX_RSS_ARTICLES', 'Articulos RSS Feed');
+define('BOX_UPCOMING_ARTICLES', 'Upcoming Articles');
+/**** END ARTICLE MANAGER ****/
+
+
 ?>

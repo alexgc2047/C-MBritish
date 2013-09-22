@@ -62,4 +62,23 @@
   // added customer pdf invoice
   define('FILENAME_CUSTOMER_PDF','pdfinvoice.php');
   // end added customer pdf invoice
+    /**** BEGIN ARTICLE MANAGER ****/
+  define('FILENAME_ARTICLE_INFO', 'article_info.php');
+  define('FILENAME_ARTICLE_LISTING', 'article_listing.php');
+  define('FILENAME_ARTICLE_MANAGER_SEARCH_RESULT', 'article_manager_search_result.php');
+  define('FILENAME_ARTICLE_REVIEWS', 'article_reviews.php');
+  define('FILENAME_ARTICLE_REVIEWS_INFO', 'article_reviews_info.php');
+  define('FILENAME_ARTICLE_REVIEWS_WRITE', 'article_reviews_write.php');
+  define('FILENAME_ARTICLE_SUBMIT', 'article-submit.php');
+  define('FILENAME_ARTICLE_TOPICS', 'article-topics.php');
+  define('FILENAME_ARTICLES', 'articles.php');
+  define('FILENAME_ARTICLES_BLOG_COMMENTS', 'article_manager_blog_comments.php');
+  define('FILENAME_ARTICLES_NEW', 'articles_new.php');
+  define('FILENAME_ARTICLES_RSS', 'article_rss.php');
+  define('FILENAME_ARTICLES_UPCOMING', 'articles_upcoming.php'); 
+  define('FILENAME_ARTICLES_XSELL', 'articles_xsell.php');
+  define('FILENAME_ARTICLES_PXSELL', 'articles_pxsell.php'); //  New since v1.5
+  define('FILENAME_NEW_ARTICLES', 'new_articles.php');
+  /**** END ARTICLE MANAGER ****/
+
 ?>

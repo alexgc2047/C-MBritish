@@ -59,4 +59,27 @@
   define('TABLE_ZONES_TO_GEO_ZONES', 'zones_to_geo_zones');
   define('TABLE_WHOS_ONLINE', 'whos_online');
   define('TABLE_ZONES', 'zones');
+  /*** Begin Header Tags SEO ***/
+  define('TABLE_HEADERTAGS', 'headertags');
+  define('TABLE_HEADERTAGS_CACHE', 'headertags_cache');
+  define('TABLE_HEADERTAGS_DEFAULT', 'headertags_default');
+  define('TABLE_HEADERTAGS_KEYWORDS', 'headertags_keywords');
+  define('TABLE_HEADERTAGS_SEARCH', 'headertags_search');
+  define('TABLE_HEADERTAGS_SILO', 'headertags_silo');
+  /*** End Header Tags SEO ***/
+  /**** BEGIN ARTICLE MANAGER ****/
+  define('TABLE_ARTICLE_REVIEWS', 'article_reviews');
+  define('TABLE_ARTICLE_REVIEWS_DESCRIPTION', 'article_reviews_description');
+  define('TABLE_ARTICLES', 'articles');
+  define('TABLE_ARTICLES_DESCRIPTION', 'articles_description');
+  define('TABLE_ARTICLES_TO_TOPICS', 'articles_to_topics');
+  define('TABLE_ARTICLES_XSELL', 'articles_xsell');
+  define('TABLE_AUTHORS', 'authors');
+  define('TABLE_ARTICLES_BLOG', 'articles_blog');
+  define('TABLE_AUTHORS_INFO', 'authors_info');
+  define('TABLE_TOPICS', 'topics');
+  define('TABLE_TOPICS_DESCRIPTION', 'topics_description');
+  /**** END ARTICLE MANAGER ****/
+
+
 ?>

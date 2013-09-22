@@ -102,11 +102,28 @@
             $prod_list_contents .= '        <td>' . $listing['products_model'] . '</td>';
             break;
           case 'PRODUCT_LIST_NAME':
-            if (isset($HTTP_GET_VARS['manufacturers_id']) && tep_not_null($HTTP_GET_VARS['manufacturers_id'])) {
-              $prod_list_contents .= '        <td align="right"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'manufacturers_id=' . $HTTP_GET_VARS['manufacturers_id'] . '&products_id=' . $listing['products_id']) . '">' . $listing['products_name'] . '</a></td>';
-            } else {
-              $prod_list_contents .= '        <td align="right"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, ($cPath ? 'cPath=' . $cPath . '&' : '') . 'products_id=' . $listing['products_id']) . '">' . $listing['products_name'] . '</a></td>';
+                        /*** Begin Header Tags SEO ***/
+            $lc_add = '</td>';
+            $hts_listing_query = tep_db_query("select products_head_listing_text, products_description from " . TABLE_PRODUCTS_DESCRIPTION . " where products_id = " . (int)$listing['products_id'] . " and language_id = " . (int)$languages_id);
+            if (tep_db_num_rows($hts_listing_query) > 0) {              
+                $hts_listing = tep_db_fetch_array($hts_listing_query);
+                if (tep_not_null($hts_listing['products_head_listing_text'])) {
+                    $lc_add = '<div class="hts_listing_text">' . $hts_listing['products_head_listing_text'] . '...<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, ($cPath ? 'cPath=' . $cPath . '&' : '') . 'products_id=' . $listing['products_id']) . '"><span style="color:red;">' . TEXT_SEE_MORE . '</span></a></div></td>';
+                } else if (HEADER_TAGS_ENABLE_AUTOFILL_LISTING_TEXT == 'true') {
+                    $text = sprintf("%s...%s", substr(stripslashes(strip_tags($hts_listing['products_description'])), 0, 100), '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, ($cPath ? 'cPath=' . $cPath . '&' : '') . 'products_id=' . (int)$listing['products_id']) . '"><span style="color:red;">' . TEXT_SEE_MORE . '</span></a>');
+                    $lc_add = '<div class="hts_listing_text">' . $text . '</div></td>';
+                }
             }
+
+            if (isset($HTTP_GET_VARS['manufacturers_id']) && tep_not_null($HTTP_GET_VARS['manufacturers_id'])) {
+              $prod_list_contents .= '        <td><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'manufacturers_id=' . $HTTP_GET_VARS['manufacturers_id'] . '&products_id=' . $listing['products_id']) . '">' . $listing['products_name'] . '</a>';
+              $prod_list_contents .= $lc_add;
+            } else {
+              $prod_list_contents .= '        <td><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, ($cPath ? 'cPath=' . $cPath . '&' : '') . 'products_id=' . $listing['products_id']) . '">' . $listing['products_name'] . '</a>';
+              $prod_list_contents .= $lc_add;
+            }
+            /*** End Header Tags SEO ***/
+
             break;
           case 'PRODUCT_LIST_MANUFACTURER':
             $prod_list_contents .= '        <td align="right"><a href="' . tep_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $listing['manufacturers_id']) . '">' . $listing['manufacturers_name'] . '</a></td>';

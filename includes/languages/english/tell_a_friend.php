@@ -35,4 +35,8 @@ define('ERROR_TO_ADDRESS', 'Error: Your friends e-mail address must be a valid e
 define('ERROR_FROM_NAME', 'Error: Your name must not be empty.');
 define('ERROR_FROM_ADDRESS', 'Error: Your e-mail address must be a valid e-mail address.');
 define('ERROR_ACTION_RECORDER', 'Error: An e-mail has already been sent. Please try again in %s minutes.');
+/**** BEGIN ARTICLE MANAGER ****/
+define('TEXT_EMAIL_LINK_ARTICLE', 'To view the article click on the link below or copy and paste the link into your web browser:' . "\n\n" . '%s');
+/**** END ARTICLE MANAGER ****/
+
 ?>

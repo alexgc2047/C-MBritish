@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-09-2013 a las 05:37:12
+-- Tiempo de generación: 22-09-2013 a las 04:42:35
 -- Versión del servidor: 5.5.32
 -- Versión de PHP: 5.4.19
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `action_recorder` (
   KEY `idx_action_recorder_user_id` (`user_id`),
   KEY `idx_action_recorder_identifier` (`identifier`),
   KEY `idx_action_recorder_date_added` (`date_added`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=47 ;
 
 --
 -- Volcado de datos para la tabla `action_recorder`
@@ -84,7 +84,16 @@ INSERT INTO `action_recorder` (`id`, `module`, `user_id`, `user_name`, `identifi
 (34, 'ar_admin_login', 0, 'Karlis', '', '0', '2013-09-19 13:04:03'),
 (35, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-19 13:04:57'),
 (36, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-19 14:01:03'),
-(37, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-19 14:35:54');
+(37, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-19 14:35:54'),
+(38, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-20 01:52:05'),
+(39, 'ar_admin_login', 0, 'Admin', '', '0', '2013-09-20 02:07:10'),
+(40, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-20 02:07:15'),
+(41, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-20 16:52:58'),
+(42, 'ar_admin_login', 0, 'Admin', '', '0', '2013-09-21 16:23:45'),
+(43, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-21 16:23:49'),
+(44, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-21 17:53:41'),
+(45, 'ar_admin_login', 0, 'Admin', '', '0', '2013-09-21 20:41:19'),
+(46, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-21 20:41:24');
 
 -- --------------------------------------------------------
 
@@ -166,6 +175,155 @@ INSERT INTO `administrators` (`id`, `user_name`, `user_password`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `articles`
+--
+
+CREATE TABLE IF NOT EXISTS `articles` (
+  `articles_id` int(11) NOT NULL AUTO_INCREMENT,
+  `articles_date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `articles_last_modified` datetime DEFAULT NULL,
+  `articles_date_available` datetime DEFAULT NULL,
+  `articles_status` tinyint(1) NOT NULL DEFAULT '0',
+  `articles_is_blog` tinyint(1) NOT NULL DEFAULT '0',
+  `articles_sort_order` tinyint(5) NOT NULL DEFAULT '0',
+  `authors_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`articles_id`),
+  KEY `idx_articles_date_added` (`articles_date_added`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `articles_blog`
+--
+
+CREATE TABLE IF NOT EXISTS `articles_blog` (
+  `unique_id` int(11) NOT NULL AUTO_INCREMENT,
+  `articles_id` int(11) NOT NULL DEFAULT '0',
+  `customers_id` int(11) NOT NULL DEFAULT '0',
+  `commenters_name` varchar(54) DEFAULT NULL,
+  `comment_date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `comments_status` tinyint(1) NOT NULL DEFAULT '0',
+  `comment` text NOT NULL,
+  `language_id` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`unique_id`),
+  KEY `idx_articles_id` (`articles_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `articles_description`
+--
+
+CREATE TABLE IF NOT EXISTS `articles_description` (
+  `articles_id` int(11) NOT NULL AUTO_INCREMENT,
+  `language_id` int(11) NOT NULL DEFAULT '1',
+  `articles_name` varchar(64) NOT NULL DEFAULT '',
+  `articles_description` text,
+  `articles_image` varchar(64) NOT NULL DEFAULT '',
+  `articles_head_desc_tag` text,
+  `articles_url` varchar(255) DEFAULT NULL,
+  `articles_viewed` int(5) DEFAULT '0',
+  PRIMARY KEY (`articles_id`,`language_id`),
+  KEY `articles_name` (`articles_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `articles_to_topics`
+--
+
+CREATE TABLE IF NOT EXISTS `articles_to_topics` (
+  `articles_id` int(11) NOT NULL DEFAULT '0',
+  `topics_id` int(11) NOT NULL DEFAULT '0',
+  KEY `idx_a2t_articles_id` (`articles_id`),
+  KEY `idx_a2t_topics_id` (`topics_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `articles_xsell`
+--
+
+CREATE TABLE IF NOT EXISTS `articles_xsell` (
+  `ID` int(10) NOT NULL AUTO_INCREMENT,
+  `articles_id` int(10) unsigned NOT NULL DEFAULT '1',
+  `xsell_id` int(10) unsigned NOT NULL DEFAULT '1',
+  `sort_order` int(10) unsigned NOT NULL DEFAULT '1',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `article_reviews`
+--
+
+CREATE TABLE IF NOT EXISTS `article_reviews` (
+  `reviews_id` int(11) NOT NULL AUTO_INCREMENT,
+  `articles_id` int(11) NOT NULL DEFAULT '0',
+  `customers_id` int(11) DEFAULT NULL,
+  `customers_name` varchar(64) NOT NULL DEFAULT '',
+  `reviews_rating` int(1) DEFAULT NULL,
+  `date_added` datetime DEFAULT NULL,
+  `last_modified` datetime DEFAULT NULL,
+  `reviews_read` int(5) NOT NULL DEFAULT '0',
+  `approved` tinyint(3) unsigned DEFAULT '0',
+  PRIMARY KEY (`reviews_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `article_reviews_description`
+--
+
+CREATE TABLE IF NOT EXISTS `article_reviews_description` (
+  `reviews_id` int(11) NOT NULL DEFAULT '0',
+  `languages_id` int(11) NOT NULL DEFAULT '0',
+  `reviews_text` text NOT NULL,
+  PRIMARY KEY (`reviews_id`,`languages_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `authors`
+--
+
+CREATE TABLE IF NOT EXISTS `authors` (
+  `authors_id` int(11) NOT NULL AUTO_INCREMENT,
+  `customers_id` int(11) NOT NULL,
+  `authors_name` varchar(32) NOT NULL DEFAULT '',
+  `authors_image` varchar(64) DEFAULT NULL,
+  `date_added` datetime DEFAULT NULL,
+  `last_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`authors_id`),
+  KEY `IDX_AUTHORS_NAME` (`authors_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `authors_info`
+--
+
+CREATE TABLE IF NOT EXISTS `authors_info` (
+  `authors_id` int(11) NOT NULL DEFAULT '0',
+  `languages_id` int(11) NOT NULL DEFAULT '0',
+  `authors_description` text,
+  `authors_url` varchar(255) NOT NULL DEFAULT '',
+  `url_clicked` int(5) NOT NULL DEFAULT '0',
+  `date_last_click` datetime DEFAULT NULL,
+  PRIMARY KEY (`authors_id`,`languages_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `banners`
 --
 
@@ -210,7 +368,7 @@ CREATE TABLE IF NOT EXISTS `banners_history` (
   `banners_history_date` datetime NOT NULL,
   PRIMARY KEY (`banners_history_id`),
   KEY `idx_banners_history_banners_id` (`banners_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
 
 --
 -- Volcado de datos para la tabla `banners_history`
@@ -246,7 +404,15 @@ INSERT INTO `banners_history` (`banners_history_id`, `banners_id`, `banners_show
 (29, 3, 131, 2, '2013-09-19 11:28:36'),
 (30, 11, 31, 0, '2013-09-19 11:28:36'),
 (31, 10, 31, 0, '2013-09-19 11:28:36'),
-(32, 2, 143, 0, '2013-09-19 11:28:37');
+(32, 2, 143, 0, '2013-09-19 11:28:37'),
+(33, 3, 17, 0, '2013-09-20 00:08:51'),
+(34, 11, 17, 0, '2013-09-20 00:08:51'),
+(35, 10, 17, 0, '2013-09-20 00:08:52'),
+(36, 2, 16, 0, '2013-09-20 00:08:52'),
+(37, 3, 23, 0, '2013-09-21 08:15:05'),
+(38, 11, 16, 0, '2013-09-21 08:15:06'),
+(39, 10, 16, 0, '2013-09-21 08:15:06'),
+(40, 2, 23, 0, '2013-09-21 08:15:07');
 
 -- --------------------------------------------------------
 
@@ -263,23 +429,16 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `last_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`categories_id`),
   KEY `idx_categories_parent_id` (`parent_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
 
 --
 -- Volcado de datos para la tabla `categories`
 --
 
 INSERT INTO `categories` (`categories_id`, `categories_image`, `parent_id`, `sort_order`, `date_added`, `last_modified`) VALUES
-(22, NULL, 0, 0, '2013-01-19 21:22:03', '2013-02-15 06:43:50'),
-(23, NULL, 0, 0, '2013-01-19 21:22:36', '2013-02-15 06:45:06'),
-(24, NULL, 0, 0, '2013-01-19 21:25:43', '2013-02-15 06:44:10'),
-(25, 'image-1.jpg', 24, 1, '2013-01-19 21:26:20', '2013-02-11 08:38:13'),
-(26, 'image-2.jpg', 24, 2, '2013-01-19 21:26:43', '2013-02-07 13:53:11'),
-(27, NULL, 0, 0, '2013-01-19 21:30:38', '2013-02-15 06:44:29'),
-(28, NULL, 0, 0, '2013-01-19 21:31:06', '2013-02-15 06:44:48'),
-(29, NULL, 0, 0, '2013-01-19 21:34:06', '2013-02-15 06:43:22'),
-(30, NULL, 0, 0, '2013-01-19 21:34:26', '2013-02-15 06:45:41'),
-(31, NULL, 0, 0, '2013-01-19 21:34:45', '2013-02-15 06:45:23');
+(32, NULL, 0, 0, '2013-09-21 20:43:45', NULL),
+(33, NULL, 0, 0, '2013-09-21 20:44:43', NULL),
+(34, NULL, 0, 0, '2013-09-21 20:55:14', NULL);
 
 -- --------------------------------------------------------
 
@@ -291,6 +450,10 @@ CREATE TABLE IF NOT EXISTS `categories_description` (
   `categories_id` int(11) NOT NULL DEFAULT '0',
   `language_id` int(11) NOT NULL DEFAULT '1',
   `categories_name` varchar(32) NOT NULL,
+  `categories_htc_title_tag` varchar(80) DEFAULT NULL,
+  `categories_htc_desc_tag` longtext,
+  `categories_htc_keywords_tag` longtext,
+  `categories_htc_description` longtext,
   PRIMARY KEY (`categories_id`,`language_id`),
   KEY `idx_categories_name` (`categories_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -299,37 +462,16 @@ CREATE TABLE IF NOT EXISTS `categories_description` (
 -- Volcado de datos para la tabla `categories_description`
 --
 
-INSERT INTO `categories_description` (`categories_id`, `language_id`, `categories_name`) VALUES
-(22, 1, 'Classic Jacket'),
-(22, 2, 'Classic Jacket'),
-(22, 4, 'Classic Jacket'),
-(25, 1, 'Classic Style'),
-(25, 2, 'Classic Style'),
-(25, 4, 'Classic Style'),
-(29, 1, 'Classic Style Jacket'),
-(29, 2, 'Classic Style Jacket'),
-(29, 4, 'Classic Style Jacket'),
-(24, 1, 'Elegant Jacket'),
-(24, 2, 'Elegant Jacket'),
-(24, 4, 'Elegant Jacket'),
-(27, 1, 'Minimalist Jacket'),
-(27, 2, 'Minimalist Jacket'),
-(27, 4, 'Minimalist Jacket'),
-(28, 1, 'Minimalist Modern Jacket'),
-(28, 2, 'Minimalist Modern Jacket'),
-(28, 4, 'Minimalist Modern Jacket'),
-(26, 1, 'Modern Style'),
-(26, 2, 'Modern Style'),
-(26, 4, 'Modern Style'),
-(23, 1, 'Modern White Jacket'),
-(23, 2, 'Modern White Jacket'),
-(23, 4, 'Modern White Jacket'),
-(31, 1, 'Simple Futuristic Jacket'),
-(31, 2, 'Simple Futuristic Jacket'),
-(31, 4, 'Simple Futuristic Jacket'),
-(30, 1, 'Simple Modern Jacket'),
-(30, 2, 'Simple Modern Jacket'),
-(30, 4, 'Simple Modern Jacket');
+INSERT INTO `categories_description` (`categories_id`, `language_id`, `categories_name`, `categories_htc_title_tag`, `categories_htc_desc_tag`, `categories_htc_keywords_tag`, `categories_htc_description`) VALUES
+(32, 1, 'Music', 'Music', 'Music', 'Music', ''),
+(32, 2, 'Musique', 'Musique', 'Musique', 'Musique', ''),
+(32, 4, 'MÃºsica', 'MÃºsica', 'MÃºsica', 'MÃºsica', ''),
+(33, 1, 'Clothes', 'Clothes', 'Clothes', 'Clothes', ''),
+(33, 2, 'VÃªtements', 'VÃªtements', 'VÃªtements', 'VÃªtements', ''),
+(33, 4, 'Ropa', 'Ropa', 'Ropa', 'Ropa', ''),
+(34, 1, 'British Articles', 'British Articles', 'British Articles', 'British Articles', ''),
+(34, 2, 'Articles Britanniques', 'Articles Britanniques', 'Articles Britanniques', 'Articles Britanniques', ''),
+(34, 4, 'ArtÃ­culos BritÃ¡nicos', 'ArtÃ­culos BritÃ¡nicos', 'ArtÃ­culos BritÃ¡nicos', 'ArtÃ­culos BritÃ¡nicos', '');
 
 -- --------------------------------------------------------
 
@@ -350,7 +492,7 @@ CREATE TABLE IF NOT EXISTS `configuration` (
   `use_function` varchar(255) DEFAULT NULL,
   `set_function` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`configuration_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=331 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=444 ;
 
 --
 -- Volcado de datos para la tabla `configuration`
@@ -535,7 +677,7 @@ INSERT INTO `configuration` (`configuration_id`, `configuration_title`, `configu
 (176, 'Set Order Status', 'MODULE_PAYMENT_PAYPAL_EXPRESS_ORDER_STATUS_ID', '0', 'Set the status of orders made with this payment module to this value', 6, 0, NULL, '2013-01-19 19:33:36', 'tep_get_order_status_name', 'tep_cfg_pull_down_order_statuses('),
 (177, 'PayPal Transactions Order Status Level', 'MODULE_PAYMENT_PAYPAL_EXPRESS_TRANSACTIONS_ORDER_STATUS_ID', '4', 'Include PayPal transaction information in this order status level', 6, 0, NULL, '2013-01-19 19:33:36', 'tep_get_order_status_name', 'tep_cfg_pull_down_order_statuses('),
 (178, 'cURL Program Location', 'MODULE_PAYMENT_PAYPAL_EXPRESS_CURL', '/usr/bin/curl', 'The location to the cURL program application.', 6, 0, NULL, '2013-01-19 19:33:36', NULL, NULL),
-(179, 'Installed Modules', 'MODULE_HEADER_TAGS_INSTALLED', 'ht_canonical.php;ht_manufacturer_title.php;ht_category_title.php;ht_product_title.php;ht_robot_noindex.php', 'List of header tag module filenames separated by a semi-colon. This is automatically updated. No need to edit.', 6, 0, NULL, '2013-01-19 19:33:36', NULL, NULL),
+(179, 'Installed Modules', 'MODULE_HEADER_TAGS_INSTALLED', 'ht_manufacturer_title.php;ht_category_title.php;ht_product_title.php;ht_canonical.php;ht_robot_noindex.php', 'List of header tag module filenames separated by a semi-colon. This is automatically updated. No need to edit.', 6, 0, '2013-09-21 16:24:17', '2013-01-19 19:33:36', NULL, NULL),
 (180, 'Enable Category Title Module', 'MODULE_HEADER_TAGS_CATEGORY_TITLE_STATUS', 'True', 'Do you want to allow category titles to be added to the page title?', 6, 1, NULL, '2013-01-19 19:33:36', NULL, 'tep_cfg_select_option(array(''True'', ''False''), '),
 (181, 'Sort Order', 'MODULE_HEADER_TAGS_CATEGORY_TITLE_SORT_ORDER', '200', 'Sort order of display. Lowest is displayed first.', 6, 0, NULL, '2013-01-19 19:33:36', NULL, NULL),
 (182, 'Enable Manufacturer Title Module', 'MODULE_HEADER_TAGS_MANUFACTURER_TITLE_STATUS', 'True', 'Do you want to allow manufacturer titles to be added to the page title?', 6, 1, NULL, '2013-01-19 19:33:36', NULL, 'tep_cfg_select_option(array(''True'', ''False''), '),
@@ -568,7 +710,7 @@ INSERT INTO `configuration` (`configuration_id`, `configuration_title`, `configu
 (209, 'Sort Order', 'MODULE_ADMIN_DASHBOARD_VERSION_CHECK_SORT_ORDER', '900', 'Sort order of display. Lowest is displayed first.', 6, 0, NULL, '2013-01-19 19:33:36', NULL, NULL),
 (210, 'Enable Latest Reviews Module', 'MODULE_ADMIN_DASHBOARD_REVIEWS_STATUS', 'True', 'Do you want to show the latest reviews on the dashboard?', 6, 1, NULL, '2013-01-19 19:33:36', NULL, 'tep_cfg_select_option(array(''True'', ''False''), '),
 (211, 'Sort Order', 'MODULE_ADMIN_DASHBOARD_REVIEWS_SORT_ORDER', '1000', 'Sort order of display. Lowest is displayed first.', 6, 0, NULL, '2013-01-19 19:33:36', NULL, NULL),
-(212, 'Installed Modules', 'MODULE_BOXES_INSTALLED', 'bm_categories.php;bm_manufacturers.php;bm_search.php;bm_whats_new.php;bm_information.php;bm_shopping_cart.php;bm_manufacturer_info.php;bm_order_history.php;bm_best_sellers.php;bm_product_notifications.php;bm_product_social_bookmarks.php;bm_specials.php;bm_reviews.php;bm_languages.php;bm_currencies.php;bm_side_banners.php', 'List of box module filenames separated by a semi-colon. This is automatically updated. No need to edit.', 6, 0, NULL, '2013-01-19 19:33:36', NULL, NULL),
+(212, 'Installed Modules', 'MODULE_BOXES_INSTALLED', 'bm_articles.php;bm_authors.php;bm_categories.php;bm_manufacturers.php;bm_search.php;bm_whats_new.php;bm_information.php;bm_shopping_cart.php;bm_manufacturer_info.php;bm_order_history.php;bm_best_sellers.php;bm_product_notifications.php;bm_product_social_bookmarks.php;bm_specials.php;bm_reviews.php;bm_languages.php;bm_currencies.php;bm_header_tags.php;bm_headertags_seo_silo.php;bm_side_banners.php', 'List of box module filenames separated by a semi-colon. This is automatically updated. No need to edit.', 6, 0, '2013-09-20 17:09:50', '2013-01-19 19:33:36', NULL, NULL),
 (213, 'Enable Best Sellers Module', 'MODULE_BOXES_BEST_SELLERS_STATUS', 'True', 'Do you want to add the module to your shop?', 6, 1, NULL, '2013-01-19 19:33:36', NULL, 'tep_cfg_select_option(array(''True'', ''False''), '),
 (214, 'Content Placement', 'MODULE_BOXES_BEST_SELLERS_CONTENT_PLACEMENT', 'Right Column', 'Should the module be loaded in the left or right column?', 6, 1, NULL, '2013-01-19 19:33:36', NULL, 'tep_cfg_select_option(array(''Left Column'', ''Right Column''), '),
 (215, 'Sort Order', 'MODULE_BOXES_BEST_SELLERS_SORT_ORDER', '5030', 'Sort order of display. Lowest is displayed first.', 6, 0, NULL, '2013-01-19 19:33:36', NULL, NULL),
@@ -687,7 +829,102 @@ INSERT INTO `configuration` (`configuration_id`, `configuration_title`, `configu
 (327, 'Show the products model?', 'DISPLAY_PRODUCT_MODEL', 'false', 'Would you like to display the product model on the invoice?<br />[ Default = false ]<br />', 16, 27, '2013-02-12 12:00:00', '2013-02-12 12:00:00', '', 'tep_cfg_select_option(array(''false'', ''true''),'),
 (328, 'Choose the size of the products model box.', 'PRODUCT_MODEL_BOX_WIDTH', '24', 'If you have chosen to show the products model box how wide do you want it?<br />[ Default = 24 ]<br />', 16, 28, '2013-02-12 12:00:00', '2013-02-12 12:00:00', NULL, ''),
 (329, 'Display currency symbol in product lines?', 'DISPLAY_PROD_LINE_CURRENCY', 'false', 'Would you like to display the currency symbol in the product lines on the invoice?<br />[ Default = false ]<br />', 16, 29, '2013-02-12 12:00:00', '2013-02-12 12:00:00', '', 'tep_cfg_select_option(array(''false'', ''true''),'),
-(330, 'Do you want to display a page number?', 'DISPLAY_PAGE_NUMBER', 'false', 'Would you like to display the page number in the footer?<br />[ Default = false ]<br />', 16, 30, '2013-02-12 12:00:00', '2013-02-12 12:00:00', '', 'tep_cfg_select_option(array(''false'', ''true''),');
+(330, 'Do you want to display a page number?', 'DISPLAY_PAGE_NUMBER', 'false', 'Would you like to display the page number in the footer?<br />[ Default = false ]<br />', 16, 30, '2013-02-12 12:00:00', '2013-02-12 12:00:00', '', 'tep_cfg_select_option(array(''false'', ''true''),'),
+(331, 'Automatically Add New Pages', 'HEADER_TAGS_AUTO_ADD_PAGES', 'true', 'Adds any new pages when Page Control is accessed<br>(true=on false=off)', 17, 1, NULL, '2013-09-20 00:12:03', NULL, 'tep_cfg_select_option(array(''true'', ''false''), '),
+(332, 'Check for Missing Tags', 'HEADER_TAGS_CHECK_TAGS', 'true', 'Check to see if any products, categories or manufacturers contain empty meta tag fields<br>(true=on false=off)', 17, 2, NULL, '2013-09-20 00:12:03', NULL, 'tep_cfg_select_option(array(''true'', ''false''), '),
+(333, 'Clear Cache', 'HEADER_TAGS_CLEAR_CACHE', 'false', 'Remove all Header Tags cache entries from the database.', 17, 3, NULL, '2013-09-20 00:12:03', 'header_tags_reset_cache', 'tep_cfg_select_option(array(''clear'', ''false''), '),
+(334, '<font color=purple>Display Category Parents in Title and Tags</font>', 'HEADER_TAGS_ADD_CATEGORY_PARENTS', 'Standard', 'Adds all categories in the current path (Full), all immediate categories if the product is in more than one category (Duplicate) or only the immediate category (Standard). These settings only work if the Category checkbox is enabled in Page Control.', 17, 4, NULL, '2013-09-20 00:12:03', NULL, 'tep_cfg_select_option(array(''Full Category Path'', ''Duplicate Categories'', ''Standard''), '),
+(335, '<font color=purple>Display Column Box</font>', 'HEADER_TAGS_DISPLAY_COLUMN_BOX', 'false', 'Display product box in column while on product page<br>(true=on false=off)', 17, 5, NULL, '2013-09-20 00:12:03', NULL, 'tep_cfg_select_option(array(''true'', ''false''), '),
+(336, '<font color=purple>Display Currently Viewing</font>', 'HEADER_TAGS_DISPLAY_CURRENTLY_VIEWING', 'true', 'Display a link near the bottom of the product page.<br>(true=on false=off)', 17, 6, NULL, '2013-09-20 00:12:03', NULL, 'tep_cfg_select_option(array(''true'', ''false''), '),
+(337, '<font color=purple>Display Help Popups</font>', 'HEADER_TAGS_DISPLAY_HELP_POPUPS', 'true', 'Display short popup messages that describes a feature<br>(true=on false=off)', 17, 7, NULL, '2013-09-20 00:12:03', NULL, 'tep_cfg_select_option(array(''true'', ''false''), '),
+(338, '<font color=purple>Disable Permission Warning</font>', 'HEADER_TAGS_DIABLE_PERMISSION_WARNING', 'false', 'Prevent the warning that appears if the permissions for the includes/header_tags.php file appear to be incoorect.<br>(true=on false=off)', 17, 8, NULL, '2013-09-20 00:12:03', NULL, 'tep_cfg_select_option(array(''true'', ''false''), '),
+(339, '<font color=purple>Display Page Top Title</font>', 'HEADER_TAGS_DISPLAY_PAGE_TOP_TITLE', 'true', 'Displays the page title at the very top of the page<br>(true=on false=off)', 17, 9, NULL, '2013-09-20 00:12:03', NULL, 'tep_cfg_select_option(array(''true'', ''false''), '),
+(340, '<font color=purple>Display Silo Links</font>', 'HEADER_TAGS_DISPLAY_SILO_BOX', 'false', 'Display a box displaying links based on the settings in Silo Control<br>(true=on false=off)', 17, 10, NULL, '2013-09-20 00:12:03', NULL, 'tep_cfg_select_option(array(''true'', ''false''), '),
+(341, '<font color=purple>Display Social Bookmark</font>', 'HEADER_TAGS_DISPLAY_SOCIAL_BOOKMARKS', 'true', 'Display social bookmarks on the product page<br>(true=on false=off)', 17, 11, NULL, '2013-09-20 00:12:03', NULL, 'tep_cfg_select_option(array(''true'', ''false''), '),
+(342, '<font color=purple>Display Tag Cloud</font>', 'HEADER_TAGS_DISPLAY_TAG_CLOUD', 'false', 'Display the Tag Cloud infobox<br>(true=on false=off)', 17, 12, NULL, '2013-09-20 00:12:04', NULL, 'tep_cfg_select_option(array(''true'', ''false''), '),
+(343, '<font color=blue>Enable AutoFill - Listing Text</font>', 'HEADER_TAGS_ENABLE_AUTOFILL_LISTING_TEXT', 'false', 'If true, text will be shown on the product listing page automatically. If false, the text only shows if the field has text in it.', 17, 13, NULL, '2013-09-20 00:12:04', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(344, '<font color=blue>Enable Cache</font>', 'HEADER_TAGS_ENABLE_CACHE', 'None', 'Enables cache for Header Tags. The GZip option will use gzip to try to increase speed but may be a little slower if the Header Tags data is small.', 17, 14, NULL, '2013-09-20 00:12:04', NULL, 'tep_cfg_select_option(array(''None'', ''Normal'', ''GZip''),'),
+(345, '<font color=blue>Enable an HTML Editor</font>', 'HEADER_TAGS_ENABLE_HTML_EDITOR', 'No Editor', 'Use an HTML editor, if selected. !!! Warning !!! The selected editor must be installed for it to work!!!)', 17, 15, NULL, '2013-09-20 00:12:04', NULL, 'tep_cfg_select_option(array(''CKEditor'', ''FCKEditor'', ''TinyMCE'', ''No Editor''),'),
+(346, '<font color=blue>Enable HTML Editor for Category Descriptions</font>', 'HEADER_TAGS_ENABLE_EDITOR_CATEGORIES', 'false', 'Enables the selected HTML editor for the categories description box. The editor must be installed for this to work.', 17, 16, NULL, '2013-09-20 00:12:04', NULL, 'tep_cfg_select_option(array(''true'', ''false''), '),
+(347, '<font color=blue>Enable HTML Editor for Products Descriptions</font>', 'HEADER_TAGS_ENABLE_EDITOR_PRODUCTS', 'false', 'Enables the selected HTML editor for the products description box. The editor must be installed for this to work.', 17, 17, NULL, '2013-09-20 00:12:04', NULL, 'tep_cfg_select_option(array(''true'', ''false''), '),
+(348, '<font color=blue>Enable HTML Editor for Product Listing text</font>', 'HEADER_TAGS_ENABLE_EDITOR_LISTING_TEXT', 'false', 'Enables the selected HTML editor for the Header Tags text on the product listing page. The editor must be installed for this to work.', 17, 18, NULL, '2013-09-20 00:12:04', NULL, 'tep_cfg_select_option(array(''true'', ''false''), '),
+(349, '<font color=blue>Enable HTML Editor for Product Sub Text</font>', 'HEADER_TAGS_ENABLE_EDITOR_SUB_TEXT', 'false', 'Enables the selected HTML editor for the sub text on the products page. The editor must be installed for this to work.', 17, 19, NULL, '2013-09-20 00:12:04', NULL, 'tep_cfg_select_option(array(''true'', ''false''), '),
+(350, '<font color=blue>Enable Version Checker</font>', 'HEADER_TAGS_ENABLE_VERSION_CHECKER', 'true', 'Enables the code that checks if updates are available.', 17, 20, NULL, '2013-09-20 00:12:04', NULL, 'tep_cfg_select_option(array(''true'', ''false''), '),
+(351, 'Keyword Density Range', 'HEADER_TAGS_KEYWORD_DENSITY_RANGE', '0.02,0.06', 'Set the limits for the keyword density use to dynamically select the keywords. Enter two figures, separated by a comma.', 17, 21, NULL, '2013-09-20 00:12:04', NULL, NULL),
+(352, 'Position Domain', 'HEADER_TAGS_POSITION_DOMAIN', '', 'Set the domain name to be used in the keyword position checking code, like www.domain_name.com or domain_name.com/shop.', 17, 22, NULL, '2013-09-20 00:12:04', NULL, NULL),
+(353, 'Position Page Count', 'HEADER_TAGS_POSITION_PAGE_COUNT', '2', 'Set the number of pages to search when checking keyword positions (10 urls per page).', 17, 23, NULL, '2013-09-20 00:12:05', NULL, NULL),
+(354, 'Separator - Description', 'HEADER_TAGS_SEPARATOR_DESCRIPTION', '-', 'Set the separator to be used for the description (and titles and logo).', 17, 24, NULL, '2013-09-20 00:12:06', NULL, NULL),
+(355, 'Separator - Keywords', 'HEADER_TAGS_SEPARATOR_KEYWORD', ',', 'Set the separator to be used for the keywords.', 17, 25, NULL, '2013-09-20 00:12:06', NULL, NULL),
+(356, 'Search Keywords', 'HEADER_TAGS_SEARCH_KEYWORDS', 'false', 'This option allows keywords stored in the Header Tags SEO search table to be searched when a search is performed on the site.', 17, 26, NULL, '2013-09-20 00:12:06', NULL, 'tep_cfg_select_option(array(''true'', ''false''), '),
+(357, 'Store Keywords', 'HEADER_TAGS_STORE_KEYWORDS', 'true', 'This option stores the searched for keywords so they can be used by other parts of Header Tags, like in the Tag Cloud option.', 17, 27, NULL, '2013-09-20 00:12:06', NULL, 'tep_cfg_select_option(array(''true'', ''false''), '),
+(358, 'Tag Cloud Column Count', 'HEADER_TAGS_TAG_CLOUD_COLUMN_COUNT', '8', 'Set the number of keywords to display in a row in the Tag Cloud box.', 17, 28, NULL, '2013-09-20 00:12:06', NULL, NULL),
+(359, 'Article Image Width', 'ARTICLES_IMAGE_WIDTH', '100', 'Set the width of the image displayed in an article.', 456, 5, '2013-09-20 00:47:15', '2013-09-20 00:47:15', NULL, NULL),
+(360, 'Article Image Height', 'ARTICLES_IMAGE_HEIGHT', '100', 'Set the height of the image displayed in an article.', 456, 6, '2013-09-20 00:47:15', '2013-09-20 00:47:15', NULL, NULL),
+(361, 'Authors List Style', 'MAX_DISPLAY_AUTHORS_IN_A_LIST', '1', 'Used in Authors box. When the number of authors exceeds this number, a drop-down list will be displayed instead of the default list', 456, 9, '2013-09-20 00:47:15', '2013-09-20 00:47:15', NULL, NULL),
+(362, 'Authors Select Box Size', 'MAX_AUTHORS_LIST', '1', 'Used in Authors box. When this value is 1 the classic drop-down list will be used for the authors box. Otherwise, a list-box with the specified number of rows will be displayed.', 456, 10, '2013-09-20 00:47:15', '2013-09-20 00:47:15', NULL, NULL),
+(363, 'Maximum New Articles Per Page', 'MAX_NEW_ARTICLES_PER_PAGE', '10', 'The maximum number of New Articles to display per page<br>(New Articles page)', 456, 15, '2013-09-20 00:47:15', '2013-09-20 00:47:15', NULL, NULL),
+(364, 'Maximum Article Abstract Length', 'MAX_ARTICLE_ABSTRACT_LENGTH', '300', 'Sets the maximum length of the Article Abstract to be displayed<br><br>(No. of characters)', 456, 20, '2013-09-20 00:47:15', '2013-09-20 00:47:15', NULL, NULL),
+(365, 'Maximum Articles Per Page', 'MAX_ARTICLES_PER_PAGE', '10', 'The maximum number of Articles to display per page<br>(All Articles and Topic/Author pages)', 456, 25, '2013-09-20 00:47:15', '2013-09-20 00:47:15', NULL, NULL),
+(366, 'Maximum Display Upcoming Articles', 'MAX_DISPLAY_UPCOMING_ARTICLES', '5', 'Maximum number of articles to display in the Upcoming Articles module', 456, 30, '2013-09-20 00:47:15', '2013-09-20 00:47:15', NULL, NULL),
+(367, 'Minimum Number Cross-Sell Products', 'MIN_DISPLAY_ARTICLES_XSELL', '1', 'Minimum number of products to display in the articles Cross-Sell listing.', 456, 35, '2013-09-20 00:47:15', '2013-09-20 00:47:15', NULL, NULL),
+(368, 'Maximum Number Cross-Sell Products', 'MAX_DISPLAY_ARTICLES_XSELL', '6', 'Maximum number of products to display in the articles Cross-Sell listing.', 456, 40, '2013-09-20 00:47:15', '2013-09-20 00:47:15', NULL, NULL),
+(369, 'Maximum Length of Author Name', 'MAX_DISPLAY_AUTHOR_NAME_LEN', '20', 'The maximum length of the author''s name for display in the Author box', 456, 45, '2013-09-20 00:47:15', '2013-09-20 00:47:15', NULL, NULL),
+(370, 'Number of Days Display New Articles', 'NEW_ARTICLES_DAYS_DISPLAY', '30', 'The number of days to display New Articles?', 456, 50, '2013-09-20 00:47:15', '2013-09-20 00:47:15', NULL, NULL),
+(371, 'Display Author in Article Listing', 'DISPLAY_AUTHOR_ARTICLE_LISTING', 'true', 'Display the Author in the Article Listing?', 456, 55, '2013-09-20 00:47:15', '2013-09-20 00:47:15', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(372, 'Display Topic in Article Listing', 'DISPLAY_TOPIC_ARTICLE_LISTING', 'true', 'Display the Topic in the Article Listing?', 456, 60, '2013-09-20 00:47:15', '2013-09-20 00:47:15', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(373, 'Display Abstract in Article Listing', 'DISPLAY_ABSTRACT_ARTICLE_LISTING', 'true', 'Display the Abstract in the Article Listing?', 456, 65, '2013-09-20 00:47:16', '2013-09-20 00:47:16', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(374, 'Display Date Added in Article Listing', 'DISPLAY_DATE_ADDED_ARTICLE_LISTING', 'true', 'Display the Date Added in the Article Listing?', 456, 70, '2013-09-20 00:47:16', '2013-09-20 00:47:16', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(375, 'Display Topic/Author Filter', 'ARTICLE_LIST_FILTER', 'true', 'Do you want to display the Topic/Author Filter?', 456, 75, '2013-09-20 00:47:16', '2013-09-20 00:47:16', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(376, 'Display Box Authors', 'AUTHOR_BOX_DISPLAY', 'true', 'Display the Author box in the destination column', 456, 80, '2013-09-20 00:47:16', '2013-09-20 00:47:16', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(377, 'Display Box Articles', 'ARTICLE_BOX_DISPLAY', 'true', 'Display the Articles box in the destination column', 456, 85, '2013-09-20 00:47:16', '2013-09-20 00:47:16', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(378, '<font color=steelblue>Display Box Articles - All Articles Section</font>', 'ARTICLE_BOX_DISPLAY_ALL_ARTICLES_SECTION', 'true', 'Display an All Articles section in the articles box', 456, 90, '2013-09-20 00:47:16', '2013-09-20 00:47:16', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(379, '<font color=steelblue>Display Box Articles - All Articles Sort Order</font>', 'ARTICLE_BOX_DISPLAY_ALL_ARTICLES_SECTION_SORT_ORDER', '2', 'Determines the where the All Articles section will be displayed in the infobox.', 456, 95, '2013-09-20 00:47:16', '2013-09-20 00:47:16', NULL, NULL),
+(380, '<font color=steelblue>Display Box Articles - All Articles Links?</font>', 'ARTICLE_BOX_DISPLAY_All_ARTICLES_LINKS', 'true', 'Display links to individual articles. Requires the Display Box Articles - All Articles Section option to be true. ', 456, 100, '2013-09-20 00:47:16', '2013-09-20 00:47:16', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(381, '<font color=steelblue>Display Box Articles - All Articles Links Limit</font>', 'ARTICLE_BOX_DISPLAY_ALL_ARTICLES_LINKS_LIMIT', '', 'Maximum number of article links to display in the articles infobox. Leave blank for no limit.', 456, 101, '2013-09-20 00:47:16', '2013-09-20 00:47:16', NULL, NULL),
+(382, 'Display Box Articles - All Blog Section', 'ARTICLE_BOX_DISPLAY_ALL_BLOG_SECTION', 'true', 'Display an All Blog Articles section in the articles box', 456, 105, '2013-09-20 00:47:16', '2013-09-20 00:47:16', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(383, 'Display Box Articles - All Blog Sort Order', 'ARTICLE_BOX_DISPLAY_ALL_BLOG_SECTION_SORT_ORDER', '1', 'Determines the where the All Blog Articles section will be displayed in the infobox.', 456, 106, '2013-09-20 00:47:16', '2013-09-20 00:47:16', NULL, NULL),
+(384, 'Display Box Articles - All Blog Links?', 'ARTICLE_BOX_DISPLAY_All_BLOG_LINKS', 'true', 'Display links to individual articles. Requires the Display Box Articles - All Blog Articles Section option to be true. ', 456, 107, '2013-09-20 00:47:16', '2013-09-20 00:47:16', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(385, 'Display Box Articles - All Blog Links Limit', 'ARTICLE_BOX_DISPLAY_ALL_BLOG_LINKS_LIMIT', '', 'Maximum number of blog article links to display in the articles infobox. Leave blank for no limit.', 456, 108, '2013-09-20 00:47:16', '2013-09-20 00:47:16', NULL, NULL),
+(386, '<font color=steelblue>Display Box Articles - All Topics Section</font>', 'ARTICLE_BOX_DISPLAY_TOPICS_SECTION', 'true', 'Display an All Topics section in the articles box', 456, 110, '2013-09-20 00:47:16', '2013-09-20 00:47:16', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(387, '<font color=steelblue>Display Box Articles - All Topics Sort Order</font>', 'ARTICLE_BOX_DISPLAY_TOPICS_SECTION_SORT_ORDER', '3', 'Determines the where the All Topics section will be displayed in the infobox.', 456, 111, '2013-09-20 00:47:17', '2013-09-20 00:47:17', NULL, NULL),
+(388, '<font color=steelblue>Display Box Articles - All Topics Links?</font>', 'ARTICLE_BOX_DISPLAY_TOPICS_LINKS', 'true', 'Display links to individual topics. Requires the Display Box Articles - All Topics Section option to be true. ', 456, 112, '2013-09-20 00:47:17', '2013-09-20 00:47:17', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(389, '<font color=steelblue>Display Box Articles - All Topics Links Limit</font>', 'ARTICLE_BOX_DISPLAY_TOPICS_LINKS_LIMIT', '', 'Maximum number of topics links to display in the articles infobox. Leave blank for no limit.', 456, 113, '2013-09-20 00:47:17', '2013-09-20 00:47:17', NULL, NULL),
+(390, 'Display Box Articles - New Articles Section', 'ARTICLE_BOX_DISPLAY_NEW_ARTICLES_SECTION', 'true', 'Display a New Articles section in the articles box', 456, 120, '2013-09-20 00:47:17', '2013-09-20 00:47:17', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(391, 'Display Box Articles - New Articles Sort Order', 'ARTICLE_BOX_DISPLAY_NEW_ARTICLES_SECTION_SORT_ORDER', '4', 'Determines the where the New Articles section will be displayed in the infobox.', 456, 125, '2013-09-20 00:47:17', '2013-09-20 00:47:17', NULL, NULL),
+(392, 'Display Box Articles - New Articles Links?', 'ARTICLE_BOX_DISPLAY_NEW_ARTICLES_LINKS', 'true', 'Display links to individual articles. Requires the Display Box Articles - New Articles Section option to be true. ', 456, 130, '2013-09-20 00:47:17', '2013-09-20 00:47:17', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(393, 'Display Box Articles - New Articles Links Limit', 'ARTICLE_BOX_DISPLAY_NEW_ARTICLES_LINKS_LIMIT', '', 'Maximum number of new article links to display in the articles infobox. Leave blank for no limit.', 456, 132, '2013-09-20 00:47:17', '2013-09-20 00:47:17', NULL, NULL),
+(394, '<font color=steelblue>Display Box Articles - RSS Feed Section</font>', 'ARTICLE_BOX_DISPLAY_RSS_FEED_SECTION', 'true', 'Display an RSS Feed section in the articles box', 456, 135, '2013-09-20 00:47:17', '2013-09-20 00:47:17', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(395, '<font color=steelblue>Display Box Articles - RSS Feed Sort Order</font>', 'ARTICLE_BOX_DISPLAY_RSS_FEED_SECTION_SORT_ORDER', '5', 'Determines the where the RSS Feed section will be displayed in the infobox.', 456, 140, '2013-09-20 00:47:17', '2013-09-20 00:47:17', NULL, NULL),
+(396, 'Display Box Articles - Search Articles Section', 'ARTICLE_BOX_DISPLAY_SEARCH_ARTICLES_SECTION', 'true', 'Display a Search Box in the articles box', 456, 142, '2013-09-20 00:47:17', '2013-09-20 00:47:17', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(397, 'Display Box Articles - Search Articles Sort Order', 'ARTICLE_BOX_DISPLAY_SEARCH_ARTICLES_SECTION_SORT_ORDER', '8', 'Determines the where the Search Box will be displayed in the infobox.', 456, 143, '2013-09-20 00:47:17', '2013-09-20 00:47:17', NULL, NULL),
+(398, '<font color=steelblue>Display Box Articles - Submit Article Section</font>', 'ARTICLE_BOX_DISPLAY_SUBMIT_ARTICLE_SECTION', 'true', 'Display a Submit Article section in the articles box', 456, 149, '2013-09-20 00:47:17', '2013-09-20 00:47:17', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(399, '<font color=steelblue>Display Box Articles - Submit Article Sort Order</font>', 'ARTICLE_BOX_DISPLAY_SUBMIT_ARTICLE_SECTION_SORT_ORDER', '6', 'Determines the where the Submit Article section will be displayed in the infobox.', 456, 150, '2013-09-20 00:47:18', '2013-09-20 00:47:18', NULL, NULL),
+(400, 'Display Box Articles - Upcoming Articles Section', 'ARTICLE_BOX_DISPLAY_UPCOMING_SECTION', 'true', 'Display an Upcoming Articles section in the articles box', 456, 155, '2013-09-20 00:47:18', '2013-09-20 00:47:18', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(401, 'Display Box Articles - Upcoming Articles Sort Order', 'ARTICLE_BOX_DISPLAY_UPCOMING_SECTION_SORT_ORDER', '6', 'Determines the where the Upcoming Articles section will be displayed in the infobox.', 456, 160, '2013-09-20 00:47:18', '2013-09-20 00:47:18', NULL, NULL),
+(402, '<font color=steelblue>Display Box Articles - Separate Articles</font>', 'SEPARATE_ARTICLES', 'false', 'Separate each article in the article infobox with a line.', 456, 162, '2013-09-20 00:47:18', '2013-09-20 00:47:18', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(403, '<font color=steelblue>Display Box Articles - Separate Blog Articles</font>', 'SEPARATE_BLOG_ARTICLES', 'false', 'Separate each blog article in the article infobox with a line.', 456, 163, '2013-09-20 00:47:18', '2013-09-20 00:47:18', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(404, '<font color=steelblue>Display Box Articles - Separate New Articles</font>', 'SEPARATE_NEW_ARTICLES', 'false', 'Separate each new article in the article infobox with a line.', 456, 164, '2013-09-20 00:47:18', '2013-09-20 00:47:18', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(405, '<font color=steelblue>Display Box Articles - Separate Topics</font>', 'SEPARATE_TOPICS', 'false', 'Separate each topic in the article infobox with a line.', 456, 165, '2013-09-20 00:47:18', '2013-09-20 00:47:18', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(406, 'Number of articles to display in the RSS Feed.', 'NEWS_RSS_ARTICLE', '10', 'If you want all of your articles to display in the RSS type in something like 2000.  The default is 10', 456, 165, NULL, '2013-09-20 00:47:18', NULL, NULL),
+(407, 'Number of characters to display in each RSS article.', 'NEWS_RSS_CHARACTERS', '250', 'If you keep this at 250 it will hide a little bit of each of article from your viewers. They will have to come to your store to finish.  The default is 250', 456, 170, NULL, '2013-09-20 00:47:18', NULL, NULL),
+(408, 'Enable Article Reviews', 'ENABLE_ARTICLE_REVIEWS', 'true', 'Enable registered users to review articles?', 456, 175, '2013-09-20 00:47:18', '2013-09-20 00:47:18', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(409, 'Enable an HTML Editor', 'ARTICLE_ENABLE_HTML_EDITOR', 'No Editor', 'Use an HTML editor, if selected. !!! Warning !!! The selected editor must be installed for it to work!!!)', 456, 180, '2013-09-20 00:47:18', '2013-09-20 00:47:18', NULL, 'tep_cfg_select_option(array(''CKEditor'', ''FCKEditor'', ''TinyMCE'', ''No Editor''),'),
+(410, 'Enable Tell a Friend About Article', 'ENABLE_TELL_A_FRIEND_ARTICLE', 'true', 'Enable Tell a Friend option in the Article Information page?', 456, 185, '2013-09-20 00:47:18', '2013-09-20 00:47:18', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(411, 'Enable Version Checker', 'ARTICLE_ENABLE_VERSION_CHECKER', 'false', 'Enables the version checking code to automatically check if an update is available.', 456, 190, '2013-09-20 00:47:18', '2013-09-20 00:47:18', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(412, 'Location of Prev/Next Navigation Bar', 'ARTICLE_PREV_NEXT_BAR_LOCATION', 'bottom', 'Sets the location of the Previous/Next Navigation Bar<br><br>(top; bottom; both)', 456, 195, '2013-09-20 00:47:18', '2013-09-20 00:47:18', NULL, 'tep_cfg_select_option(array(''top'', ''bottom'', ''both''),'),
+(413, 'Show Article Counts', 'SHOW_ARTICLE_COUNTS', 'true', 'Count recursively how many articles are in each topic.', 456, 215, '2013-09-20 00:47:18', '2013-09-20 00:47:18', NULL, 'tep_cfg_select_option(array(''true'', ''false''),'),
+(429, 'Enable Article Manager Authors Infobox', 'MODULE_BOXES_AUTHORS_STATUS', 'True', 'Do you want to add the module to your shop?', 6, 1, NULL, '2013-09-20 02:09:09', NULL, 'tep_cfg_select_option(array(''True'', ''False''), '),
+(430, 'Content Placement', 'MODULE_BOXES_AUTHORS_CONTENT_PLACEMENT', 'Left Column', 'Should the module be loaded in the left or right column?', 6, 1, NULL, '2013-09-20 02:09:09', NULL, 'tep_cfg_select_option(array(''Left Column'', ''Right Column''), '),
+(431, 'Sort Order', 'MODULE_BOXES_AUTHORS_SORT_ORDER', '0', 'Sort order of display. Lowest is displayed first.', 6, 0, NULL, '2013-09-20 02:09:09', NULL, NULL),
+(432, 'Enable Information Module', 'MODULE_BOXES_HEADER_TAGS_STATUS', 'True', 'Do you want to add the module to your shop?', 6, 1, NULL, '2013-09-20 02:09:34', NULL, 'tep_cfg_select_option(array(''True'', ''False''), '),
+(433, 'Content Placement', 'MODULE_BOXES_HEADER_TAGS_CONTENT_PLACEMENT', 'Left Column', 'Should the module be loaded in the left or right column?', 6, 1, NULL, '2013-09-20 02:09:34', NULL, 'tep_cfg_select_option(array(''Left Column'', ''Right Column''), '),
+(434, 'Sort Order', 'MODULE_BOXES_HEADER_TAGS_SORT_ORDER', '0', 'Sort order of display. Lowest is displayed first.', 6, 0, NULL, '2013-09-20 02:09:34', NULL, NULL),
+(435, 'Enable Information Module', 'MODULE_BOXES_HEADERTAGS_SEO_SILO_STATUS', 'True', 'Do you want to add the module to your shop?', 6, 1, NULL, '2013-09-20 02:09:56', NULL, 'tep_cfg_select_option(array(''True'', ''False''), '),
+(436, 'Content Placement', 'MODULE_BOXES_HEADERTAGS_SEO_SILO_CONTENT_PLACEMENT', 'Left Column', 'Should the module be loaded in the left or right column?', 6, 1, NULL, '2013-09-20 02:09:56', NULL, 'tep_cfg_select_option(array(''Left Column'', ''Right Column''), '),
+(437, 'Sort Order', 'MODULE_BOXES_HEADERTAGS_SEO_SILO_SORT_ORDER', '0', 'Sort order of display. Lowest is displayed first.', 6, 0, NULL, '2013-09-20 02:09:56', NULL, NULL),
+(441, 'Enable Article Manager Authors Infobox', 'MODULE_BOXES_ARTICLES_STATUS', 'True', 'Do you want to add the module to your shop?', 6, 1, NULL, '2013-09-20 17:09:49', NULL, 'tep_cfg_select_option(array(''True'', ''False''), '),
+(442, 'Content Placement', 'MODULE_BOXES_ARTICLES_CONTENT_PLACEMENT', 'Left Column', 'Should the module be loaded in the left or right column?', 6, 1, NULL, '2013-09-20 17:09:49', NULL, 'tep_cfg_select_option(array(''Left Column'', ''Right Column''), '),
+(443, 'Sort Order', 'MODULE_BOXES_ARTICLES_SORT_ORDER', '0', 'Sort order of display. Lowest is displayed first.', 6, 0, NULL, '2013-09-20 17:09:49', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -702,7 +939,7 @@ CREATE TABLE IF NOT EXISTS `configuration_group` (
   `sort_order` int(5) DEFAULT NULL,
   `visible` int(1) DEFAULT '1',
   PRIMARY KEY (`configuration_group_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=457 ;
 
 --
 -- Volcado de datos para la tabla `configuration_group`
@@ -724,7 +961,9 @@ INSERT INTO `configuration_group` (`configuration_group_id`, `configuration_grou
 (13, 'Download', 'Downloadable products options', 13, 1),
 (14, 'GZip Compression', 'GZip compression options', 14, 1),
 (15, 'Sessions', 'Session options', 15, 1),
-(16, 'PDF Invoices', 'Options for configuring PDF invoices', 16, 1);
+(16, 'PDF Invoices', 'Options for configuring PDF invoices', 16, 1),
+(17, 'Header Tags SEO', 'Header Tags SEO site wide options', 22, 1),
+(456, 'Article Manager', 'Article Manager site wide options', 20, 1);
 
 -- --------------------------------------------------------
 
@@ -742,7 +981,7 @@ CREATE TABLE IF NOT EXISTS `counter` (
 --
 
 INSERT INTO `counter` (`startdate`, `counter`) VALUES
-('20130119', 2215);
+('20130119', 2254);
 
 -- --------------------------------------------------------
 
@@ -1035,15 +1274,16 @@ CREATE TABLE IF NOT EXISTS `currencies` (
   `last_updated` datetime DEFAULT NULL,
   PRIMARY KEY (`currencies_id`),
   KEY `idx_currencies_code` (`code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `currencies`
 --
 
 INSERT INTO `currencies` (`currencies_id`, `title`, `code`, `symbol_left`, `symbol_right`, `decimal_point`, `thousands_point`, `decimal_places`, `value`, `last_updated`) VALUES
-(1, 'U.S. Dollar', 'USD', '$', '', '.', ',', '2', 1.00000000, '2013-01-19 19:33:34'),
-(2, 'Euro', 'EUR', '', 'â‚¬', '.', ',', '2', 1.00000000, '2013-01-19 19:33:34');
+(1, 'U.S. Dollar', 'USD', '$', '', '.', ',', '2', 1.00000000, '2013-09-21 18:16:08'),
+(2, 'Euro', 'EUR', '', 'â‚¬', '.', ',', '2', 0.73909998, '2013-09-21 18:16:09'),
+(3, 'Mexican Peso', 'MXN', '$', '', '.', ',', '2', 12.75419998, '2013-09-21 18:16:09');
 
 -- --------------------------------------------------------
 
@@ -1091,16 +1331,7 @@ CREATE TABLE IF NOT EXISTS `customers_basket` (
   `customers_basket_date_added` char(8) DEFAULT NULL,
   PRIMARY KEY (`customers_basket_id`),
   KEY `idx_customers_basket_customers_id` (`customers_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
-
---
--- Volcado de datos para la tabla `customers_basket`
---
-
-INSERT INTO `customers_basket` (`customers_basket_id`, `customers_id`, `products_id`, `customers_basket_quantity`, `final_price`, `customers_basket_date_added`) VALUES
-(5, 2, '32', 1, NULL, '20130214'),
-(6, 3, '37', 1, NULL, '20130919'),
-(7, 3, '32', 1, NULL, '20130919');
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 
@@ -1166,6 +1397,266 @@ CREATE TABLE IF NOT EXISTS `geo_zones` (
 
 INSERT INTO `geo_zones` (`geo_zone_id`, `geo_zone_name`, `geo_zone_description`, `last_modified`, `date_added`) VALUES
 (1, 'Florida', 'Florida local sales tax zone', NULL, '2013-01-19 19:33:35');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `headertags`
+--
+
+CREATE TABLE IF NOT EXISTS `headertags` (
+  `page_name` varchar(64) NOT NULL DEFAULT '',
+  `page_title` varchar(120) NOT NULL DEFAULT '',
+  `page_description` varchar(255) NOT NULL DEFAULT '',
+  `page_keywords` varchar(255) NOT NULL DEFAULT '',
+  `page_logo` varchar(255) NOT NULL DEFAULT '',
+  `page_logo_1` varchar(255) NOT NULL DEFAULT '',
+  `page_logo_2` varchar(255) NOT NULL DEFAULT '',
+  `page_logo_3` varchar(255) NOT NULL DEFAULT '',
+  `page_logo_4` varchar(255) NOT NULL DEFAULT '',
+  `append_default_title` tinyint(1) NOT NULL DEFAULT '0',
+  `append_default_description` tinyint(1) NOT NULL DEFAULT '0',
+  `append_default_keywords` tinyint(1) NOT NULL DEFAULT '0',
+  `append_default_logo` tinyint(1) NOT NULL DEFAULT '0',
+  `append_category` tinyint(1) NOT NULL DEFAULT '0',
+  `append_manufacturer` tinyint(1) NOT NULL DEFAULT '0',
+  `append_model` tinyint(1) NOT NULL DEFAULT '0',
+  `append_product` tinyint(1) NOT NULL DEFAULT '1',
+  `append_root` tinyint(1) NOT NULL DEFAULT '1',
+  `sortorder_title` tinyint(2) NOT NULL DEFAULT '0',
+  `sortorder_description` tinyint(2) NOT NULL DEFAULT '0',
+  `sortorder_keywords` tinyint(2) NOT NULL DEFAULT '0',
+  `sortorder_logo` tinyint(2) NOT NULL DEFAULT '0',
+  `sortorder_logo_1` tinyint(2) NOT NULL DEFAULT '0',
+  `sortorder_logo_2` tinyint(2) NOT NULL DEFAULT '0',
+  `sortorder_logo_3` tinyint(2) NOT NULL DEFAULT '0',
+  `sortorder_logo_4` tinyint(2) NOT NULL DEFAULT '0',
+  `sortorder_category` tinyint(2) NOT NULL DEFAULT '0',
+  `sortorder_manufacturer` tinyint(2) NOT NULL DEFAULT '0',
+  `sortorder_model` tinyint(2) NOT NULL DEFAULT '0',
+  `sortorder_product` tinyint(2) NOT NULL DEFAULT '10',
+  `sortorder_root` tinyint(2) NOT NULL DEFAULT '1',
+  `sortorder_root_1` tinyint(2) NOT NULL DEFAULT '1',
+  `sortorder_root_2` tinyint(2) NOT NULL DEFAULT '1',
+  `sortorder_root_3` tinyint(2) NOT NULL DEFAULT '1',
+  `sortorder_root_4` tinyint(2) NOT NULL DEFAULT '1',
+  `language_id` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`page_name`,`language_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `headertags`
+--
+
+INSERT INTO `headertags` (`page_name`, `page_title`, `page_description`, `page_keywords`, `page_logo`, `page_logo_1`, `page_logo_2`, `page_logo_3`, `page_logo_4`, `append_default_title`, `append_default_description`, `append_default_keywords`, `append_default_logo`, `append_category`, `append_manufacturer`, `append_model`, `append_product`, `append_root`, `sortorder_title`, `sortorder_description`, `sortorder_keywords`, `sortorder_logo`, `sortorder_logo_1`, `sortorder_logo_2`, `sortorder_logo_3`, `sortorder_logo_4`, `sortorder_category`, `sortorder_manufacturer`, `sortorder_model`, `sortorder_product`, `sortorder_root`, `sortorder_root_1`, `sortorder_root_2`, `sortorder_root_3`, `sortorder_root_4`, `language_id`) VALUES
+('advanced_search.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('advanced_search.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('advanced_search.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('advanced_search_result.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('advanced_search_result.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('advanced_search_result.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('article-submit.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('article-submit.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('article-submit.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('article-topics.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('article-topics.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('article-topics.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('articles.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('articles.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('articles.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('articles_new.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('articles_new.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('articles_new.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('article_blog.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('article_blog.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('article_blog.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('article_info.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('article_info.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('article_info.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('article_manager_search_result.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('article_manager_search_result.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('article_manager_search_result.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('article_manager_update_configure.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('article_manager_update_configure.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('article_manager_update_configure.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('article_popup_print.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('article_popup_print.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('article_popup_print.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('article_reviews.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('article_reviews.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('article_reviews.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('article_reviews_info.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('article_reviews_info.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('article_reviews_info.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('article_reviews_write.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('article_reviews_write.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('article_reviews_write.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('article_rss.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('article_rss.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('article_rss.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('conditions.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('conditions.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('conditions.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('contact_us.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('contact_us.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('contact_us.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('cookie_usage.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('cookie_usage.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('cookie_usage.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('download.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('download.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('download.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('index.php', 'Replace me in Page Control under index.php - oscommerce-solution.com', 'Replace me in Page Control under index.php - oscommerce-solution.com', 'Replace me in Page Control under index.php - oscommerce-solution.com', 'Replace me in Page Control under index.php - oscommerce-solution.com', '', '', '', '', 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 10, 0, 1, 1, 1, 1, 1),
+('index.php', 'Replace me in Page Control under index.php - oscommerce-solution.com', 'Replace me in Page Control under index.php - oscommerce-solution.com', 'Replace me in Page Control under index.php - oscommerce-solution.com', 'Replace me in Page Control under index.php - oscommerce-solution.com', '', '', '', '', 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 10, 0, 1, 1, 1, 1, 2),
+('index.php', 'Replace me in Page Control under index.php - oscommerce-solution.com', 'Replace me in Page Control under index.php - oscommerce-solution.com', 'Replace me in Page Control under index.php - oscommerce-solution.com', 'Replace me in Page Control under index.php - oscommerce-solution.com', '', '', '', '', 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 10, 0, 1, 1, 1, 1, 4),
+('info_shopping_cart.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('info_shopping_cart.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('info_shopping_cart.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('opensearch.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('opensearch.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('opensearch.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('password_reset.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('password_reset.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('password_reset.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('pdfinvoice.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('pdfinvoice.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('pdfinvoice.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('popup_image.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('popup_image.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('popup_image.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('privacy.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('privacy.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('privacy.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('products_new.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('products_new.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('products_new.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('product_info.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('product_info.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('product_info.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('product_reviews.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('product_reviews.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('product_reviews.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('product_reviews_info.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('product_reviews_info.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('product_reviews_info.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('product_reviews_write.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('product_reviews_write.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('product_reviews_write.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('redirect.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('redirect.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('redirect.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('reviews.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('reviews.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('reviews.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('shipping.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('shipping.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('shipping.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('shopping_cart.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('shopping_cart.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('shopping_cart.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('specials.php', 'specials', 'specials', 'specials', 'Specials', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('specials.php', 'specials', 'specials', 'specials', 'Specials', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('specials.php', 'specials', 'specials', 'specials', 'Specials', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4),
+('tell_a_friend.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 1),
+('tell_a_friend.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 2),
+('tell_a_friend.php', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 1, 1, 1, 1, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `headertags_cache`
+--
+
+CREATE TABLE IF NOT EXISTS `headertags_cache` (
+  `title` text,
+  `data` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `headertags_default`
+--
+
+CREATE TABLE IF NOT EXISTS `headertags_default` (
+  `default_title` varchar(255) NOT NULL DEFAULT '',
+  `default_description` varchar(255) NOT NULL DEFAULT '',
+  `default_keywords` varchar(255) NOT NULL DEFAULT '',
+  `default_logo_text` varchar(255) NOT NULL DEFAULT '',
+  `default_logo_append_group` tinyint(1) NOT NULL DEFAULT '1',
+  `default_logo_append_category` tinyint(1) NOT NULL DEFAULT '1',
+  `default_logo_append_manufacturer` tinyint(1) NOT NULL DEFAULT '1',
+  `default_logo_append_product` tinyint(1) NOT NULL DEFAULT '1',
+  `meta_google` tinyint(1) NOT NULL DEFAULT '0',
+  `meta_language` tinyint(1) NOT NULL DEFAULT '0',
+  `meta_noodp` tinyint(1) NOT NULL DEFAULT '1',
+  `meta_noydir` tinyint(1) NOT NULL DEFAULT '1',
+  `meta_replyto` tinyint(1) NOT NULL DEFAULT '0',
+  `meta_revisit` tinyint(1) NOT NULL DEFAULT '0',
+  `meta_robots` tinyint(1) NOT NULL DEFAULT '0',
+  `meta_unspam` tinyint(1) NOT NULL DEFAULT '0',
+  `meta_canonical` tinyint(1) NOT NULL DEFAULT '1',
+  `language_id` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`default_title`,`language_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `headertags_default`
+--
+
+INSERT INTO `headertags_default` (`default_title`, `default_description`, `default_keywords`, `default_logo_text`, `default_logo_append_group`, `default_logo_append_category`, `default_logo_append_manufacturer`, `default_logo_append_product`, `meta_google`, `meta_language`, `meta_noodp`, `meta_noydir`, `meta_replyto`, `meta_revisit`, `meta_robots`, `meta_unspam`, `meta_canonical`, `language_id`) VALUES
+('Default title', 'Default description', 'Default Keywords', 'Default Logo Text', 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1),
+('Default title', 'Default description', 'Default Keywords', 'Default Logo Text', 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 2),
+('Default title', 'Default description', 'Default Keywords', 'Default Logo Text', 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `headertags_keywords`
+--
+
+CREATE TABLE IF NOT EXISTS `headertags_keywords` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `keyword` varchar(120) NOT NULL DEFAULT '',
+  `counter` int(11) NOT NULL DEFAULT '1',
+  `last_search` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `google_last_position` tinyint(4) NOT NULL,
+  `google_date_position_check` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `found` tinyint(1) NOT NULL DEFAULT '0',
+  `language_id` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `keyword` (`keyword`),
+  KEY `found` (`found`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `headertags_search`
+--
+
+CREATE TABLE IF NOT EXISTS `headertags_search` (
+  `product_id` int(11) NOT NULL,
+  `keyword` varchar(64) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  KEY `keyword` (`keyword`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `headertags_silo`
+--
+
+CREATE TABLE IF NOT EXISTS `headertags_silo` (
+  `category_id` int(11) NOT NULL DEFAULT '0',
+  `box_heading` varchar(60) NOT NULL,
+  `is_disabled` tinyint(1) NOT NULL DEFAULT '0',
+  `max_links` int(11) NOT NULL DEFAULT '6',
+  `sorton` tinyint(2) NOT NULL DEFAULT '0',
+  `language_id` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`category_id`,`language_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1237,6 +1728,10 @@ CREATE TABLE IF NOT EXISTS `manufacturers_info` (
   `manufacturers_url` varchar(255) NOT NULL,
   `url_clicked` int(5) NOT NULL DEFAULT '0',
   `date_last_click` datetime DEFAULT NULL,
+  `manufacturers_htc_title_tag` varchar(80) DEFAULT NULL,
+  `manufacturers_htc_desc_tag` longtext,
+  `manufacturers_htc_keywords_tag` longtext,
+  `manufacturers_htc_description` longtext,
   PRIMARY KEY (`manufacturers_id`,`languages_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -1244,37 +1739,37 @@ CREATE TABLE IF NOT EXISTS `manufacturers_info` (
 -- Volcado de datos para la tabla `manufacturers_info`
 --
 
-INSERT INTO `manufacturers_info` (`manufacturers_id`, `languages_id`, `manufacturers_url`, `url_clicked`, `date_last_click`) VALUES
-(1, 1, 'http://www.matrox.com', 0, NULL),
-(1, 2, 'http://www.matrox.com', 0, NULL),
-(1, 4, 'http://www.matrox.com', 0, NULL),
-(2, 1, 'http://www.microsoft.com', 0, NULL),
-(2, 2, 'http://www.microsoft.com', 0, NULL),
-(2, 4, 'http://www.microsoft.com', 0, NULL),
-(3, 1, 'http://www.warner.com', 0, NULL),
-(3, 2, 'http://www.warner.com', 0, NULL),
-(3, 4, 'http://www.warner.com', 0, NULL),
-(4, 1, 'http://www.fox.com', 0, NULL),
-(4, 2, 'http://www.fox.com', 0, NULL),
-(4, 4, 'http://www.fox.com', 0, NULL),
-(5, 1, 'http://www.logitech.com', 0, NULL),
-(5, 2, 'http://www.logitech.com', 0, NULL),
-(5, 4, 'http://www.logitech.com', 0, NULL),
-(6, 1, 'http://www.canon.com', 0, NULL),
-(6, 2, 'http://www.canon.com', 0, NULL),
-(6, 4, 'http://www.canon.com', 0, NULL),
-(7, 1, 'http://www.sierra.com', 0, NULL),
-(7, 2, 'http://www.sierra.com', 0, NULL),
-(7, 4, 'http://www.sierra.com', 0, NULL),
-(8, 1, 'http://www.infogrames.com', 0, NULL),
-(8, 2, 'http://www.infogrames.com', 0, NULL),
-(8, 4, 'http://www.infogrames.com', 0, NULL),
-(9, 1, 'http://www.hewlettpackard.com', 0, NULL),
-(9, 2, 'http://www.hewlettpackard.com', 0, NULL),
-(9, 4, 'http://www.hewlettpackard.com', 0, NULL),
-(10, 1, 'http://www.samsung.com', 0, NULL),
-(10, 2, 'http://www.samsung.com', 0, NULL),
-(10, 4, 'http://www.samsung.com', 0, NULL);
+INSERT INTO `manufacturers_info` (`manufacturers_id`, `languages_id`, `manufacturers_url`, `url_clicked`, `date_last_click`, `manufacturers_htc_title_tag`, `manufacturers_htc_desc_tag`, `manufacturers_htc_keywords_tag`, `manufacturers_htc_description`) VALUES
+(1, 1, 'http://www.matrox.com', 0, NULL, NULL, NULL, NULL, NULL),
+(1, 2, 'http://www.matrox.com', 0, NULL, NULL, NULL, NULL, NULL),
+(1, 4, 'http://www.matrox.com', 0, NULL, NULL, NULL, NULL, NULL),
+(2, 1, 'http://www.microsoft.com', 0, NULL, NULL, NULL, NULL, NULL),
+(2, 2, 'http://www.microsoft.com', 0, NULL, NULL, NULL, NULL, NULL),
+(2, 4, 'http://www.microsoft.com', 0, NULL, NULL, NULL, NULL, NULL),
+(3, 1, 'http://www.warner.com', 0, NULL, NULL, NULL, NULL, NULL),
+(3, 2, 'http://www.warner.com', 0, NULL, NULL, NULL, NULL, NULL),
+(3, 4, 'http://www.warner.com', 0, NULL, NULL, NULL, NULL, NULL),
+(4, 1, 'http://www.fox.com', 0, NULL, NULL, NULL, NULL, NULL),
+(4, 2, 'http://www.fox.com', 0, NULL, NULL, NULL, NULL, NULL),
+(4, 4, 'http://www.fox.com', 0, NULL, NULL, NULL, NULL, NULL),
+(5, 1, 'http://www.logitech.com', 0, NULL, NULL, NULL, NULL, NULL),
+(5, 2, 'http://www.logitech.com', 0, NULL, NULL, NULL, NULL, NULL),
+(5, 4, 'http://www.logitech.com', 0, NULL, NULL, NULL, NULL, NULL),
+(6, 1, 'http://www.canon.com', 0, NULL, NULL, NULL, NULL, NULL),
+(6, 2, 'http://www.canon.com', 0, NULL, NULL, NULL, NULL, NULL),
+(6, 4, 'http://www.canon.com', 0, NULL, NULL, NULL, NULL, NULL),
+(7, 1, 'http://www.sierra.com', 0, NULL, NULL, NULL, NULL, NULL),
+(7, 2, 'http://www.sierra.com', 0, NULL, NULL, NULL, NULL, NULL),
+(7, 4, 'http://www.sierra.com', 0, NULL, NULL, NULL, NULL, NULL),
+(8, 1, 'http://www.infogrames.com', 0, NULL, NULL, NULL, NULL, NULL),
+(8, 2, 'http://www.infogrames.com', 0, NULL, NULL, NULL, NULL, NULL),
+(8, 4, 'http://www.infogrames.com', 0, NULL, NULL, NULL, NULL, NULL),
+(9, 1, 'http://www.hewlettpackard.com', 0, NULL, NULL, NULL, NULL, NULL),
+(9, 2, 'http://www.hewlettpackard.com', 0, NULL, NULL, NULL, NULL, NULL),
+(9, 4, 'http://www.hewlettpackard.com', 0, NULL, NULL, NULL, NULL, NULL),
+(10, 1, 'http://www.samsung.com', 0, NULL, NULL, NULL, NULL, NULL),
+(10, 2, 'http://www.samsung.com', 0, NULL, NULL, NULL, NULL, NULL),
+(10, 4, 'http://www.samsung.com', 0, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1557,21 +2052,6 @@ CREATE TABLE IF NOT EXISTS `products` (
   KEY `idx_products_date_added` (`products_date_added`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
 
---
--- Volcado de datos para la tabla `products`
---
-
-INSERT INTO `products` (`products_id`, `products_quantity`, `products_model`, `products_image`, `products_price`, `products_date_added`, `products_last_modified`, `products_date_available`, `products_weight`, `products_status`, `products_tax_class_id`, `manufacturers_id`, `products_ordered`) VALUES
-(29, 43, 'BR-D-M', 'image-1.jpg', '45.0000', '2013-01-19 21:24:06', '2013-02-15 06:47:09', NULL, '2.00', 1, 1, 10, 2),
-(30, 34, 'BR-W-P', 'image-2.jpg', '35.0000', '2013-01-19 21:25:16', '2013-02-15 06:52:49', NULL, '2.00', 1, 1, 10, 0),
-(31, 54, 'FFW', 'image-3.jpg', '45.0000', '2013-01-19 21:27:57', '2013-02-15 06:48:40', NULL, '3.00', 1, 1, 10, 1),
-(32, 31, 'FMW', 'image-2.jpg', '55.0000', '2013-01-19 21:29:02', '2013-02-15 06:48:05', NULL, '3.00', 1, 1, 10, 2),
-(33, 55, 'FS', 'image-4.jpg', '35.0000', '2013-01-19 21:30:08', '2013-02-15 06:49:23', NULL, '2.00', 1, 1, 10, 0),
-(34, 64, 'GEASF1', 'image-2.jpg', '55.0000', '2013-01-19 21:32:54', '2013-02-15 06:51:55', NULL, '2.00', 1, 1, 10, 1),
-(35, 53, 'GWATSA', 'image-1.jpg', '35.0000', '2013-01-19 21:33:44', '2013-02-15 06:52:20', '0000-00-00 00:00:00', '3.00', 1, 1, 10, 2),
-(36, 54, 'PHCP', 'image-2.jpg', '55.0000', '2013-01-19 21:35:43', '2013-02-15 06:53:42', '0000-00-00 00:00:00', '2.00', 1, 1, 10, 1),
-(37, 43, 'PSC', 'image-3.jpg', '45.0000', '2013-01-19 21:36:32', '2013-02-15 06:53:16', NULL, '3.00', 1, 1, 10, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -1623,42 +2103,14 @@ CREATE TABLE IF NOT EXISTS `products_description` (
   `products_description` text,
   `products_url` varchar(255) DEFAULT NULL,
   `products_viewed` int(5) DEFAULT '0',
+  `products_head_title_tag` varchar(80) DEFAULT NULL,
+  `products_head_desc_tag` longtext,
+  `products_head_keywords_tag` longtext,
+  `products_head_listing_text` longtext,
+  `products_head_sub_text` longtext,
   PRIMARY KEY (`products_id`,`language_id`),
   KEY `products_name` (`products_name`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
-
---
--- Volcado de datos para la tabla `products_description`
---
-
-INSERT INTO `products_description` (`products_id`, `language_id`, `products_name`, `products_description`, `products_url`, `products_viewed`) VALUES
-(29, 1, 'Classic Jacket', 'Classic Jacket', 'classic.com', 8),
-(29, 2, 'Classic Jacket', 'Classic Jacket', 'classic.com', 0),
-(29, 4, 'Classic Jacket', 'Classic Jacket', 'classic.com', 0),
-(30, 1, 'Parabolica White Jacket', 'Parabolica White Jacket', 'modern.com', 9),
-(30, 2, 'Parabolica White Jacket', 'Parabolica White Jacket', 'modern.com', 0),
-(30, 4, 'Parabolica White Jacket', 'Parabolica White Jacket', 'modern.com', 0),
-(31, 1, 'Elegant Jacket', 'Elegant Jacket', 'elegant.com', 14),
-(31, 2, 'Elegant Jacket', 'Elegant Jacket', 'elegant.com', 0),
-(31, 4, 'Elegant Jacket', 'Elegant Jacket', 'elegant.com', 0),
-(32, 1, 'Clean Blue Modern Jacket', 'Clean Blue Modern Jacket', 'modern.com', 15),
-(32, 2, 'Clean Blue Modern Jacket', 'Clean Blue Modern Jacket', 'modern.com', 0),
-(32, 4, 'Clean Blue Modern Jacket', 'Clean Blue Modern Jacket', 'modern.com', 2),
-(33, 1, 'Strong Jacket', 'Strong Jacket', 'classic.com', 2),
-(33, 2, 'Strong Jacket', 'Strong Jacket', 'classic.com', 0),
-(33, 4, 'Strong Jacket', 'Strong Jacket', 'classic.com', 0),
-(34, 1, 'Clean White Modern Jacket', 'Clean White Modern Jacket', 'modern.com', 2),
-(34, 2, 'Clean White Modern Jacket', 'Clean White Modern Jacket', 'modern.com', 0),
-(34, 4, 'Clean White Modern Jacket', 'Clean White Modern Jacket', 'modern.com', 0),
-(35, 1, 'Wood Sleek Jacket', 'Wood Sleek Jacket', 'classic.com', 15),
-(35, 2, 'Wood Sleek Jacket', 'Wood Sleek Jacket', 'classic.com', 0),
-(35, 4, 'Wood Sleek Jacket', 'Wood Sleek Jacket', 'classic.com', 0),
-(36, 1, 'White Futuristic Jacket', 'White Futuristic Jacket', 'futuristic.com', 9),
-(36, 2, 'White Futuristic Jacket', 'White Futuristic Jacket', 'futuristic.com', 0),
-(36, 4, 'White Futuristic Jacket', 'White Futuristic Jacket', 'futuristic.com', 0),
-(37, 1, 'Modern Jacket', 'Modern Jacket', 'modern.com', 7),
-(37, 2, 'Modern Jacket', 'Modern Jacket', 'modern.com', 0),
-(37, 4, 'Modern Jacket', 'Modern Jacket', 'modern.com', 1);
 
 -- --------------------------------------------------------
 
@@ -1675,15 +2127,6 @@ CREATE TABLE IF NOT EXISTS `products_images` (
   PRIMARY KEY (`id`),
   KEY `products_images_prodid` (`products_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
-
---
--- Volcado de datos para la tabla `products_images`
---
-
-INSERT INTO `products_images` (`id`, `products_id`, `image`, `htmlcontent`, `sort_order`) VALUES
-(5, 34, 'image-1.jpg', '', 1),
-(6, 34, 'image-3.jpg', '', 2),
-(7, 34, 'image-4.jpg', '', 3);
 
 -- --------------------------------------------------------
 
@@ -1837,21 +2280,6 @@ CREATE TABLE IF NOT EXISTS `products_to_categories` (
   PRIMARY KEY (`products_id`,`categories_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `products_to_categories`
---
-
-INSERT INTO `products_to_categories` (`products_id`, `categories_id`) VALUES
-(29, 22),
-(30, 23),
-(31, 25),
-(32, 25),
-(33, 26),
-(34, 28),
-(35, 28),
-(36, 31),
-(37, 31);
-
 -- --------------------------------------------------------
 
 --
@@ -1873,15 +2301,6 @@ CREATE TABLE IF NOT EXISTS `reviews` (
   KEY `idx_reviews_customers_id` (`customers_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
---
--- Volcado de datos para la tabla `reviews`
---
-
-INSERT INTO `reviews` (`reviews_id`, `products_id`, `customers_id`, `customers_name`, `reviews_rating`, `date_added`, `last_modified`, `reviews_status`, `reviews_read`) VALUES
-(2, 35, NULL, 'dian san san', 4, '2013-01-19 21:39:06', '2013-01-19 21:39:24', 1, 3),
-(3, 29, NULL, 'dian san san', 2, '2013-01-19 21:47:05', '2013-01-19 21:47:15', 1, 4),
-(4, 32, NULL, 'dian san san', 5, '2013-01-19 21:48:12', '2013-01-19 21:48:17', 1, 19);
-
 -- --------------------------------------------------------
 
 --
@@ -1894,15 +2313,6 @@ CREATE TABLE IF NOT EXISTS `reviews_description` (
   `reviews_text` text NOT NULL,
   PRIMARY KEY (`reviews_id`,`languages_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `reviews_description`
---
-
-INSERT INTO `reviews_description` (`reviews_id`, `languages_id`, `reviews_text`) VALUES
-(2, 1, 'Wrangler AT SA lorem ipsum set dolor amet fuis consequer. Wrangler AT SA lorem ipsum set dolor amet fuis consequer.'),
-(3, 1, 'Bridge Dry Medium lorem ipsum consequer fuis dolor amet. Bridge Dry Medium lorem ipsum consequer fuis dolor amet.'),
-(4, 1, 'Firestoner Medium Wet lorem ipsum consequer fuis dolor amet. Firestoner Medium Wet lorem ipsum consequer fuis dolor amet.');
 
 -- --------------------------------------------------------
 
@@ -1957,9 +2367,11 @@ INSERT INTO `sessions` (`sesskey`, `expiry`, `value`) VALUES
 ('60l9ffkapcmf1ovpu3v28o3jm5', 1379618019, 'sessiontoken|s:32:"dd175faee70491f8ec4e473e7e58dae3";cart|O:12:"shoppingCart":5:{s:8:"contents";a:2:{i:37;a:1:{s:3:"qty";s:1:"1";}i:32;a:1:{s:3:"qty";s:1:"1";}}s:5:"total";d:100;s:6:"weight";d:6;s:6:"cartID";s:5:"61409";s:12:"content_type";s:8:"physical";}language|s:7:"english";languages_id|s:1:"1";currency|s:3:"USD";navigation|O:17:"navigationHistory":2:{s:4:"path";a:4:{i:0;a:4:{s:4:"page";s:9:"index.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:4:{s:5:"cPath";s:5:"24_25";s:4:"sort";s:2:"2a";s:6:"action";s:7:"buy_now";s:11:"products_id";s:2:"32";}s:4:"post";a:0:{}}i:1;a:4:{s:4:"page";s:17:"shopping_cart.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}i:2;a:4:{s:4:"page";s:21:"checkout_shipping.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}i:3;a:4:{s:4:"page";s:11:"account.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}}s:8:"snapshot";a:0:{}}customer_id|i:3;customer_first_name|s:5:"Karla";customer_default_address_id|i:3;customer_country_id|s:3:"138";customer_zone_id|i:0;sendto|i:3;cartID|s:5:"61409";comments|N;shipping|N;'),
 ('816ig7v6g5b0b1m8n95msnec45', 1379618661, 'sessiontoken|s:32:"1466fca4d368e5c6e516609589292dbd";cart|O:12:"shoppingCart":4:{s:8:"contents";a:0:{}s:5:"total";i:0;s:6:"weight";i:0;s:12:"content_type";b:0;}language|s:7:"espanol";languages_id|s:1:"4";currency|s:3:"USD";navigation|O:17:"navigationHistory":2:{s:4:"path";a:1:{i:0;a:4:{s:4:"page";s:9:"index.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}}s:8:"snapshot";a:0:{}}'),
 ('a945c8tvclee0bgvvcfu2bqud2', 1379610889, 'language|s:7:"english";languages_id|s:1:"1";admin|a:2:{s:2:"id";s:1:"1";s:8:"username";s:5:"admin";}'),
-('ceh82rv7eruqpg36kar152heo0', 1379649627, 'sessiontoken|s:32:"1571a3fdb69394aad51e1ca4007bfb77";cart|O:12:"shoppingCart":5:{s:8:"contents";a:0:{}s:5:"total";i:0;s:6:"weight";i:0;s:6:"cartID";s:5:"34834";s:12:"content_type";b:0;}language|s:7:"english";languages_id|s:1:"1";currency|s:3:"USD";navigation|O:17:"navigationHistory":2:{s:4:"path";a:4:{i:0;a:4:{s:4:"page";s:9:"index.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}i:1;a:4:{s:4:"page";s:17:"shopping_cart.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}i:2;a:4:{s:4:"page";s:11:"account.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}i:3;a:4:{s:4:"page";s:19:"account_history.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:1:{s:8:"language";s:2:"en";}s:4:"post";a:0:{}}}s:8:"snapshot";a:0:{}}customer_id|s:1:"4";customer_default_address_id|s:1:"4";customer_first_name|s:9:"Alejandro";customer_country_id|s:3:"138";customer_zone_id|s:1:"0";'),
-('flq7if9fnc3p6r3393qs6vdfn2', 1379648151, 'language|s:7:"espanol";languages_id|s:1:"4";redirect_origin|a:2:{s:4:"page";s:9:"index.php";s:3:"get";a:0:{}}'),
-('ibbkv8dfs77md3p0kmd4vhak06', 1379614416, 'sessiontoken|s:32:"9f42b08e13cce0f706e615cf1be0b82d";cart|O:12:"shoppingCart":5:{s:8:"contents";a:0:{}s:5:"total";i:0;s:6:"weight";i:0;s:6:"cartID";N;s:12:"content_type";b:0;}language|s:6:"french";languages_id|s:1:"2";currency|s:3:"USD";navigation|O:17:"navigationHistory":2:{s:4:"path";a:1:{i:0;a:4:{s:4:"page";s:9:"index.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}}s:8:"snapshot";a:4:{s:4:"page";s:11:"account.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}}');
+('ceh82rv7eruqpg36kar152heo0', 1379819045, 'sessiontoken|s:32:"0f35c789bd14d0ebc80b9fb33bad55b1";cart|O:12:"shoppingCart":5:{s:8:"contents";a:0:{}s:5:"total";i:0;s:6:"weight";i:0;s:6:"cartID";N;s:12:"content_type";b:0;}language|s:7:"espanol";languages_id|s:1:"4";currency|s:3:"USD";navigation|O:17:"navigationHistory":2:{s:4:"path";a:1:{i:0;a:4:{s:4:"page";s:9:"index.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}}s:8:"snapshot";a:0:{}}'),
+('dv2n6bsmqulctu3mkpfhv05s75', 1379662441, 'sessiontoken|s:32:"8cd373011a280eafd458ff19785e25fb";cart|O:12:"shoppingCart":5:{s:8:"contents";a:0:{}s:5:"total";i:0;s:6:"weight";i:0;s:6:"cartID";N;s:12:"content_type";b:0;}language|s:7:"espanol";languages_id|s:1:"4";currency|s:3:"USD";navigation|O:17:"navigationHistory":2:{s:4:"path";a:1:{i:0;a:4:{s:4:"page";s:9:"index.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}}s:8:"snapshot";a:0:{}}'),
+('flq7if9fnc3p6r3393qs6vdfn2', 1379816368, 'language|s:7:"english";languages_id|s:1:"1";admin|a:2:{s:2:"id";s:1:"1";s:8:"username";s:5:"admin";}'),
+('ibbkv8dfs77md3p0kmd4vhak06', 1379614416, 'sessiontoken|s:32:"9f42b08e13cce0f706e615cf1be0b82d";cart|O:12:"shoppingCart":5:{s:8:"contents";a:0:{}s:5:"total";i:0;s:6:"weight";i:0;s:6:"cartID";N;s:12:"content_type";b:0;}language|s:6:"french";languages_id|s:1:"2";currency|s:3:"USD";navigation|O:17:"navigationHistory":2:{s:4:"path";a:1:{i:0;a:4:{s:4:"page";s:9:"index.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}}s:8:"snapshot";a:4:{s:4:"page";s:11:"account.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}}'),
+('k28ua21u5rhjipb876uehg0ge6', 1379662437, 'language|s:7:"espanol";languages_id|s:1:"4";admin|a:2:{s:2:"id";s:1:"1";s:8:"username";s:5:"admin";}');
 
 -- --------------------------------------------------------
 
@@ -1979,18 +2391,6 @@ CREATE TABLE IF NOT EXISTS `specials` (
   PRIMARY KEY (`specials_id`),
   KEY `idx_specials_products_id` (`products_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
-
---
--- Volcado de datos para la tabla `specials`
---
-
-INSERT INTO `specials` (`specials_id`, `products_id`, `specials_new_products_price`, `specials_date_added`, `specials_last_modified`, `expires_date`, `date_status_change`, `status`) VALUES
-(5, 29, '40.0000', '2013-01-19 21:48:35', NULL, '2013-03-30 00:00:00', '2013-09-19 11:28:35', 0),
-(6, 34, '50.0000', '2013-01-19 21:48:48', NULL, '2013-03-30 00:00:00', '2013-09-19 11:28:35', 0),
-(7, 31, '35.0000', '2013-01-19 21:49:00', NULL, '2013-03-30 00:00:00', '2013-09-19 11:28:35', 0),
-(8, 37, '42.0000', '2013-01-19 21:49:13', NULL, '2013-03-30 00:00:00', '2013-09-19 11:28:35', 0),
-(9, 30, '32.0000', '2013-01-19 21:49:33', NULL, '2013-03-30 00:00:00', '2013-09-19 11:28:35', 0),
-(10, 35, '31.0000', '2013-01-19 21:49:48', NULL, '2013-03-30 00:00:00', '2013-09-19 11:28:35', 0);
 
 -- --------------------------------------------------------
 
@@ -2042,6 +2442,53 @@ INSERT INTO `tax_rates` (`tax_rates_id`, `tax_zone_id`, `tax_class_id`, `tax_pri
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `topics`
+--
+
+CREATE TABLE IF NOT EXISTS `topics` (
+  `topics_id` int(11) NOT NULL AUTO_INCREMENT,
+  `topics_image` varchar(64) DEFAULT NULL,
+  `parent_id` int(11) NOT NULL DEFAULT '0',
+  `sort_order` int(3) DEFAULT NULL,
+  `date_added` datetime DEFAULT NULL,
+  `last_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`topics_id`),
+  KEY `idx_topics_parent_id` (`parent_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `topics`
+--
+
+INSERT INTO `topics` (`topics_id`, `topics_image`, `parent_id`, `sort_order`, `date_added`, `last_modified`) VALUES
+(1, NULL, 0, 0, '2007-08-06 08:52:12', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `topics_description`
+--
+
+CREATE TABLE IF NOT EXISTS `topics_description` (
+  `topics_id` int(11) NOT NULL DEFAULT '0',
+  `language_id` int(11) NOT NULL DEFAULT '1',
+  `topics_name` varchar(32) NOT NULL DEFAULT '',
+  `topics_heading_title` varchar(64) DEFAULT NULL,
+  `topics_description` text,
+  PRIMARY KEY (`topics_id`,`language_id`),
+  KEY `idx_topics_name` (`topics_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `topics_description`
+--
+
+INSERT INTO `topics_description` (`topics_id`, `language_id`, `topics_name`, `topics_heading_title`, `topics_description`) VALUES
+(1, 1, 'Miscellaneous Articles', 'Miscellaneous', 'Articles that do not fall into a specific category.');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `whos_online`
 --
 
@@ -2060,7 +2507,7 @@ CREATE TABLE IF NOT EXISTS `whos_online` (
 --
 
 INSERT INTO `whos_online` (`customer_id`, `full_name`, `session_id`, `ip_address`, `time_entry`, `time_last_click`, `last_page_url`) VALUES
-(4, 'Alejandro Gomez', 'ceh82rv7eruqpg36kar152heo0', '::1', '1379646757', '1379648185', '/C&MBritish/account_history.php?language=en');
+(0, 'Guest', 'ceh82rv7eruqpg36kar152heo0', '::1', '1379817143', '1379817601', '/C&MBritish/');
 
 -- --------------------------------------------------------
 

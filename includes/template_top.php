@@ -23,8 +23,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" <?php echo HTML_PARAMS; ?>>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>" />
-<title><?php echo tep_output_string_protected($oscTemplate->getTitle()); ?></title>
+<?php
+/*** Begin Header Tags SEO ***/
+if ( file_exists(DIR_WS_INCLUDES . 'header_tags.php') ) {
+  require(DIR_WS_INCLUDES . 'header_tags.php');
+} else {
+?>
+  <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>" />
+  <title><?php echo tep_output_string_protected($oscTemplate->getTitle()); ?></title>
+<?php
+}
+/*** End Header Tags SEO ***/
+?>
+
 <base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>" />
 <link rel="stylesheet" type="text/css" href="ext/jquery/ui/redmond/jquery-ui-1.8.22.css" />
 <script type="text/javascript" src="ext/jquery/jquery-1.8.0.min.js"></script>
@@ -54,6 +65,59 @@ $.datepicker.setDefaults($.datepicker.regional['<?php echo JQUERY_DATEPICKER_I18
 <?php echo $oscTemplate->getBlocks('header_tags'); ?>
 </head>
 <body>
+<!-- INICIO - BARRA ESTATICA -->
+  <div class='barra_main'>
+    <div id='barra_header' class='clearfix'>
+      <ul class="barra_dropdown">
+        <li><a style="color: #004C94;" href="#"><?php echo MODULE_BOXES_SEARCH_TITLE ?></a>
+          <ul class="barra_opciones">
+            <li><div id='barra_search' class='right'>
+              <?php echo tep_draw_form('quick_find', tep_href_link(FILENAME_ADVANCED_SEARCH_RESULT, '', 'NONSSL', false), 'get'); ?>
+		        <fieldset>
+			      <span id='barra_search_wrap' class='left'>
+                     <?php echo tep_draw_input_field('keywords', '', 'size="25" maxlength="30"') .
+                           tep_draw_hidden_field('search_in_description', '1') .
+                           tep_hide_session_id() . tep_image_submit('button_quick_find.gif', MODULE_BOXES_SEARCH_BOX_TITLE);
+                      ?>
+			      </span>
+                  <?php echo tep_image_submit('', MODULE_BOXES_SEARCH_BOX_ADVANCED_SEARCH, 'id="barra_adv_search" class="right"') . '<a href="' . tep_href_link(FILENAME_ADVANCED_SEARCH) . '"></a>'; ?>
+    	        </fieldset>
+	          </form>
+            </div></li>
+          </ul>
+        </li>
+      </ul>
+
+      <li id='barra_nav_explore' class='left'>
+        <?php echo '<a style="color: #004C94;" href="' . tep_href_link(FILENAME_SPECIALS, '', 'SSL') . '"><strong>' . MODULE_BOXES_SPECIALS_TITLE . '</strong></a>'; ?>
+      </li>
+      <li id='barra_nav_explore' class='left'>
+        <?php echo '<a style="color: #004C94;" href="' . tep_href_link(FILENAME_PRIVACY, '', 'SSL') . '"><strong>' . MODULE_BOXES_INFORMATION_BOX_PRIVACY . '</strong></a>'; ?>
+      </li>
+
+      <div id='barra_nav_user' class='not_logged_in'>
+        <ul class='ipsList_inline right'>
+          <li>
+            <?php if (!tep_session_is_registered('customer_id')) { echo '<a style="color: #004C94;" href="' . tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL') . '"><strong>' . HEADER_TITLE_CREATE_ACCOUNT . '</strong></a>'; } ?>
+          </li>
+          <li>
+            <?php echo '<a style="color: #004C94;" href="' . tep_href_link(FILENAME_SHOPPING_CART, '', 'SSL') . '">' . tep_image(DIR_WS_IMAGES . 'cart.gif') . '&nbsp;<strong>' . HEADER_TITLE_CART_CONTENTS . '</strong></a>'; ?>
+          <li>
+          <li>
+            <?php echo '<a style="color: #004C94;" href="' . tep_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL') . '"><strong>' . HEADER_TITLE_CHECKOUT . '</strong></a>'; ?>
+          </li>
+          <li>
+            <?php  echo '<a id="register_link" href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '"><strong>' . HEADER_TITLE_MY_ACCOUNT . '</strong></a>'; ?>
+          </li>
+	    </ul>
+      </div>
+    </div>
+  </div>
+<!-- FIN - BARRA ESTATICA -->
+
+
+
+
 
 <div id="bodyWrapper" class="container_<?php echo $oscTemplate->getGridContainerWidth(); ?>">
 

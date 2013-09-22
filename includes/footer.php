@@ -16,6 +16,18 @@
 <div class="grid_24 footer">
 	<div class="grid_12 alpha">
 		<p align="left" style="padding-left:10px;"><?php echo FOOTER_TEXT_BODY; ?></p>
+		<?php
+/*** Begin Header Tags SEO ***/
+if ($request_type == NONSSL) { 
+  if (HEADER_TAGS_DISPLAY_TAG_CLOUD == 'true') {
+      echo '<tr><td align="center"><div style="text-align:center">';
+      include(DIR_WS_INCLUDES . 'headertags_seo_tagcloud_footer.php');
+      echo '</div></td></tr>';
+  }
+}
+/*** End Header Tags SEO ***/
+?>
+
 	</div>
 	<div class="grid_12 omega">
 		<?php

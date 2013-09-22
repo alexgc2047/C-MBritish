@@ -38,7 +38,10 @@
 
 <?php
   } else {
-    $product_info_query = tep_db_query("select p.products_id, pd.products_name, pd.products_description, p.products_model, p.products_quantity, p.products_image, pd.products_url, p.products_price, p.products_tax_class_id, p.products_date_added, p.products_date_available, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . (int)$HTTP_GET_VARS['products_id'] . "' and pd.products_id = p.products_id and pd.language_id = '" . (int)$languages_id . "'");
+        /*** Begin Header Tags SEO ***/
+    $product_info_query = tep_db_query("select p.products_id, pd.products_name, pd.products_description, p.products_model, p.products_quantity, p.products_image, pd.products_url, p.products_price, p.products_tax_class_id, p.products_date_added, p.products_date_available, p.manufacturers_id, pd.products_head_sub_text from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . (int)$HTTP_GET_VARS['products_id'] . "' and pd.products_id = p.products_id and pd.language_id = '" . (int)$languages_id . "'");
+    /*** End Header Tags SEO ***/
+
     $product_info = tep_db_fetch_array($product_info_query);
 
     tep_db_query("update " . TABLE_PRODUCTS_DESCRIPTION . " set products_viewed = products_viewed+1 where products_id = '" . (int)$HTTP_GET_VARS['products_id'] . "' and language_id = '" . (int)$languages_id . "'");
@@ -197,14 +200,41 @@ $("#piGal a[rel^='fancybox']").fancybox({
   <div class="buttonSet">
     <span class="buttonAction"><?php echo tep_draw_hidden_field('products_id', $product_info['products_id']) . tep_draw_button(IMAGE_BUTTON_IN_CART, 'cart', null, 'primary'); ?></span>
 
-    <?php echo tep_draw_button(IMAGE_BUTTON_REVIEWS . (($reviews['count'] > 0) ? ' (' . $reviews['count'] . ')' : ''), 'comment', tep_href_link(FILENAME_PRODUCT_REVIEWS, tep_get_all_get_params())); ?>
+          <!--- BEGIN Header Tags SEO Social Bookmarks -->
+      <?php if (HEADER_TAGS_DISPLAY_SOCIAL_BOOKMARKS == 'true') {
+        echo '<div style="margin-top:5px;">';
+        include(DIR_WS_MODULES . 'header_tags_social_bookmarks.php');
+        echo '</div>';
+      }
+      ?>
+      <!--- END Header Tags SEO Social Bookmarks -->
+
+	<?php echo tep_draw_button(IMAGE_BUTTON_REVIEWS . (($reviews['count'] > 0) ? ' (' . $reviews['count'] . ')' : ''), 'comment', tep_href_link(FILENAME_PRODUCT_REVIEWS, tep_get_all_get_params())); ?>
   </div>
 
 <?php
-    if ((USE_CACHE == 'true') && empty($SID)) {
+        /**** BEGIN ARTICLE MANAGER ****/
+    include(DIR_WS_MODULES . FILENAME_ARTICLES_PXSELL);
+    /**** END ARTICLE MANAGER ****/
+
+	if ((USE_CACHE == 'true') && empty($SID)) {
       echo tep_cache_also_purchased(3600);
     } else {
-      include(DIR_WS_MODULES . FILENAME_ALSO_PURCHASED_PRODUCTS);
+      <?php /*** Begin Header Tags SEO ***/
+      if (tep_not_null($product_info['products_head_sub_text'])) {
+          echo '<tr><td><table border="0" cellpadding="0"><tr><td class="hts_sub_text"><div>' . $product_info['products_head_sub_text'] . '</div></td></tr></table></td></tr>';
+      }
+
+      if (HEADER_TAGS_DISPLAY_CURRENTLY_VIEWING == 'true') {
+          echo '<div style="margin-top:5px;"><div style="text-align:center" class="smallText">' .TEXT_VIEWING . '&nbsp;';
+          if (! tep_not_null($header_tags_array['title'])) $header_tags_array['title'] = $product_info['products_name'];
+          echo '<a title="' . $header_tags_array['title'] . '" href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $product_info['products_id'], 'NONSSL') . '"/# ' . $header_tags_array['title'] . '">' . $header_tags_array['title'] . '</a>';
+          echo '</div></div>';
+      } 
+      /*** End Header Tags SEO ***/ 
+      ?>
+
+	  include(DIR_WS_MODULES . FILENAME_ALSO_PURCHASED_PRODUCTS);
     }
 ?>
 

@@ -18,6 +18,11 @@
         'title' => BOX_CATALOG_CATEGORIES_PRODUCTS,
         'link' => tep_href_link(FILENAME_CATEGORIES)
       ),
+	  array(
+		'code' => FILENAME_TBL,
+		'title' => TBL_LINK_TITLE,
+		'link' => tep_href_link(FILENAME_TBL)
+	  ),
       array(
         'code' => FILENAME_PRODUCTS_ATTRIBUTES,
         'title' => BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES,
