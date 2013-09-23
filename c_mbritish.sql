@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-09-2013 a las 04:42:35
+-- Tiempo de generación: 24-09-2013 a las 00:26:21
 -- Versión del servidor: 5.5.32
 -- Versión de PHP: 5.4.19
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `action_recorder` (
   KEY `idx_action_recorder_user_id` (`user_id`),
   KEY `idx_action_recorder_identifier` (`identifier`),
   KEY `idx_action_recorder_date_added` (`date_added`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=47 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=59 ;
 
 --
 -- Volcado de datos para la tabla `action_recorder`
@@ -93,7 +93,19 @@ INSERT INTO `action_recorder` (`id`, `module`, `user_id`, `user_name`, `identifi
 (43, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-21 16:23:49'),
 (44, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-21 17:53:41'),
 (45, 'ar_admin_login', 0, 'Admin', '', '0', '2013-09-21 20:41:19'),
-(46, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-21 20:41:24');
+(46, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-21 20:41:24'),
+(47, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-21 22:39:51'),
+(48, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-21 23:07:04'),
+(49, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-22 23:18:05'),
+(50, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-23 07:57:50'),
+(51, 'ar_admin_login', 0, 'Admin', '', '0', '2013-09-23 15:19:52'),
+(52, 'ar_admin_login', 0, 'Admin', '', '0', '2013-09-23 15:19:52'),
+(53, 'ar_admin_login', 0, 'Admin', '', '0', '2013-09-23 15:19:52'),
+(54, 'ar_admin_login', 0, 'Admin', '', '0', '2013-09-23 15:19:52'),
+(55, 'ar_admin_login', 0, 'Admin', '', '0', '2013-09-23 15:19:52'),
+(56, 'ar_admin_login', 0, 'Admin', '', '0', '2013-09-23 15:19:58'),
+(57, 'ar_admin_login', 0, 'Admin', '', '0', '2013-09-23 15:20:32'),
+(58, 'ar_admin_login', 1, 'Admin', '', '1', '2013-09-23 17:11:58');
 
 -- --------------------------------------------------------
 
@@ -368,7 +380,7 @@ CREATE TABLE IF NOT EXISTS `banners_history` (
   `banners_history_date` datetime NOT NULL,
   PRIMARY KEY (`banners_history_id`),
   KEY `idx_banners_history_banners_id` (`banners_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=49 ;
 
 --
 -- Volcado de datos para la tabla `banners_history`
@@ -409,10 +421,18 @@ INSERT INTO `banners_history` (`banners_history_id`, `banners_id`, `banners_show
 (34, 11, 17, 0, '2013-09-20 00:08:51'),
 (35, 10, 17, 0, '2013-09-20 00:08:52'),
 (36, 2, 16, 0, '2013-09-20 00:08:52'),
-(37, 3, 23, 0, '2013-09-21 08:15:05'),
-(38, 11, 16, 0, '2013-09-21 08:15:06'),
-(39, 10, 16, 0, '2013-09-21 08:15:06'),
-(40, 2, 23, 0, '2013-09-21 08:15:07');
+(37, 3, 67, 0, '2013-09-21 08:15:05'),
+(38, 11, 18, 0, '2013-09-21 08:15:06'),
+(39, 10, 18, 0, '2013-09-21 08:15:06'),
+(40, 2, 67, 0, '2013-09-21 08:15:07'),
+(41, 3, 57, 0, '2013-09-22 00:00:29'),
+(42, 2, 56, 0, '2013-09-22 00:00:29'),
+(43, 11, 4, 0, '2013-09-22 01:02:25'),
+(44, 10, 4, 0, '2013-09-22 01:02:25'),
+(45, 3, 65, 0, '2013-09-23 00:00:26'),
+(46, 2, 65, 0, '2013-09-23 00:00:26'),
+(47, 11, 29, 0, '2013-09-23 00:00:40'),
+(48, 10, 29, 0, '2013-09-23 00:00:40');
 
 -- --------------------------------------------------------
 
@@ -436,9 +456,9 @@ CREATE TABLE IF NOT EXISTS `categories` (
 --
 
 INSERT INTO `categories` (`categories_id`, `categories_image`, `parent_id`, `sort_order`, `date_added`, `last_modified`) VALUES
-(32, NULL, 0, 0, '2013-09-21 20:43:45', NULL),
-(33, NULL, 0, 0, '2013-09-21 20:44:43', NULL),
-(34, NULL, 0, 0, '2013-09-21 20:55:14', NULL);
+(32, 'ms.jpg', 0, 0, '2013-09-21 20:43:45', '2013-09-22 01:06:00'),
+(33, 'cl.jpg', 0, 0, '2013-09-21 20:44:43', '2013-09-22 01:05:09'),
+(34, 'images.jpg', 0, 0, '2013-09-21 20:55:14', '2013-09-22 01:03:55');
 
 -- --------------------------------------------------------
 
@@ -981,7 +1001,7 @@ CREATE TABLE IF NOT EXISTS `counter` (
 --
 
 INSERT INTO `counter` (`startdate`, `counter`) VALUES
-('20130119', 2254);
+('20130119', 2419);
 
 -- --------------------------------------------------------
 
@@ -1331,7 +1351,7 @@ CREATE TABLE IF NOT EXISTS `customers_basket` (
   `customers_basket_date_added` char(8) DEFAULT NULL,
   PRIMARY KEY (`customers_basket_id`),
   KEY `idx_customers_basket_customers_id` (`customers_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1374,7 +1394,7 @@ CREATE TABLE IF NOT EXISTS `customers_info` (
 INSERT INTO `customers_info` (`customers_info_id`, `customers_info_date_of_last_logon`, `customers_info_number_of_logons`, `customers_info_date_account_created`, `customers_info_date_account_last_modified`, `global_product_notifications`, `password_reset_key`, `password_reset_date`) VALUES
 (2, '2013-02-15 09:15:31', 14, '2013-02-01 09:24:26', '2013-02-01 21:49:39', 0, NULL, NULL),
 (3, '2013-09-19 14:02:10', 1, '2013-09-19 13:42:12', NULL, 0, NULL, NULL),
-(4, '2013-09-19 22:12:36', 1, '2013-09-19 14:38:19', NULL, 0, NULL, NULL);
+(4, '2013-09-23 08:32:17', 2, '2013-09-19 14:38:19', NULL, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -2050,7 +2070,28 @@ CREATE TABLE IF NOT EXISTS `products` (
   PRIMARY KEY (`products_id`),
   KEY `idx_products_model` (`products_model`),
   KEY `idx_products_date_added` (`products_date_added`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=54 ;
+
+--
+-- Volcado de datos para la tabla `products`
+--
+
+INSERT INTO `products` (`products_id`, `products_quantity`, `products_model`, `products_image`, `products_price`, `products_date_added`, `products_last_modified`, `products_date_available`, `products_weight`, `products_status`, `products_tax_class_id`, `manufacturers_id`, `products_ordered`) VALUES
+(39, 4, '001', 'The Divine Conspiracy.jpg', '11.4900', '2013-09-21 23:20:45', '2013-09-21 23:48:00', NULL, '0.00', 1, 0, 0, 0),
+(40, 10, '002', 'epica_design.jpg', '12.2200', '2013-09-21 23:47:47', NULL, NULL, '0.00', 1, 0, 0, 0),
+(41, 8, '003', 'Kamelot â€“ The Black Halo.jpg', '13.9800', '2013-09-21 23:52:12', NULL, NULL, '0.00', 1, 0, 0, 0),
+(42, 6, '004', 'OnceNightwishCover.jpg', '11.0900', '2013-09-21 23:57:11', NULL, NULL, '0.00', 1, 0, 0, 0),
+(43, 7, '005', 'Amaranthe - The Nexus.jpg', '11.9800', '2013-09-21 23:59:03', NULL, NULL, '0.00', 1, 0, 0, 0),
+(44, 10, 'b1', 'reloj.jpg', '19.4500', '2013-09-22 00:11:15', NULL, NULL, '0.00', 1, 0, 0, 0),
+(45, 2, 'b2', 'malle-et-coffre_14071.jpg', '85.5900', '2013-09-22 00:14:34', NULL, NULL, '0.00', 1, 0, 0, 0),
+(46, 5, 'b3', 'schoolbag-shoulder.jpg', '13.2200', '2013-09-22 00:18:56', NULL, NULL, '0.00', 1, 0, 0, 0),
+(47, 8, 'b4', 'funda-movil-iphone-4-4s-bandera-inglesa.jpg', '9.7200', '2013-09-22 00:21:57', NULL, NULL, '0.00', 1, 0, 0, 0),
+(48, 3, 'b5', 'chair.jpg', '154.8400', '2013-09-22 00:24:35', NULL, NULL, '0.00', 1, 0, 0, 0),
+(49, 5, 'cp1', 'jeans.JPG', '133.9400', '2013-09-22 00:46:42', NULL, NULL, '0.00', 1, 0, 0, 0),
+(50, 10, 'cp2', 'blusa.JPG', '94.7000', '2013-09-22 00:49:08', '2013-09-22 00:51:01', NULL, '0.00', 1, 0, 0, 0),
+(51, 5, 'cp3', 'camiseta.JPG', '81.1700', '2013-09-22 00:55:24', NULL, NULL, '0.00', 1, 0, 0, 0),
+(52, 9, 'cp4', 'falda.JPG', '101.4700', '2013-09-22 00:57:54', NULL, NULL, '0.00', 1, 0, 0, 0),
+(53, 4, 'cp5', 'pantalon1.JPG', '133.9400', '2013-09-22 01:01:58', NULL, NULL, '0.00', 1, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -2110,7 +2151,58 @@ CREATE TABLE IF NOT EXISTS `products_description` (
   `products_head_sub_text` longtext,
   PRIMARY KEY (`products_id`,`language_id`),
   KEY `products_name` (`products_name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=54 ;
+
+--
+-- Volcado de datos para la tabla `products_description`
+--
+
+INSERT INTO `products_description` (`products_id`, `language_id`, `products_name`, `products_description`, `products_url`, `products_viewed`, `products_head_title_tag`, `products_head_desc_tag`, `products_head_keywords_tag`, `products_head_listing_text`, `products_head_sub_text`) VALUES
+(39, 1, 'The Divine Conspiracy', 'The Divine Conspiracy is the third full-length studio album by Dutch symphonic metal band Epica. The concept that guides the songs is that God created many different religions for humanity to figure out and overcome them so as to discover that, in nature and essence, they were all in fact the same one (hence the name, "The Divine Conspiracy").', '', 13, 'Epica - The Divine Conspiracy', 'Epica - The Divine Conspiracy', 'Epica - The Divine Conspiracy', 'music epica the divine conspiracy album', ''),
+(39, 2, 'The Divine Conspiracy', 'The Divine Conspiracy est le troisiÃ¨me album studio pleine longueur en nÃ©erlandais groupe de metal symphonique Epica. Le concept qui guide les chansons, c''est que Dieu a crÃ©Ã© beaucoup de diffÃ©rentes religions de l''humanitÃ© pour comprendre et surmonter afin de dÃ©couvrir que, dans la nature et l''essence, ils Ã©taient tous en fait le mÃªme que celui (d''oÃ¹ le nom, "The Divine Conspiracy" ).', '', 3, 'Epica - The Divine Conspiracy', 'Epica - The Divine Conspiracy', 'Epica - The Divine Conspiracy', 'musique epica the divine conspiracy album', ''),
+(39, 4, 'The Divine Conspiracy', 'The Divine Conspiracy es el tercer Ã¡lbum de estudio por la banda holandesa de metal sinfÃ³nico Epica. El concepto que guÃ­a las canciones es que Dios creÃ³ muchas religiones diferentes en la humanidad para entender y superarlos a fin de descubrir que, en la naturaleza y esencia, todos eran en realidad el mismo (de ahÃ­ su nombre, "The Divine Conspiracy" ).', '', 1, 'Epica - The Divine Conspiracy', 'Epica - The Divine Conspiracy', 'Epica - The Divine Conspiracy', 'mÃºsica epica the divine conspiracy Ã¡lbum', ''),
+(40, 1, 'Design Your Universe', '2009 release, the fourth studio album from the Dutch Symphonic Metal band. The band''s previous album, The Divine Conspiracy, was dealing with the idea that God created many religions and that it was to man to understand that they are all the same, and this album will be dealing with the power of thoughts and imaginations.', '', 4, 'Design Your Universe', 'mÃºsica Epica Design Your Universe Ã¡lbum', 'Design Your Universe', '', ''),
+(40, 2, 'Design Your Universe', '2009 CommuniquÃ©, le quatriÃ¨me album studio du groupe de metal symphonique nÃ©erlandais. PrÃ©cÃ©dent album du groupe, The Divine Conspiracy, a Ã©tÃ© aux prises avec l''idÃ©e que Dieu a crÃ©Ã© beaucoup de religions et que c''est Ã  l''homme de comprendre qu''ils sont tous les mÃªmes, et cet album seront aux prises avec le pouvoir de la pensÃ©e et de l''imagination.', '', 0, 'Design Your Universe', 'musique Epica Design Your Universe album', 'Design Your Universe', '', ''),
+(40, 4, 'Design Your Universe', 'Lanzado en 2009 , el cuarto Ã¡lbum de estudio de la banda holandesa de metal sinfÃ³nico. Su anterior Ã¡lbum The Divine Conspiracy, estaba lidiando con la idea de que Dios creÃ³ muchas religiones y que es al hombre a entender que son todos iguales, y este disco se tratan con el poder de los pensamientos e imaginaciones.', '', 1, 'Design Your Universe', 'mÃºsica Epica Design Your Universe Ã¡lbum', 'Design Your Universe', '', ''),
+(41, 1, 'The Black Halo', 'Continuing the story introduced in Epica (2003), it is the second and final record in Kamelot''s two-part rock opera about Ariel. It features guest appearances by Simone Simons (Epica), Shagrath (Dimmu Borgir), Jens Johansson (Stratovarius), and several others.', '', 0, 'The Black Halo', 'Kamelot The Black Halo music album', 'The Black Halo', '', ''),
+(41, 2, 'The Black Halo', 'Poursuivant l''histoire introduit dans Epica (2003), il est le deuxiÃ¨me et dernier record en deux parties, l''opÃ©ra rock de Kamelot sur â€‹â€‹Ariel. Il dispose d''apparitions par Simone Simons (Epica), Shagrath (Dimmu Borgir), Jens Johansson (Stratovarius), et plusieurs autres.', '', 0, 'The Black Halo', 'Kamelot The Black Halo musique album', 'The Black Halo', '', ''),
+(41, 4, 'The Black Halo', 'Continuando con la historia introducida en Epica (2003), es el segundo y Ãºltimo disco en dos partes, la Ã³pera rock de Kamelot sobre Ariel. Cuenta con las colaboraciones de Simone Simons (Epica), Shagrath (Dimmu Borgir), Jens Johansson (Stratovarius), y varios otros.', '', 0, 'The Black Halo', 'Kamelot The Black Halo mÃºsica Ã¡lbum', 'The Black Halo', '', ''),
+(42, 1, 'Once', 'L''album continue l''approche musicale plus simple d''abord entendu sur Century Child, s''Ã©loignant davantage de la puissance du mÃ©tal influencÃ© son de leurs prÃ©cÃ©dents albums en un peu plus mainstream, sensation accessible. Le groupe a ajoutÃ© de nouveaux Ã©lÃ©ments Ã  leur musique pour cet album, comme le riff de refrain et synthÃ©tisÃ© battement de tambour de "Wish I Had an Angel", et la longue chant de priÃ¨re amÃ©rindienne sur "Sang de Creek Mary"', '', 0, 'Once', 'Nightwish Once music album', 'Once', '', ''),
+(42, 2, 'Once', 'The album continues the more streamlined musical approach first heard on Century Child, moving further away from the power metal-influenced sound of their previous albums into a slightly more mainstream, approachable feel. The band added new elements to their music for this album, such as the chorus riff and synthesized drum-beat of "Wish I Had an Angel", and the long Native American prayer chant on "Creek Mary''s Blood".', '', 0, 'Once', 'Nightwish Once musique album', 'Once', '', ''),
+(42, 4, 'Once', 'El Ã¡lbum continÃºa con la propuesta musical en Century Child, con influencias de sonido de sus anteriores discos un poco mÃ¡s convencional. La banda incorporÃ³ nuevos elementos a su mÃºsica de este Ã¡lbum, como el riff coro y sintetizado tambor-beat de "Wish I Had an Angel", y el canto de oraciÃ³n del nativo americano de largo en "Blood Creek Mary".', '', 1, 'Once', 'Nightwish Once mÃºsica Ã¡lbum', 'Once', '', ''),
+(43, 1, 'The Nexus', 'The Nexus is the second album by the Swedish band Amaranthe. The album was released on varying dates in March 2013, The Nexus is a development of the sound and ideas Amaranthe introduced on their first record. The contrasts are greater, the mix and blends of genres is more â€œcontroversialâ€, and more creative freedoms were taken with The Nexus.', '', 0, 'The Nexus', 'Amaranthe The Nexus music album', 'The Nexus', '', ''),
+(43, 2, 'The Nexus', 'The Nexus est le deuxiÃ¨me album du groupe suÃ©dois Amaranthe. L''album est sorti sur les dates variant en Mars 2013, The Nexus est une Ã©volution du son et des idÃ©es Amaranthe introduit sur leur premier disque. Les contrastes sont plus Ã©levÃ©s, le mÃ©lange et les mÃ©langes des genres est plus Â«controversÃ©eÂ», et plus de libertÃ©s crÃ©atives ont Ã©tÃ© prises avec The Nexus.', '', 0, 'The Nexus', 'Amaranthe The Nexus musique album', 'The Nexus', '', ''),
+(43, 4, 'The Nexus', 'The Nexus es el segundo Ã¡lbum de la banda sueca Amaranthe. El Ã¡lbum fue lanzado en diferentes fechas de marzo de 2013, The Nexus es un desarrollo de sonido y de las ideas que Amaranthe presentÃ³ en su primer disco. Los contrastes son mayores, la mezcla y los diferentes gÃ©neros usados son mÃ¡s "controvertido", y con mÃ¡s libertad creativa fueron tomadas con The Nexus.', '', 0, 'The Nexus', 'Amaranthe The Nexus mÃºsica Ã¡lbum', 'The Nexus', '', ''),
+(44, 1, 'Watch', 'An elegant watch, practical, daily use with the picture of the British flag. Available in Black, blue, green, orange, yellow, purple.', '', 0, 'Watch British flag', 'Watch', 'Watch', '', ''),
+(44, 2, 'Montre', 'Une montre Ã©lÃ©gante, pratique, un usage quotidien avec l''image du drapeau britannique sur son visage. Disponible en noir, bleu, vert, orange, jaune, violet.', '', 0, 'Montre britannique', 'Montre', 'Montre', '', ''),
+(44, 4, 'Reloj', 'Un reloj elegante, prÃ¡ctico y de uso diario con la imagen de la bandera britÃ¡nica en su carÃ¡tula. Disponible en Negro, azÃºl, verde, naranja, amarillo, morado.', '', 0, 'reloj bandera britÃ¡nica', 'Reloj', 'Reloj', '', ''),
+(45, 1, 'Trunk', 'Old wooden trunk, covered solid with a British flag image', '', 1, 'Trunk', 'Trunk', 'Trunk', 'Trunk old wood', ''),
+(45, 2, 'Coffre', 'Vieux coffre en bois recouverte solide avec une image de drapeau britannique', '', 0, 'Coffre', 'Coffre', 'Coffre', 'Coffre vieux bois', ''),
+(45, 4, 'BaÃºl', 'Antiguo baÃºl de madera solida con una cubierta con la imagen de bandera britÃ¡nica', '', 1, 'BaÃºl', 'BaÃºl', 'BaÃºl', 'BaÃºl antiguo madera', ''),
+(46, 1, 'Backpack', 'Tough backpack with the United Kingdom flag, spacious and high quality materials', '', 0, 'Backpack', 'backpack quality United Kingdom', 'Backpack', '', ''),
+(46, 2, 'Backpack', 'Backpack rÃ©sistant avec drapeau UK, matÃ©riaux et de qualitÃ©', '', 0, 'Backpack', 'backpack qualitÃ© UK United Kingdom', 'Backpack', '', ''),
+(46, 4, 'Mochila', 'Mochila resistente con estampado de bandera del Reino Unido, amplia y de materiales de primera calidad', '', 0, 'Mochila', 'Momochila calidad Reino Unido', 'Mochila', '', ''),
+(47, 1, 'Case for iPHONE', 'Available for iPhone 4/4S. Protect your iPhone with this original case. Allows access to all ports', '', 0, 'Case for iPHONE', 'Case iPhone 4 4S', 'Case for iPHONE', '', ''),
+(47, 2, 'Couverture pour l''iPhone', 'Disponible pour iPhone 4/4S. ProtÃ©gez votre iPhone avec cet Ã©tui d''origine. Permet l''accÃ¨s Ã  tous les ports', '', 0, 'Couverture pour l''iPhone', 'Couverture iPhone 4 4S', 'Couverture pour l''iPhone', '', ''),
+(47, 4, 'Funda para iPhone', 'Disponible para iPhone 4/4S. Protege tu iPhone con esta funda original. Permite el acceso a todos los puertos', '', 1, 'Funda para iPhone', 'Funda iPhone 4 4S', 'Funda para iPhone', '', ''),
+(48, 1, 'Armchair', 'The most unique and innovative designs with a very good quality', '', 0, 'Armchair', 'Armchair unique quality', 'Armchair', '', ''),
+(48, 2, 'Fauteuil', 'Les modÃ¨les les plus uniques et innovants avec une trÃ¨s bonne qualitÃ©', '', 0, 'Fauteuil', 'Fauteuil uniques innovants qualitÃ©', 'Fauteuil', '', ''),
+(48, 4, 'SillÃ³n', 'Los diseÃ±os mÃ¡s exclusivos y novedosos con una muy buena calidad', '', 0, 'SillÃ³n', 'sillÃ³n calidad exclusivos', 'SillÃ³n', '', ''),
+(49, 1, 'Jeans STARLETT', 'Jeans skinny fit, straight leg regular shot.', '', 2, 'Jeans STARLETT', 'Jeans skinny', 'Jeans STARLETT', '', ''),
+(49, 2, 'Jeans STARLETT', 'Jeans skinny, droite tir rÃ©gulier de la jambe.', '', 0, 'Jeans STARLETT', 'Jeans skinny', 'Jeans STARLETT', '', ''),
+(49, 4, 'Jeans STARLETT', 'Jeans skinny fit, tiro regular y pierna estrecha.', '', 0, 'Jeans STARLETT', 'Jeans skinny', 'Jeans STARLETT', '', ''),
+(50, 1, 'Shirt ANDOVER', 'Sleeved plaid shirt and tight French. Flap pockets on the chest.', '', 0, 'shirt', 'shirt', 'shirt', '', ''),
+(50, 2, 'Chemise ANDOVER', 'Chemise Ã  carreaux manches et serrÃ© franÃ§ais. Poches Ã  rabat sur â€‹â€‹la poitrine.', '', 0, 'Chemise ANDOVER', 'Chemise ANDOVER', 'Chemise ANDOVER', '', ''),
+(50, 4, 'Blusa ANDOVER', 'Camisa de cuadros de manga francesa y estrecha. Bolsillos de solapa en el pecho.', '', 0, 'Blusa ANDOVER', 'Blusa ANDOVER', 'Blusa ANDOVER', '', ''),
+(51, 1, 'T-shirt', 'Shirt collar and short sleeves box. Print of the British flag for the 40th anniversary of Pepe Jeans London', '', 0, 'T-shirt', 'Shirt anniversary Pepe Jeans London', 'Shirt', '', ''),
+(51, 2, 'Chemise', 'Col de chemise et boÃ®te Ã  manches courtes. Imprimer le drapeau britannique pour le 40e anniversaire de Pepe Jeans London', '', 0, 'Chemise', 'anniversaire chemise Pepe Jeans London', 'chemise', '', ''),
+(51, 4, 'Camiseta', 'Camiseta de cuello caja y manga corta. Print de la bandera inglesa para el 40Âº aniversario de Pepe Jeans London', '', 0, 'Camiseta', 'Camiseta aniversario Pepe Jeans London', 'Camiseta', '', ''),
+(52, 1, 'Skirt KENAI', 'Print pleated skirt with ethnic', '', 0, 'Skirt KENAI', 'KENAI', 'KENAI', '', ''),
+(52, 2, 'Jupe KENAI', 'Imprimer jupe plissÃ©e avec les minoritÃ©s ethniques', '', 0, 'Jupe KENAI', 'KENAI', 'KENAI', '', ''),
+(52, 4, 'Falda KENAI', 'Falda de tablas con print Ã©tnico', '', 0, 'Falda KENAI', 'KENAI', 'KENAI', '', ''),
+(53, 1, 'Jeans ELGIN', 'Jeans slim fit, washed effect, straight leg regular shot.', '', 0, 'ELGIN jeans', 'jeans slim', 'Jeans ELGIN', '', ''),
+(53, 2, 'Jeans ELGIN', 'Jeans de couleur de coupe slim, effet dÃ©lavÃ©, droit tir rÃ©gulier de la jambe.', '', 0, 'ELGIN jeans', 'jeans slim', 'Jeans ELGIN', '', ''),
+(53, 4, 'PantalÃ³n ELGIN', 'Jeans de color slim fit, efecto lavado, tiro regular y pierna estrecha.', '', 0, 'ELGIN pantalÃ³n jeans', 'pantalÃ³n slim', 'PantalÃ³n ELGIN', '', '');
 
 -- --------------------------------------------------------
 
@@ -2126,7 +2218,7 @@ CREATE TABLE IF NOT EXISTS `products_images` (
   `sort_order` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `products_images_prodid` (`products_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2280,6 +2372,27 @@ CREATE TABLE IF NOT EXISTS `products_to_categories` (
   PRIMARY KEY (`products_id`,`categories_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `products_to_categories`
+--
+
+INSERT INTO `products_to_categories` (`products_id`, `categories_id`) VALUES
+(39, 32),
+(40, 32),
+(41, 32),
+(42, 32),
+(43, 32),
+(44, 34),
+(45, 34),
+(46, 34),
+(47, 34),
+(48, 34),
+(49, 33),
+(50, 33),
+(51, 33),
+(52, 33),
+(53, 33);
+
 -- --------------------------------------------------------
 
 --
@@ -2299,7 +2412,7 @@ CREATE TABLE IF NOT EXISTS `reviews` (
   PRIMARY KEY (`reviews_id`),
   KEY `idx_reviews_products_id` (`products_id`),
   KEY `idx_reviews_customers_id` (`customers_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2364,14 +2477,19 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 
 INSERT INTO `sessions` (`sesskey`, `expiry`, `value`) VALUES
 ('09mq7dt06mt2n8mo6nq9tv0lt5', 1379618092, 'language|s:7:"english";languages_id|s:1:"1";admin|a:2:{s:2:"id";s:1:"1";s:8:"username";s:5:"admin";}'),
+('2hvp7t878hali5qlvksepg8hg1', 1379831416, 'sessiontoken|s:32:"3095bd6710e65d48aaddec5c69dc97ca";cart|O:12:"shoppingCart":5:{s:8:"contents";a:0:{}s:5:"total";i:0;s:6:"weight";i:0;s:6:"cartID";N;s:12:"content_type";b:0;}language|s:7:"english";languages_id|s:1:"1";currency|s:3:"USD";navigation|O:17:"navigationHistory":2:{s:4:"path";a:2:{i:0;a:4:{s:4:"page";s:16:"articles_new.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}i:1;a:4:{s:4:"page";s:9:"index.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}}s:8:"snapshot";a:0:{}}'),
 ('60l9ffkapcmf1ovpu3v28o3jm5', 1379618019, 'sessiontoken|s:32:"dd175faee70491f8ec4e473e7e58dae3";cart|O:12:"shoppingCart":5:{s:8:"contents";a:2:{i:37;a:1:{s:3:"qty";s:1:"1";}i:32;a:1:{s:3:"qty";s:1:"1";}}s:5:"total";d:100;s:6:"weight";d:6;s:6:"cartID";s:5:"61409";s:12:"content_type";s:8:"physical";}language|s:7:"english";languages_id|s:1:"1";currency|s:3:"USD";navigation|O:17:"navigationHistory":2:{s:4:"path";a:4:{i:0;a:4:{s:4:"page";s:9:"index.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:4:{s:5:"cPath";s:5:"24_25";s:4:"sort";s:2:"2a";s:6:"action";s:7:"buy_now";s:11:"products_id";s:2:"32";}s:4:"post";a:0:{}}i:1;a:4:{s:4:"page";s:17:"shopping_cart.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}i:2;a:4:{s:4:"page";s:21:"checkout_shipping.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}i:3;a:4:{s:4:"page";s:11:"account.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}}s:8:"snapshot";a:0:{}}customer_id|i:3;customer_first_name|s:5:"Karla";customer_default_address_id|i:3;customer_country_id|s:3:"138";customer_zone_id|i:0;sendto|i:3;cartID|s:5:"61409";comments|N;shipping|N;'),
 ('816ig7v6g5b0b1m8n95msnec45', 1379618661, 'sessiontoken|s:32:"1466fca4d368e5c6e516609589292dbd";cart|O:12:"shoppingCart":4:{s:8:"contents";a:0:{}s:5:"total";i:0;s:6:"weight";i:0;s:12:"content_type";b:0;}language|s:7:"espanol";languages_id|s:1:"4";currency|s:3:"USD";navigation|O:17:"navigationHistory":2:{s:4:"path";a:1:{i:0;a:4:{s:4:"page";s:9:"index.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}}s:8:"snapshot";a:0:{}}'),
 ('a945c8tvclee0bgvvcfu2bqud2', 1379610889, 'language|s:7:"english";languages_id|s:1:"1";admin|a:2:{s:2:"id";s:1:"1";s:8:"username";s:5:"admin";}'),
-('ceh82rv7eruqpg36kar152heo0', 1379819045, 'sessiontoken|s:32:"0f35c789bd14d0ebc80b9fb33bad55b1";cart|O:12:"shoppingCart":5:{s:8:"contents";a:0:{}s:5:"total";i:0;s:6:"weight";i:0;s:6:"cartID";N;s:12:"content_type";b:0;}language|s:7:"espanol";languages_id|s:1:"4";currency|s:3:"USD";navigation|O:17:"navigationHistory":2:{s:4:"path";a:1:{i:0;a:4:{s:4:"page";s:9:"index.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}}s:8:"snapshot";a:0:{}}'),
+('cdmln33ebesvmk1inr0o2ut1o7', 1379831447, 'language|s:7:"english";languages_id|s:1:"1";redirect_origin|a:2:{s:4:"page";s:9:"index.php";s:3:"get";a:0:{}}'),
 ('dv2n6bsmqulctu3mkpfhv05s75', 1379662441, 'sessiontoken|s:32:"8cd373011a280eafd458ff19785e25fb";cart|O:12:"shoppingCart":5:{s:8:"contents";a:0:{}s:5:"total";i:0;s:6:"weight";i:0;s:6:"cartID";N;s:12:"content_type";b:0;}language|s:7:"espanol";languages_id|s:1:"4";currency|s:3:"USD";navigation|O:17:"navigationHistory":2:{s:4:"path";a:1:{i:0;a:4:{s:4:"page";s:9:"index.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}}s:8:"snapshot";a:0:{}}'),
-('flq7if9fnc3p6r3393qs6vdfn2', 1379816368, 'language|s:7:"english";languages_id|s:1:"1";admin|a:2:{s:2:"id";s:1:"1";s:8:"username";s:5:"admin";}'),
+('flq7if9fnc3p6r3393qs6vdfn2', 1379975843, 'language|s:7:"english";languages_id|s:1:"1";admin|a:2:{s:2:"id";s:1:"1";s:8:"username";s:5:"admin";}preSearcUrl|s:56:"http://localhost/C&MBritish/admin/tbl.php?cPath=0&page=1";tbl_fields|a:5:{s:14:"products_image";b:1;s:14:"products_model";b:1;s:20:"products_description";b:1;s:10:"attributes";b:1;s:21:"products_order_status";b:1;}'),
 ('ibbkv8dfs77md3p0kmd4vhak06', 1379614416, 'sessiontoken|s:32:"9f42b08e13cce0f706e615cf1be0b82d";cart|O:12:"shoppingCart":5:{s:8:"contents";a:0:{}s:5:"total";i:0;s:6:"weight";i:0;s:6:"cartID";N;s:12:"content_type";b:0;}language|s:6:"french";languages_id|s:1:"2";currency|s:3:"USD";navigation|O:17:"navigationHistory":2:{s:4:"path";a:1:{i:0;a:4:{s:4:"page";s:9:"index.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}}s:8:"snapshot";a:4:{s:4:"page";s:11:"account.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}}'),
-('k28ua21u5rhjipb876uehg0ge6', 1379662437, 'language|s:7:"espanol";languages_id|s:1:"4";admin|a:2:{s:2:"id";s:1:"1";s:8:"username";s:5:"admin";}');
+('k28ua21u5rhjipb876uehg0ge6', 1379662437, 'language|s:7:"espanol";languages_id|s:1:"4";admin|a:2:{s:2:"id";s:1:"1";s:8:"username";s:5:"admin";}'),
+('mtpgirddr0902v4bma5vbha9i0', 1379822581, 'sessiontoken|s:32:"a551244d1f80e87f36d5c63b508540cd";cart|O:12:"shoppingCart":4:{s:8:"contents";a:0:{}s:5:"total";i:0;s:6:"weight";i:0;s:12:"content_type";b:0;}language|s:7:"english";languages_id|s:1:"1";currency|s:3:"USD";navigation|O:17:"navigationHistory":2:{s:4:"path";a:1:{i:0;a:4:{s:4:"page";s:9:"index.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}}s:8:"snapshot";a:0:{}}'),
+('q63l3lq7lheg3mupddqef85fe0', 1379825229, 'sessiontoken|s:32:"f381a72a89b88c5580b921b88648cfe6";cart|O:12:"shoppingCart":5:{s:8:"contents";a:0:{}s:5:"total";i:0;s:6:"weight";i:0;s:6:"cartID";N;s:12:"content_type";b:0;}language|s:7:"english";languages_id|s:1:"1";currency|s:3:"USD";navigation|O:17:"navigationHistory":2:{s:4:"path";a:1:{i:0;a:4:{s:4:"page";s:9:"index.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:4:{s:5:"cPath";s:2:"32";s:8:"language";s:2:"en";s:4:"page";s:1:"1";s:4:"sort";s:2:"2d";}s:4:"post";a:0:{}}}s:8:"snapshot";a:0:{}}'),
+('qe8b8b9udo007q9tu6pg7h2ue5', 1379976504, 'sessiontoken|s:32:"ff7835970c39cf0045ebb6c965530770";cart|O:12:"shoppingCart":5:{s:8:"contents";a:0:{}s:5:"total";i:0;s:6:"weight";i:0;s:6:"cartID";N;s:12:"content_type";b:0;}language|s:7:"english";languages_id|s:1:"1";currency|s:3:"EUR";navigation|O:17:"navigationHistory":2:{s:4:"path";a:1:{i:0;a:4:{s:4:"page";s:9:"index.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}}s:8:"snapshot";a:4:{s:4:"page";s:21:"checkout_shipping.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}}'),
+('udftpal9cqp6rbo4ein0oe4d32', 1379826491, 'sessiontoken|s:32:"8885abdac7ab41a1f63c11eb3a47b3cf";cart|O:12:"shoppingCart":4:{s:8:"contents";a:0:{}s:5:"total";i:0;s:6:"weight";i:0;s:12:"content_type";b:0;}language|s:7:"english";languages_id|s:1:"1";currency|s:3:"USD";navigation|O:17:"navigationHistory":2:{s:4:"path";a:1:{i:0;a:4:{s:4:"page";s:9:"index.php";s:4:"mode";s:6:"NONSSL";s:3:"get";a:0:{}s:4:"post";a:0:{}}}s:8:"snapshot";a:0:{}}');
 
 -- --------------------------------------------------------
 
@@ -2390,7 +2508,7 @@ CREATE TABLE IF NOT EXISTS `specials` (
   `status` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`specials_id`),
   KEY `idx_specials_products_id` (`products_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2507,7 +2625,7 @@ CREATE TABLE IF NOT EXISTS `whos_online` (
 --
 
 INSERT INTO `whos_online` (`customer_id`, `full_name`, `session_id`, `ip_address`, `time_entry`, `time_last_click`, `last_page_url`) VALUES
-(0, 'Guest', 'ceh82rv7eruqpg36kar152heo0', '::1', '1379817143', '1379817601', '/C&MBritish/');
+(0, 'Guest', 'qe8b8b9udo007q9tu6pg7h2ue5', '::1', '1379974295', '1379975064', '/C&MBritish/index.php');
 
 -- --------------------------------------------------------
 

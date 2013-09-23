@@ -220,7 +220,7 @@ $("#piGal a[rel^='fancybox']").fancybox({
 	if ((USE_CACHE == 'true') && empty($SID)) {
       echo tep_cache_also_purchased(3600);
     } else {
-      <?php /*** Begin Header Tags SEO ***/
+       /*** Begin Header Tags SEO ***/
       if (tep_not_null($product_info['products_head_sub_text'])) {
           echo '<tr><td><table border="0" cellpadding="0"><tr><td class="hts_sub_text"><div>' . $product_info['products_head_sub_text'] . '</div></td></tr></table></td></tr>';
       }
@@ -232,7 +232,7 @@ $("#piGal a[rel^='fancybox']").fancybox({
           echo '</div></div>';
       } 
       /*** End Header Tags SEO ***/ 
-      ?>
+     
 
 	  include(DIR_WS_MODULES . FILENAME_ALSO_PURCHASED_PRODUCTS);
     }

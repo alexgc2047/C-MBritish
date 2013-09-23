@@ -138,9 +138,9 @@ if (tep_not_null($category['categories_htc_description'])) {
         case 'PRODUCT_LIST_MODEL':
           $select_column_list .= 'p.products_model, ';
           break;
-        case 'PRODUCT_LIST_NAME':
+        /*case 'PRODUCT_LIST_NAME':
           $select_column_list .= 'pd.products_name, ';
-          break;
+          break;*/
         case 'PRODUCT_LIST_MANUFACTURER':
           $select_column_list .= 'm.manufacturers_name, ';
           break;
@@ -150,9 +150,9 @@ if (tep_not_null($category['categories_htc_description'])) {
         case 'PRODUCT_LIST_IMAGE':
           $select_column_list .= 'p.products_image, ';
           break;
-        case 'PRODUCT_LIST_WEIGHT':
+        /*case 'PRODUCT_LIST_WEIGHT':
           $select_column_list .= 'p.products_weight, ';
-          break;
+          break;*/
       }
     }
 
@@ -192,9 +192,9 @@ if (tep_not_null($category['categories_htc_description'])) {
         case 'PRODUCT_LIST_MODEL':
           $listing_sql .= " order by p.products_model " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
           break;
-        case 'PRODUCT_LIST_NAME':
+        /*case 'PRODUCT_LIST_NAME':
           $listing_sql .= " order by pd.products_name " . ($sort_order == 'd' ? 'desc' : '');
-          break;
+          break;*/
         case 'PRODUCT_LIST_MANUFACTURER':
           $listing_sql .= " order by m.manufacturers_name " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
           break;
@@ -204,9 +204,9 @@ if (tep_not_null($category['categories_htc_description'])) {
         case 'PRODUCT_LIST_IMAGE':
           $listing_sql .= " order by pd.products_name";
           break;
-        case 'PRODUCT_LIST_WEIGHT':
+        /*case 'PRODUCT_LIST_WEIGHT':
           $listing_sql .= " order by p.products_weight " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
-          break;
+          break;*/
         case 'PRODUCT_LIST_PRICE':
           $listing_sql .= " order by final_price " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
           break;
